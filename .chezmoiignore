@@ -2,5 +2,5 @@ LICENSE
 README.md
 
 {{ if not (lookPath "pwsh") }}
-dot_config/powershell
+.config/powershell
 {{ end }}
