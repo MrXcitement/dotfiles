@@ -19,7 +19,7 @@ if [[ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ]]; then
 fi
 
 # Clone z-shell/zsh-eza, if eza is installed
-if (( $+commands[eza] )); then
+if [[ $(command -v eza) ]]; then
     if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-eza" ]]; then
         git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM}/plugins/zsh-eza
     fi
@@ -169,7 +169,7 @@ plugins=(
     zsh-bat
 )
 # Only add these plugins if the associated command is installed
-(( $+command[eza] )) && plugins+=(zsh-eza)
+[[ $(command -v eza) ]] && plugins+=(zsh-eza)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
