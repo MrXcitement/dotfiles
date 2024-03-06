@@ -156,7 +156,6 @@ zstyle ':omz:update' frequency 7
 plugins=(
     command-not-found
     direnv
-    dotenv
     fzf
     git
     nvm

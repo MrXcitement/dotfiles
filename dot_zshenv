@@ -4,14 +4,6 @@
 # Mike Barker <mike@thebarkers.com>
 # November 3rd, 2022
 
-
-# Export environment key-value files in ~/.env directory
-if [[ -d ${HOME}/.env ]]; then
-    for f (${HOME}/.env/*.env); do
-        export $(cat $f | sed -e /^$/d -e /^#/d | xargs)
-    done
-fi
-
 # If on macos, use path_helper to seed the path
 PATH_HELPER=/usr/libexec/path_helper
 if [[ -x  $PATH_HELPER ]]; then
@@ -20,21 +12,24 @@ if [[ -x  $PATH_HELPER ]]; then
 fi
 unset PATH_HELPER
 
-# Configure homebrew environment
-BREW=""
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    test -x "/opt/homebrew/bin/brew" && BREW=/opt/homebrew/bin/brew
-
-elif [[ "$OSTYPE" == "linux-gnu"* ]] then
-    test -d "$HOME/.linuxbrew" && BREW="$HOME/.linuxbrew/bin/brew"
-    test -d "/home/linuxbrew/.linuxbrew" && BREW="/home/linuxbrew/.linuxbrew/bin/brew"
+# Configure the homebrew environment
+if (( ! $+commands[brew] )); then
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        BREW="/opt/homebrew/bin/brew"
+    elif [[ -x /usr/local/bin/brew ]]; then
+        BREW="/usr/local/bin/brew"
+    elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+        BREW="/home/linuxbrew/.linuxbrew/bin/brew"
+    elif [[ -x "$HOME/.linuxbrew/bin/brew" ]]; then
+        BREW="$HOME/.linuxbrew/bin/brew"
+    else
+        BREW=""
+    fi
+    if [[ "$BREW" != "" ]]; then
+        eval "$($BREW shellenv)"
+    fi
+    unset BREW
 fi
-
-# Use brew command to set shell environment
-if [[ "$BREW" != "" ]]; then
-    eval "$($BREW shellenv)"
-fi
-unset BREW
 
 # Configure pyenv environment
 if [[ -d ${HOME}/.pyenv ]]; then
@@ -54,7 +49,7 @@ fi
 # current system will not be added to the
 # system path.
 
-# Add paths before existing paths
+# Add before existing paths
 newpath=(
 ~/bin
 ~/.local/bin
@@ -62,7 +57,7 @@ newpath=(
 /opt/microsoft/bin
 # Add existing paths
 $path
-# Add paths after existing path
+# Add after existing paths
 /usr/local/sbin)
 
 # Replace the system path using the newpath array,
