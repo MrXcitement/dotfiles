@@ -18,6 +18,11 @@ if [[ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ]]; then
     ln -s $ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme $ZSH_CUSTOM/themes/spaceship.zsh-theme
 fi
 
+# Clone z-shell/zsh-eza
+if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-eza" ]]; then
+    git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM}/plugins/zsh-eza
+fi
+
 # Clone zsh-users/zsh-autosuggestions
 if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
@@ -158,6 +163,7 @@ plugins=(
     tmux
     zoxide
     zsh-autosuggestions
+    zsh-eza
     zsh-syntax-highlighting
     zsh-vscode
     zsh-bat
