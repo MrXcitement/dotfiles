@@ -202,4 +202,6 @@ fi
 
 ##
 # atuin history manager
-eval "$(atuin init zsh)"
+if [[ "$(command -v atuin)" ]]; then
+    eval "$(atuin init zsh)"
+fi
