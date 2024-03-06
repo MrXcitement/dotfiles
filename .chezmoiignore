@@ -4,3 +4,7 @@ README.md
 {{ if not (lookPath "pwsh") }}
 .config/powershell
 {{ end }}
+
+{{ if not (lookPath "zsh") }}
+.z*
+{{ end }}
