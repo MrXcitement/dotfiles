@@ -18,9 +18,11 @@ if [[ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ]]; then
     ln -s $ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme $ZSH_CUSTOM/themes/spaceship.zsh-theme
 fi
 
-# Clone z-shell/zsh-eza
-if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-eza" ]]; then
-    git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM}/plugins/zsh-eza
+# Clone z-shell/zsh-eza, if eza is installed
+if (( $+commands[eza] )); then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-eza" ]]; then
+        git clone https://github.com/z-shell/zsh-eza.git ${ZSH_CUSTOM}/plugins/zsh-eza
+    fi
 fi
 
 # Clone zsh-users/zsh-autosuggestions
@@ -162,11 +164,12 @@ plugins=(
     tmux
     zoxide
     zsh-autosuggestions
-    zsh-eza
     zsh-syntax-highlighting
     zsh-vscode
     zsh-bat
-    )
+)
+# Only add these plugins if the associated command is installed
+(( $+command[eza] )) && plugins+=(zsh-eza)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
