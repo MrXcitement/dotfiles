@@ -43,3 +43,27 @@ Function Set-PathVariable {
     }
     $env:Path = ($arrPath + $addPath) -join ';'
 }
+
+# Set the PSReadLine Colors
+function Set-PSReadLineColors {
+    [alias("srlc")]
+    [OutputType("none")]
+    Param(
+        [Parameter(Position = 0, HelpMessage = "Specify if the current background is dark or light. Default background is light.")]
+        [ValidateSet("Dark", "Light")]
+        [string]$Background = 'Light'
+    )
+
+    if ($Background -eq 'Dark') {
+        Set-PSReadLineOption -Color @{
+            Command   = "Yellow"
+            Number    = "White"
+        }
+    }
+    else {
+        Set-PSReadLineOption -Color @{
+            Command   = "DarkYellow"
+            Number    = "DarkGray"
+        }
+    }
+}
