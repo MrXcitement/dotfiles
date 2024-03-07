@@ -5,6 +5,10 @@ README.md
 .config/powershell
 {{ end }}
 
+{{ if not (lookPath "vim") }}
+.vim*
+{{ end }}
+
 {{ if not (lookPath "zsh") }}
 .z*
 {{ end }}
