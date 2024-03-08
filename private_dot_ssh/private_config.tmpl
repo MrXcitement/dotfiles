@@ -82,11 +82,11 @@ Host *
     AddKeysToAgent yes
     # Automatically forward ssh-agent to destination
     ForwardAgent yes
-{{- if -eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
     # 1Password identity agent
     IdentityAgent "~/.1password/agent.sock"
-{{- elseif -eq .chezmoi.os "windows" }}
-{{- elseif -eq .chezmoi.os "linux" }}
+{{- else if eq .chezmoi.os "windows" }}
+{{- else if eq .chezmoi.os "linux" }}
     # 0Password identity agent
     IdentityAgent "~/.1password/agent.sock"
 {{- end }}
