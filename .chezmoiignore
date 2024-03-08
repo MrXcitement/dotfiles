@@ -9,6 +9,10 @@ README.md
 .config/starship.toml
 {{ end }}
 
+{{ if not (lookPath "tmux") }}
+.tmux.conf
+{{ end }}
+
 {{ if not (lookPath "vim") }}
 .vim*
 {{ end }}
