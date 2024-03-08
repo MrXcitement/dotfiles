@@ -27,11 +27,7 @@
     pushup = "!git push --set-upstream origin $(git symbolic-ref --short HEAD)"
 [core]
     autocrlf = input
-{{- if eq .chezmoi.os "windows" }}
-    excludesfile = "$env:USERPROFILE\.gitignore_global"
-{{- else }}
     excludesfile = ~/.gitignore_global
-{{- end -}}
 {{- if eq .chezmoi.os "windows" }}
     # Need sshCommand to be set for 1Password to handle 'git:' repos that connect via ssh
     sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
