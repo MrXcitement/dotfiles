@@ -1,6 +1,4 @@
-{{ if eq .chezmoi.os "windows" -}}
-
-# ~/.local/share/chezmoi/run_powershell.bat
+# ~/.local/share/chezmoi/run_once_after_powershell.ps1
 # ============================================================================
 # Runs after `chezmoi apply` to relocate PowerShell's configuration files.
 #
@@ -56,5 +54,3 @@ foreach ($target_path in $target_path_list) {
         }
     }
 }
-
-{{ end }}
