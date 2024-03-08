@@ -5,6 +5,10 @@ README.md
 .config/powershell
 {{ end }}
 
+{{ if not (lookPath "ssh") }}
+.ssh/config
+{{ end }}
+
 {{ if not (lookPath "starship") }}
 .config/starship.toml
 {{ end }}
