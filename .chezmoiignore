@@ -1,6 +1,10 @@
 LICENSE
 README.md
 
+{{ if not (lookPath "atuin") }}
+.config/atuin
+{{ end }}
+
 {{ if not (lookPath "pwsh") }}
 .config/powershell
 {{ end }}
