@@ -145,7 +145,7 @@ zstyle ':omz:update' frequency 7
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # zoxide customization
-ZOXIDE_CMD_OVERRIDE=cd
+# ZOXIDE_CMD_OVERRIDE=cd
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -167,7 +167,7 @@ plugins=(
 [[ $(command -v zoxide) ]] && plugins+=(zoxide)
 [[ $(command -v bat) ]] && plugins+=(zsh-bat)
 [[ $(command -v eza) ]] && plugins+=(zsh-eza)
-    
+
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
