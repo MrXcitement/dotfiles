@@ -1,4 +1,4 @@
- #!/bin/zsh
+#!/bin/zsh
 # .zshrc --- Configure zsh interactive shells
 # Mike Barker <mike@thebarkers.com>
 # November 3rd, 2022
@@ -41,34 +41,28 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
 fi
 
-# Clone qianxinfeng/zsh-vscode
-if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-vscode" ]]; then
-    git clone https://github.com/qianxinfeng/zsh-vscode ${ZSH_CUSTOM}/plugins/zsh-vscode
-fi
-
-# Clone mrxcitement/zsh-bat
-if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-bat" ]]; then
-    git clone https://github.com/mrxcitement/zsh-bat ${ZSH_CUSTOM}/plugins/zsh-bat
-fi
-
-# Custom themes for bat, installed in the bat configuration dir theme folder
-# Find more themes at: https://iterm2colorschemes.com/
-export BAT_THEME_DARK=GitHub_Dark
-export BAT_THEME_LIGHT=GitHub_Light
-
-# Check if the themes set above actualy exist on this machine
-HAS_BAT_THEMES=0
-if [[ -f $(bat --config-dir)/"themes/${BAT_THEME_DARK}.tmTheme" ]] ||
-   [[ -f $(bat --config-dir)/"themes/${BAT_THEME_LIGHT}.tmTheme" ]]; then
-   HAS_BAT_THEMES=1
-fi
-
-# If the term is 'dumb' or one or more of the bat themes do not exist
-if [[ "$TERM" == "dumb" ]] || (( ! $HAS_BAT_THEMES )); then
-    # BAT_THEME will override any BAT_THEME_DARK or BAT_THEME_LIGHT setting
-    export BAT_THEME=ansi
-    unset BAT_THEME_DARK
-    unset BAT_THEME_LIGHT
+# Clone mrxcitement/zsh-bat, if bat is installed
+if [[ $(command -v bat) ]]; then
+    if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-bat" ]]; then
+        git clone https://github.com/mrxcitement/zsh-bat ${ZSH_CUSTOM}/plugins/zsh-bat
+    fi
+    # Custom themes for bat, installed in the bat configuration dir theme folder
+    # Find more themes at: https://iterm2colorschemes.com/
+    export BAT_THEME_DARK=GitHub_Dark
+    export BAT_THEME_LIGHT=GitHub_Light
+    # Check if the themes set above actualy exist on this machine
+    HAS_BAT_THEMES=0
+    if [[ -f $(bat --config-dir)/"themes/${BAT_THEME_DARK}.tmTheme" ]] ||
+       [[ -f $(bat --config-dir)/"themes/${BAT_THEME_LIGHT}.tmTheme" ]]; then
+       HAS_BAT_THEMES=1
+    fi
+    # If the term is 'dumb' or one or more of the bat themes do not exist
+    if [[ "$TERM" == "dumb" ]] || (( ! $HAS_BAT_THEMES )); then
+        # BAT_THEME will override any BAT_THEME_DARK or BAT_THEME_LIGHT setting
+        export BAT_THEME=ansi
+        unset BAT_THEME_DARK
+        unset BAT_THEME_LIGHT
+    fi
 fi
 
 # Set name of the theme to load --- if set to "random", it will
@@ -150,6 +144,9 @@ zstyle ':omz:update' frequency 7
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# zoxide customization
+ZOXIDE_CMD_OVERRIDE=cd
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -157,20 +154,20 @@ zstyle ':omz:update' frequency 7
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     command-not-found
-    direnv
-    fzf
-    git
-    nvm
-    tmux
-    zoxide
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-vscode
-    zsh-bat
 )
-# Only add these plugins if the associated command is installed
+# Add these plugins if the associated command is installed
+[[ $(command -v direnv) ]] && plugins+=(direnv)
+[[ $(command -v fzf) ]] && plugins+=(fzf)
+[[ $(command -v git) ]] && plugins+=(git)
+[[ $(command -v nvm) ]] && plugins+=(nvm)
+[[ $(command -v tmux) ]] && plugins+=(tmux)
+[[ $(command -v code) ]] && plugins+=(vscode)
+[[ $(command -v zoxide) ]] && plugins+=(zoxide)
+[[ $(command -v bat) ]] && plugins+=(zsh-bat)
 [[ $(command -v eza) ]] && plugins+=(zsh-eza)
-
+    
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -211,5 +208,5 @@ fi
 ##
 # atuin history manager
 if [[ "$(command -v atuin)" ]]; then
-    eval "$(atuin init zsh)"
+    eval "$(atuin init zsh  --disable-up-arrow)"
 fi
