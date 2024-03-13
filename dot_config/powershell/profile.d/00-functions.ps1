@@ -63,7 +63,10 @@ function Set-PSReadLineColors {
     else {
         Set-PSReadLineOption -Color @{
             Command   = "DarkYellow"
-            Number    = "DarkGray"
+            # ContinuationPrompt = 'DarkGray'
+            Default   = 'DarkGray'
+            Number    = 'DarkGray'
+            Type      = 'DarkGray'
         }
     }
 }
