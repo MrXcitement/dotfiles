@@ -1,3 +1,20 @@
+{{ if lookPath "emacs" }}
+[".emacs.d"]
+    type = "git-repo"
+    url = "https://github.com/plexus/chemacs2.git"
+[".config/emacs"]
+    type = "git-repo"
+    url = "https://github.com/mrxcitement/dot-emacs.git"
+[".config/emacs-efs"]
+    type = "git-repo"
+    url = "https://github.com/mrxcitement/dot-emacs-efs.git"
+[".config/emacs-minimal"]
+    type = "git-repo"
+    url = "https://github.com/mrxcitement/dot-emacs-minimal.git"
+[".config/emacs-org"]
+    type = "git-repo"
+    url = "https://github.com/mrxcitement/dot-emacs-org.git"
+{{ end }}
 {{ if lookPath "tmux" }}
 [".tmux/plugins/tpm"]
     type = "archive"
