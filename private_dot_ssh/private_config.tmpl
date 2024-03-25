@@ -82,10 +82,10 @@ Host *
     AddKeysToAgent yes
     # Automatically forward ssh-agent to destination
     ForwardAgent yes
-{{- if stat "~/.1password/agent.sock" }} 
+{{- if stat (joinPath .chezmoi.homeDir ".1password" "agent.sock") }} 
     # 1Password identity agent for linux/macOS
     IdentityAgent "~/.1password/agent.sock"
-{{- else if stat "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" }} 
+{{- else if stat (joinPath .chezmoi.homeDir "Library" "Group Containers" "2BUA8C4S2C.com.1password" "t" "agent.sock") }} 
     # 1Password identity agent for macOS
     IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 {{- end }}
