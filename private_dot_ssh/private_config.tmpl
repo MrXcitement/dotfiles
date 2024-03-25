@@ -82,10 +82,10 @@ Host *
     AddKeysToAgent yes
     # Automatically forward ssh-agent to destination
     ForwardAgent yes
-{{- if eq .chezmoi.os "darwin" }}
+{{- if stat "~/.1password/agent.sock" }} 
+    # 1Password identity agent for linux/macOS
+    IdentityAgent "~/.1password/agent.sock"
+{{- else if stat "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" }} 
     # 1Password identity agent for macOS
     IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-{{- else if eq .chezmoi.os "linux" }}
-    # 1Password identity agent for linux
-    IdentityAgent "~/.1password/agent.sock"
 {{- end }}
