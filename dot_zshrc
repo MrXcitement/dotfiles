@@ -147,6 +147,11 @@ zstyle ':omz:update' frequency 7
 # zoxide customization
 # ZOXIDE_CMD_OVERRIDE=cd
 
+# iTerm Shell Integration Script
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]] then
+    zstyle :omz:plugins:iterm2 shell-integration yes
+fi
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -158,15 +163,16 @@ plugins=(
     zsh-syntax-highlighting
 )
 # Add these plugins if the associated command is installed
+[[ $(command -v bat) ]] && plugins+=(zsh-bat)
+[[ $(command -v code) ]] && plugins+=(vscode)
 [[ $(command -v direnv) ]] && plugins+=(direnv)
+[[ $(command -v eza) ]] && plugins+=(zsh-eza)
 [[ $(command -v fzf) ]] && plugins+=(fzf)
 [[ $(command -v git) ]] && plugins+=(git)
+[[ "$TERM_PROGRAM" == "iTerm.app" ]] && plugins+=(iterm2)
 [[ $(command -v nvm) ]] && plugins+=(nvm)
 [[ $(command -v tmux) ]] && plugins+=(tmux)
-[[ $(command -v code) ]] && plugins+=(vscode)
 [[ $(command -v zoxide) ]] && plugins+=(zoxide)
-[[ $(command -v bat) ]] && plugins+=(zsh-bat)
-[[ $(command -v eza) ]] && plugins+=(zsh-eza)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
