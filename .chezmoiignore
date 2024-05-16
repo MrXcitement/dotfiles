@@ -1,5 +1,6 @@
 LICENSE
 README.md
+.vscode/
 
 {{ if not (lookPath "atuin") }}
 .config/atuin
@@ -18,7 +19,7 @@ README.md
 {{ end }}
 
 {{ if not (lookPath "tmux") }}
-.tmux.conf
+.config/tmux/tmux.conf
 {{ end }}
 
 {{ if not (lookPath "vim") }}
