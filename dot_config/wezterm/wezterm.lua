@@ -47,5 +47,8 @@ config.font = wezterm.font_with_fallback {
 -- change the font size
 config.font_size = 14.0
 
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 20
+
 -- and finally, return the configuration to wezterm
 return config
