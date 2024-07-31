@@ -19,7 +19,7 @@ README.md
 {{ end }}
 
 {{ if not (lookPath "tmux") }}
-.config/tmux/tmux.conf
+.config/tmux
 {{ end }}
 
 {{ if not (lookPath "vim") }}
