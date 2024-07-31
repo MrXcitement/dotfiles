@@ -164,6 +164,7 @@ plugins=(
 )
 # Add these plugins if the associated command is installed
 [[ $(command -v bat) ]] && plugins+=(zsh-bat)
+[[ $(command -v brew) ]] && plugins+=(brew)
 [[ $(command -v code) ]] && plugins+=(vscode)
 [[ $(command -v direnv) ]] && plugins+=(direnv)
 [[ $(command -v eza) ]] && plugins+=(zsh-eza)
