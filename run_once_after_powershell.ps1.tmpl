@@ -17,6 +17,7 @@ function Get-WindowsBuildNumber {
     return [int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber)
 }
 
+# Try to elavate this session...
 if (Test-IsElevated -And (Get-WindowsBuildNumber -ge 6000)) {
     Write-Warning "This script requires local admin privileges. Elevating..."
     gsudo "& '$($MyInvocation.MyCommand.Source)'" $args
@@ -28,11 +29,28 @@ if (Test-IsElevated -And (Get-WindowsBuildNumber -ge 6000)) {
 
 # You are elevated. Do admin stuff here.
 
+# Change the current users powershell folder location.
+# by changing the Personal registry key under the Explorer\User Shell Folders\
+# item you can change where powershell and windows powershell create the
+# $Profile:currentUserAllHosts and $Profile:CurrentUserCurrentHost variables.
+# I have configured my systems to use 'USERPROFILE'/Personal as the path to
+# be used and this allows the powershell config to not be effected by changing
+# the users Document folder, either by OneDrive or Network shared drives.
+
+# Registry path to user shell folders.
+$reg_path = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\"
+
+# taget path to use to store powershell profiles
+$target_path = "$Env:USERPROFILE\Personal"
+
+# Create a key named 'Personal' that has the $target_path as its value.
+New-ItemProperty -Path $reg_path -Name 'Personal' -PropertyType String -Value $target_path -Force | Out-Null
+
 # The source folder that holds the powershell profile files
 $source_path = "$Env:USERPROFILE\.config\powershell"
 
 # A list of target folders that will get symlink files and folders
-$target_path_list = @("$Env:USERPROFILE\Documents\PowerShell", "$Env:USERPROFILE\Documents\WindowsPowerShell")
+$target_path_list = @("$target_path\PowerShell", "$target_path\WindowsPowerShell")
 
 # Get a list of files and folders in the source directory
 $items = Get-ChildItem "$source_path\*.ps1"
