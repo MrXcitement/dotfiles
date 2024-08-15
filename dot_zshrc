@@ -164,7 +164,10 @@ plugins=(
 )
 # Add these plugins if the associated command is installed
 [[ $(command -v bat) ]] && plugins+=(zsh-bat)
-[[ $(command -v brew) ]] && plugins+=(brew)
+if [[ $(command -v brew) ]]; then
+    fpath+="$(brew --prefix)/share/zsh/site-functions"
+    plugins+=(brew)
+fi
 [[ $(command -v code) ]] && plugins+=(vscode)
 [[ $(command -v direnv) ]] && plugins+=(direnv)
 [[ $(command -v eza) ]] && plugins+=(zsh-eza)
@@ -211,6 +214,20 @@ OP_PLUGINS="${HOME}/.config/op/plugins.sh"
 if [[ -f "${OP_PLUGINS}" ]]; then
     source "${OP_PLUGINS}"
 fi
+
+##
+# 1password agent.sock configuration
+# export the SSH_AUTH_SOCK
+# handle macos that by default stores the agent socket file in the users Library folder
+# by creating a .1password folder and symlinking the agent.soc file to there.
+OP_AGENT_SOCK="${HOME}/.1password/agent.sock"
+OP_AGENT_SOCK_MACOS="${HOME}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+if  [[ -e "$OP_AGENT_SOCK_MACOS" && ! -e "$OP_AGENT_SOCK" ]]; then
+    mkdir -p ${HOME}/.1password
+    ln -s "$OP_AGENT_SOCK_MACOS" "$OP_AGENT_SOCK"
+fi
+[[ -e "$OP_AGENT_SOCK" ]] && export SSH_AUTH_SOCK="$OP_AGENT_SOCK"
+
 
 ##
 # atuin history manager

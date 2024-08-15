@@ -33,3 +33,7 @@ README.md
 {{ if not (lookPath "zsh") }}
 .z*
 {{ end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+.config/1Password
+{{ end }}
