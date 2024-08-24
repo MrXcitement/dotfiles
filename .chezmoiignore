@@ -6,6 +6,16 @@ README.md
 .config/atuin
 {{ end }}
 
+{{ if not (lookPath "emacs") }}
+.emacs-profile
+.emacs-profiles.el
+{{ end }}
+
+{{ if not (lookPath "git") }}
+.gitconfig
+.config/git
+{{ end }}
+
 {{ if not (lookPath "pwsh") }}
 .config/powershell
 {{ end }}
