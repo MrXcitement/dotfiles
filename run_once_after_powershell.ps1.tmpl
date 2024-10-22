@@ -38,13 +38,13 @@ if (Test-IsElevated -And (Get-WindowsBuildNumber -ge 6000)) {
 # the users Document folder, either by OneDrive or Network shared drives.
 
 # Registry path to user shell folders.
-$reg_path = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\"
+# $reg_path = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\"
 
 # taget path to use to store powershell profiles
-$target_path = "$Env:USERPROFILE\Personal"
+# $target_path = "$Env:USERPROFILE\Personal"
 
 # Create a key named 'Personal' that has the $target_path as its value.
-New-ItemProperty -Path $reg_path -Name 'Personal' -PropertyType String -Value $target_path -Force | Out-Null
+# New-ItemProperty -Path $reg_path -Name 'Personal' -PropertyType String -Value $target_path -Force | Out-Null
 
 # The source folder that holds the powershell profile files
 $source_path = "$Env:USERPROFILE\.config\powershell"
