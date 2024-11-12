@@ -44,7 +44,7 @@ if (-not (Assert-IsInteractiveShell)) {
 }
 
 Write-Host "Loading profile.ps1..."
-$scripts = Get-Item "$PSScriptRoot\profile.d\*.ps1"
+$scripts = Get-Item "$env:userprofile\.config\powershell\profile.d\*.ps1"
 foreach ($script in $scripts) {
     Write-Host "Loading $($script.Name)..."
     . $script
