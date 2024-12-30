@@ -208,25 +208,29 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ##
-# 1Password cli `op` third party plugins configuration
-OP_PLUGINS="$HOME/.config/op/plugins.sh"
-if [[ -f "$OP_PLUGINS" ]]; then
-    source "$OP_PLUGINS"
+# 1password cli op command completion
+if [[ "$(command -v op)" ]]; then
+    eval "$(op completion zsh)"; compdef _op op
 fi
 
 ##
-# 1password agent.sock configuration
-# export the SSH_AUTH_SOCK
-# handle macos that by default stores the agent socket file in the users Library folder
-# by creating a .1password folder and symlinking the agent.soc file to there.
-OP_AGENT_SOCK="$HOME/.1password/agent.sock"
-OP_AGENT_SOCK_MACOS="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-if  [[ -e "$OP_AGENT_SOCK_MACOS" && ! -e "$OP_AGENT_SOCK" ]]; then
-    mkdir -p $HOME/.1password
-    ln -s "$OP_AGENT_SOCK_MACOS" "$OP_AGENT_SOCK"
+# 1Password cli `op` third party plugins configuration
+op_plugins="$HOME/.config/op/plugins.sh"
+if [[ -f "$op_plugins" ]]; then
+    source "$op_plugins"
 fi
-[[ -e "$OP_AGENT_SOCK" ]] && export SSH_AUTH_SOCK="$OP_AGENT_SOCK"
 
+## 1password agent.sock configuration
+# Export the SSH_AUTH_SOCK
+# Handle macos that by default stores the agent socket file in the users Library folder
+# by creating a .1password folder and symlinking the agent.soc file to there.
+op_agent_sock="$HOME/.1password/agent.sock"
+op_agent_sock_macos="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+if  [[ -e "$op_agent_sock_macos" && ! -e "$op_agent_sock" ]]; then
+    mkdir -p $HOME/.1password
+    ln -s "$op_agent_sock_macos" "$op_agent_sock"
+fi
+[[ -e "$op_agent_sock" ]] && export SSH_AUTH_SOCK="$op_agent_sock"
 
 ##
 # atuin history manager
