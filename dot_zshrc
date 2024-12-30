@@ -233,3 +233,12 @@ fi
 if [[ "$(command -v atuin)" ]]; then
     eval "$(atuin init zsh  --disable-up-arrow)"
 fi
+
+##
+# Ghostty terminal fixups
+if [[ "$TERM" == "xterm-ghostty" ]]; then
+    # Check if terminfo is avaliable, if not fall back to xterm-256color    
+    if [[ ! $(toe | grep 'ghostty') ]]; then
+        export TERM=xterm-256color
+    fi
+fi
