@@ -223,3 +223,22 @@ if [[ "$TERM" == "xterm-ghostty" ]]; then
         export TERM=xterm-256color
     fi
 fi
+
+##
+# fzf additional setup, if 'fzf' and 'fd' installed
+if [[ "$(command -v fzf)" && "$(command -v fd)" ]]; then
+    # Use 'fd' to find files and directories
+    export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git --exclude .venv"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git --exclude .venv"
+
+    # Use 'fd' to list path canidates
+    _fzf_compgen_path() {
+        fd --hidden --exclude .git --exclude .venv . "$1"
+    }
+
+    # Use 'fd' to list directory canidates
+    _fzf_compgen_dir() {
+        fd --type=d --hidden --exclude .git --exclude .venv . "$1"
+    }
+fi 
