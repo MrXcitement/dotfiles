@@ -29,19 +29,29 @@
     type = cat-file -t
 [core]
     autocrlf = input
-{{- if eq .chezmoi.os "windows" }}
+{{- if eq .chezmoi.os "darwin" }}
+    # macOS core settings
+    # set pager to use delta if installed, otherwise use less
+    pager = type delta >/dev/null 2>&1 && exec delta || exec less --tabs=4 -RFX
+{{- else if eq .chezmoi.os "windows" }}
+    # windows core settings
     # Need sshCommand to be set for 1Password to handle 'git:' repos that connect via ssh
     sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+{{- else }}
+    # linux core settings
 {{- end }}
 [credential]
     helper =
 {{- if eq .chezmoi.os "darwin" }}
+    # macOS credential settings
     helper = osxkeychain
 {{- else if eq .chezmoi.os "windows" }}
+    # windows credential settings
     # Fix issue where credential manager selecter pops up everytime.
     # See: https://github.com/git-for-windows/git/discussions/3410#discussioncomment-1276400
     helper = manager
 {{- else }}
+    # linux credential settings
     helper = cache
 {{- end }}
 [credential "https://github.com"]
