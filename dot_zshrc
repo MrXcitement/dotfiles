@@ -175,6 +175,8 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+##
+# Aliases
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -184,20 +186,22 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Alias cd to the zoxide 'z' command
+[[ (( $+commands[ls] )) ]] && alias cd=z
+
 ##
-# 1password cli op command completion
-if [[ "$(command -v op)" ]]; then
+# 1Password cli op command completion
+if [[ (( $+commands[op] )) ]]; then
     eval "$(op completion zsh)"; compdef _op op
+    # 1Password cli `op` third party plugins configuration
+    op_plugins="$HOME/.config/op/plugins.sh"
+    if [[ -f "$op_plugins" ]]; then
+        source "$op_plugins"
+    fi
 fi
 
 ##
-# 1Password cli `op` third party plugins configuration
-op_plugins="$HOME/.config/op/plugins.sh"
-if [[ -f "$op_plugins" ]]; then
-    source "$op_plugins"
-fi
-
-## 1password agent.sock configuration
+# 1Password SSH agent.sock configuration
 # Export the SSH_AUTH_SOCK
 # Handle macos that by default stores the agent socket file in the users Library folder
 # by creating a .1password folder and symlinking the agent.soc file to there.
@@ -211,22 +215,22 @@ fi
 
 ##
 # atuin history manager
-if [[ "$(command -v atuin)" ]]; then
+if [[ (( $+commands[atuin] )) ]]; then
     eval "$(atuin init zsh  --disable-up-arrow)"
 fi
 
 ##
 # Ghostty terminal fixups
 if [[ "$TERM" == "xterm-ghostty" ]]; then
-    # Check if terminfo is avaliable, if not fall back to xterm-256color
+    # Check if ghostty terminfo is not available, then fall back to xterm-256color
     if [[ ! $(toe | grep 'ghostty') ]]; then
         export TERM=xterm-256color
     fi
 fi
 
 ##
-# fzf additional setup, if 'fzf' and 'fd' installed
-if [[ "$(command -v fzf)" && "$(command -v fd)" ]]; then
+# fzf additional setup, only if 'fzf' *and* 'fd' is installed
+if [[ (( $+commands[fzf])) && (( $+commands[fd])) ]]; then
     # Use 'fd' to find files and directories
     export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git --exclude .venv"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -241,4 +245,4 @@ if [[ "$(command -v fzf)" && "$(command -v fd)" ]]; then
     _fzf_compgen_dir() {
         fd --type=d --hidden --exclude .git --exclude .venv . "$1"
     }
-fi 
+fi
