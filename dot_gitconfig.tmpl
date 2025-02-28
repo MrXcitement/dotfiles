@@ -27,6 +27,10 @@
     sw = switch
     swc = switch -c
     type = cat-file -t
+[branch]
+    sort = -committerdate
+[column]
+    ui = auto
 [core]
     autocrlf = input
 {{- if eq .chezmoi.os "darwin" }}
@@ -63,6 +67,15 @@
 [credential "https://gitlab.thebarkers.com"]
     helper =
     helper = !glab auth git-credential
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
 [hub]
     protocol = https
 [init]
@@ -71,6 +84,10 @@
     ff = only
 [push]
     default = simple
+    autoSetupRemote = true
+    followTags = true
+[tag]
+    sort = version:refname
 [user]
     name = Mike Barker
     email = mike@thebarkers.com
