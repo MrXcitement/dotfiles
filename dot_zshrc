@@ -20,7 +20,7 @@ if [[ ! -d $ZSH_CUSTOM/themes/spaceship-prompt ]]; then
 fi
 
 # Clone z-shell/zsh-eza, if eza is installed
-if [[ $(command -v eza) ]]; then
+if (( $+commands[eza] )); then
     if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-eza" ]]; then
         git clone https://github.com/z-shell/zsh-eza.git $ZSH_CUSTOM/plugins/zsh-eza
     fi
@@ -57,7 +57,7 @@ fi
 # Only setup a prompt if the term is not dumb (emacs shell)
 if [[ $TERM != dumb ]]; then
     # If starship is installed and not running in xterm, use it
-    if [[ $(command -v starship) ]] && [[ $TERM != xterm ]]; then
+    if (( $+commands[starship] )) && [[ $TERM != xterm ]]; then
         # Starship Cross Platform Prompt
         # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
         # https://starship.rs/
@@ -140,19 +140,20 @@ plugins=(
     zsh-syntax-highlighting
 )
 # Add these plugins if the associated command is installed
-if [[ $(command -v brew) ]]; then
+if (( $+commands[brew] )); then
     fpath+="$(brew --prefix)/share/zsh/site-functions"
     plugins+=(brew)
 fi
-[[ $(command -v code) ]] && plugins+=(vscode)
-[[ $(command -v direnv) ]] && plugins+=(direnv)
-[[ $(command -v eza) ]] && plugins+=(zsh-eza)
-[[ $(command -v fzf) ]] && plugins+=(fzf)
-[[ $(command -v git) ]] && plugins+=(git)
+(( $+commands[chezmoi] )) && plugins+=(chezmoi)
+(( $+commands[code] ))   && plugins+=(vscode)
+(( $+commands[direnv] )) && plugins+=(direnv)
+(( $+commands[eza] ))    && plugins+=(zsh-eza)
+(( $+commands[fzf] ))    && plugins+=(fzf)
+(( $+commands[git] ))    && plugins+=(git)
+(( $+commands[nvm] ))    && plugins+=(nvm)
+(( $+commands[tmux] ))   && plugins+=(tmux)
+(( $+commands[zoxide] )) && plugins+=(zoxide)
 [[ "$TERM_PROGRAM" == "iTerm.app" ]] && plugins+=(iterm2)
-[[ $(command -v nvm) ]] && plugins+=(nvm)
-[[ $(command -v tmux) ]] && plugins+=(tmux)
-[[ $(command -v zoxide) ]] && plugins+=(zoxide)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -186,12 +187,12 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Alias cd to the zoxide 'z' command
-[[ (( $+commands[ls] )) ]] && alias cd=z
+(( $+commands[chezmoi] )) && alias cm=chezmoi
+(( $+commands[zoxide] )) && alias cd=z
 
 ##
 # 1Password cli op command completion
-if [[ (( $+commands[op] )) ]]; then
+if (( $+commands[op] )); then
     eval "$(op completion zsh)"; compdef _op op
     # 1Password cli `op` third party plugins configuration
     op_plugins="$HOME/.config/op/plugins.sh"
@@ -215,7 +216,7 @@ fi
 
 ##
 # atuin history manager
-if [[ (( $+commands[atuin] )) ]]; then
+if (( $+commands[atuin] )); then
     eval "$(atuin init zsh  --disable-up-arrow)"
 fi
 
@@ -230,7 +231,7 @@ fi
 
 ##
 # fzf additional setup, only if 'fzf' *and* 'fd' is installed
-if [[ (( $+commands[fzf])) && (( $+commands[fd])) ]]; then
+if (( $+commands[fzf])) && (( $+commands[fd])); then
     # Use 'fd' to find files and directories
     export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git --exclude .venv"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
