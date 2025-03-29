@@ -49,8 +49,5 @@ README.md
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
-bin\up-all.ps1
-bin\up-scoop.ps1
-bin\up-windows.ps1
-bin\up-winget.ps1
+bin/*.ps1
 {{ end }}
