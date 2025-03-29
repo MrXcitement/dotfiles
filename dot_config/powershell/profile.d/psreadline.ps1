@@ -1,6 +1,7 @@
 ##
 # Configure the PSReadLine command line editing experience
 if (Get-Module 'PSReadLine') {
+    Set-PSReadLineOption -EditMode Emacs
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
     if (Get-Module 'PSFzf') {
