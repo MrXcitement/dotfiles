@@ -47,3 +47,4 @@ README.md
 {{ if ne .chezmoi.os "darwin" }}
 .config/1Password 
 {{ end }}
+

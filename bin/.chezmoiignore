@@ -1,10 +1,9 @@
 {{ if ne .chezmoi.os "darwin" }}
-bin/up-all
-bin/up-brew
-bin/up-uv-tool
+up-all
+up-brew
+up-uv-tool
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
-bin/*.ps1
+*.ps1
 {{ end }}
-
