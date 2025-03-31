@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# upgrade-brew --- update and upgrade brew managed software
+# Mike Barker <mike@thebarkers.com>
+# January 10th 2019
+
+if [[ ! $(command -v brew) ]]; then
+    echo "Error! the 'brew' program is not installed."
+    exit -1
+fi
+
+echo "Upgrade 'brew' installed software..."
+echo "------------------------------------"
+brew update
+brew upgrade
+brew autoremove
+brew cleanup

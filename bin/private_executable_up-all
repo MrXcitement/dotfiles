@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# up-all -- Upgrade all softeware
+# Mike Barker
+# Created on November 13th, 2024
+# Updated on November 13th, 2024
+
+up-brew
+up-uv-tool

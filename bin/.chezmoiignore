@@ -1,0 +1,10 @@
+{{ if ne .chezmoi.os "darwin" }}
+bin/up-all
+bin/up-brew
+bin/up-uv-tool
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+bin/*.ps1
+{{ end }}
+
