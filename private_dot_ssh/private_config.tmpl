@@ -68,13 +68,19 @@ Host sm*
     User root
 
 # Synology hosts
-Host ds1 dsm
+Host ds1
+    HostName ds1.home.thebarkers.com
     IdentityFile ~/.ssh/id_ed25519-1p_mike.pub
     Port 10022
     SetEnv TERM=xterm-256color
-Host ds1 dsm
-    HostName ds1.home.thebarkers.com
     User admin_dsm
+
+# Ubiquiti devices
+Host unifi
+    HostName unifi.home.thebarkers.com
+    IdentityFile ~/.ssh/id_ed25519-1p_ubiquiti.pub
+    SetEnv TERM=xterm-256color
+    User root
 
 # All hosts
 Host *
