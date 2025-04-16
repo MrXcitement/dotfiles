@@ -247,3 +247,18 @@ if (( $+commands[fzf])) && (( $+commands[fd])); then
         fd --type=d --hidden --exclude .git --exclude .venv . "$1"
     }
 fi
+
+##
+# Handle tmux sessions:
+# If not in a tmux session and there are tmux sessions running.
+# Display active tmux sessions, and ask which session to connect to.
+# If a session name was provided, attach to the session
+if [[ -z $TMUX ]] && [[ $(tmux ls 2>/dev/null) ]]; then
+    echo "Active tmux sessions:" 
+    tmux ls
+    read -r "session?Enter a session nome to connect, or enter to continue: "
+    if [[ -n "$session" ]]; then
+        tmux attach -t "$session"
+    fi
+fi
+
