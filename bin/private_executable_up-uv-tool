@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 # up-uv-tool -- upgrade 'uv' installed tools
 
-if [[ ! $(command -v uv) ]]; then
-   echo "Error! the 'uv' program is not installed."
-   exit -1
+if [[ $(command -v uv) ]]; then
+    echo "Upgrade 'uv' installed tools..."
+    echo "-------------------------------"
+    uv tool upgrade --all
 fi
 
-echo "Upgrade 'uv' installed tools..."
-echo "-------------------------------"
-uv tool upgrade --all
