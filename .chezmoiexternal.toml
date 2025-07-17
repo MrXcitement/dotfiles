@@ -1,14 +1,14 @@
 {{ if lookPath "emacs" }}
-["github/mrxcitement/dot-emacs"]
+["src/github/mrxcitement/dot-emacs"]
     type = "git-repo"
     url = "https://github.com/mrxcitement/dot-emacs.git"
-["github/mrxcitement/dot-emacs-efs"]
+["src/github/mrxcitement/dot-emacs-efs"]
     type = "git-repo"
     url = "https://github.com/mrxcitement/dot-emacs-efs.git"
-["github/mrxcitement/dot-emacs-minimal"]
+["src/github/mrxcitement/dot-emacs-minimal"]
     type = "git-repo"
     url = "https://github.com/mrxcitement/dot-emacs-minimal.git"
-["github/mrxcitement/dot-emacs-org"]
+["src/github/mrxcitement/dot-emacs-org"]
     type = "git-repo"
     url = "https://github.com/mrxcitement/dot-emacs-org.git"
 {{ end }}
