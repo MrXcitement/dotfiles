@@ -3,10 +3,10 @@
 # August 12th, 2024
 
 up-scoop
-gsudo {
-    echo ""
-    up-winget
-    echo ""
-    up-windows
-}
+
+echo ""
+up-winget
+
+echo ""
+up-windows
 
