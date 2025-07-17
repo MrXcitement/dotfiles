@@ -1,9 +1,8 @@
-{{ if ne .chezmoi.os "darwin" }}
-up-all
+{{ if eq .chezmoi.os "windows" -}}
+up
 up-brew
 up-uv-tool
-{{ end }}
-
-{{ if ne .chezmoi.os "windows" }}
+{{ end -}}
+{{ if ne .chezmoi.os "windows" -}}
 *.ps1
-{{ end }}
+{{ end -}}
