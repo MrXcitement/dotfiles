@@ -1,12 +1,28 @@
 #!/bin/zsh
 # .zshrc --- Configure zsh interactive shells
 # Mike Barker <mike@thebarkers.com>
-# Created on: November 3rd, 2022
-# Updated on: April 19th, 2025
+# Created: November 3rd, 2022
+# Updated: July 17th, 2025
 
 # Define the location for oh-my-zsh and custom plugins and themes
 ZSH=$HOME/.oh-my-zsh
 ZSH_CUSTOM=$ZSH/custom
+
+# TERM=dumb shell should be as simple as possible
+# (no line-editing, no fancy prompts, no completion)
+if [[ "$TERM" == "dumb" ]]; then
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    if whence -w precmd >/dev/null; then
+      unfunction precmd
+    fi
+    if whence -w preexec >/dev/null; then
+      unfunction preexec
+    fi
+    PS1='$ '
+    return
+fi
 
 # Clone the oh-my-zsh reposiotry
 if [[ ! -d $ZSH ]]; then
@@ -257,7 +273,7 @@ fi
 # Display active tmux sessions, and ask which session to connect to.
 # If a session name was provided, attach to the session
 if [[ -z $TMUX ]] && [[ $(tmux ls 2>/dev/null) ]]; then
-    print -P "%BYou have active tmux sessions:%b" 
+    print -P "%BYou have active tmux sessions:%b"
     tmux ls
     echo ""
     read -r "session?Enter the session name to attach, or enter to continue: "
