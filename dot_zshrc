@@ -2,7 +2,7 @@
 # .zshrc --- Configure zsh interactive shells
 # Mike Barker <mike@thebarkers.com>
 # Created on: November 3rd, 2022
-# Updated on: August 24th, 2024
+# Updated on: April 19th, 2025
 
 # Define the location for oh-my-zsh and custom plugins and themes
 ZSH=$HOME/.oh-my-zsh
@@ -144,15 +144,18 @@ if (( $+commands[brew] )); then
     fpath+="$(brew --prefix)/share/zsh/site-functions"
     plugins+=(brew)
 fi
+# Only add a plugin if the associated command is available.
+# This is not necessarily needed since many, but not all plugins
+# check for the tool before initializing themselves.
 (( $+commands[chezmoi] )) && plugins+=(chezmoi)
-(( $+commands[code] ))   && plugins+=(vscode)
-(( $+commands[direnv] )) && plugins+=(direnv)
-(( $+commands[eza] ))    && plugins+=(zsh-eza)
-(( $+commands[fzf] ))    && plugins+=(fzf)
-(( $+commands[git] ))    && plugins+=(git)
-(( $+commands[nvm] ))    && plugins+=(nvm)
-(( $+commands[tmux] ))   && plugins+=(tmux)
-(( $+commands[zoxide] )) && plugins+=(zoxide)
+(( $+commands[code] ))    && plugins+=(vscode)
+(( $+commands[direnv] ))  && plugins+=(direnv)
+(( $+commands[eza] ))     && plugins+=(zsh-eza)
+(( $+commands[fzf] ))     && plugins+=(fzf)
+(( $+commands[git] ))     && plugins+=(git)
+(( $+commands[nvm] ))     && plugins+=(nvm)
+(( $+commands[tmux] ))    && plugins+=(tmux)
+(( $+commands[zoxide] ))  && plugins+=(zoxide)
 [[ "$TERM_PROGRAM" == "iTerm.app" ]] && plugins+=(iterm2)
 
 # Initialize oh-my-zsh
@@ -254,9 +257,10 @@ fi
 # Display active tmux sessions, and ask which session to connect to.
 # If a session name was provided, attach to the session
 if [[ -z $TMUX ]] && [[ $(tmux ls 2>/dev/null) ]]; then
-    echo "Active tmux sessions:" 
+    print -P "%BYou have active tmux sessions:%b" 
     tmux ls
-    read -r "session?Enter a session nome to connect, or enter to continue: "
+    echo ""
+    read -r "session?Enter the session name to attach, or enter to continue: "
     if [[ -n "$session" ]]; then
         tmux attach -t "$session"
     fi
