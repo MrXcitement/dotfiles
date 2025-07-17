@@ -266,3 +266,9 @@ if [[ -z $TMUX ]] && [[ $(tmux ls 2>/dev/null) ]]; then
     fi
 fi
 
+##
+# if 'mise' is installed and available
+if (( $+commands[mise] )); then
+    # mise setup
+    eval "$(mise activate zsh)"
+fi
