@@ -2,14 +2,14 @@
 
 # Mike Barker <mike@thebarkers.com>
 # Created: October 9th, 2017
-# Updated: July 17th, 2025
+# Updated: August 21st, 2025
 
 # External hosts and services
 Host github.com
     IdentityFile ~/.ssh/id_ed25519-1p_github.pub
 
-# Proxmox containers and virtual machines
-Host ct-debian12-1*.home.thebarkers.com
+# Local containers and virtual machines
+Host ct-debian12-0*
     IdentityFile ~/.ssh/id_ed25519-1p_mike.pub
     User root
 Host devbox
@@ -30,9 +30,13 @@ Host vm-debian*
     IdentityFile ~/.ssh/id_ed25519-1p_archon.pub
     User archon
 
-# Internal hosts
-Host gmktec-nbg3p-01
-    HostName gmktec-nbg3p-01.home.thebarkers.com
+# Local hosts and services
+Host gmktec*
+    IdentityFile ~/.ssh/id_ed25519-1p_archon.pub
+    User archon
+
+# Raspberry Pi hosts
+Host rpi2*
     IdentityFile ~/.ssh/id_ed25519-1p_archon.pub
     User archon
 
