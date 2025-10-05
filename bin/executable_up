@@ -50,7 +50,12 @@ run_script() {
 # Run all up scripts
 run_all_scripts() {
     # Find all executable files starting with 'up-'
-    local scripts=($(find "$SCRIPT_DIR" -type f -perm +111 -iname 'up-*'))
+    if [[ $(uname -s) == "Darwin" ]]; then 
+        local perm_arg=+111
+    else
+        local perm_arg=/111
+    fi
+    local scripts=($(find "$SCRIPT_DIR" -type f -perm $perm_arg -iname 'up-*'))
 
     # Check if the find returned any results
     if [ "${#scripts[@]}" -eq 1 ] && [ ! -e "${scripts[0]}" ]; then
