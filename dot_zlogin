@@ -2,5 +2,7 @@
 
 # .zlogin --- Run for login shells
 # Mike Barker <mike@thebarkers.com>
-# Novemeber 3rd, 2022
+# Created: Novemeber 3rd, 2022
+# Updated: October 4th, 2025
+[[ -n "$DEBUG" ]] && echo "~/.zlogin"
 

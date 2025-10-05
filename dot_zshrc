@@ -2,7 +2,24 @@
 # .zshrc --- Configure zsh interactive shells
 # Mike Barker <mike@thebarkers.com>
 # Created: November 3rd, 2022
-# Updated: July 17th, 2025
+# Updated: October 5th, 2025
+
+## Description:
+# Sourced only in interactive shells
+# In login interactive shells:
+#   The third personal startup file sourced
+#   Sourced after ~/.zprofile, then /etc/zshrc
+#   Sourced before /etc/zlogin, then ~/.zlogin
+# In non-login interactive shells:
+#   The second personal startup file sourced
+#   Sourced after /etc/zshenv, then ~/.zshenv
+#   No more files sourced.
+#
+# This file should contain commands to set up aliases, functions, options, key
+# bindings, etc.
+
+# print when this file is sourced
+[[ -n "$DEBUG" ]] && echo "~/.zshrc"
 
 # TERM=dumb shell should be as simple as possible
 # (no line-editing, no fancy prompts, no completion)

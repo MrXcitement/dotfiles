@@ -2,5 +2,7 @@
 
 # .zlogout --- Run at logout
 # Mike Barker <mike@thebarkers.com>
-# November 3rd, 2022
+# Created: November 3rd, 2022
+# Updated: October 4th, 2025
+[[ -n "$DEBUG" ]] && echo "~/.zlogout"
 

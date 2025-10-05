@@ -1,26 +1,26 @@
-# .zshenv --- Usually run for every zsh
+# .zshenv --- Setup 'environment'
 # Mike Barker <mike@thebarkers.com>
-# November 3rd, 2022
+# Created: November 3rd, 2022
+# Updated: October 5th, 2025
 
-## On macOS handle path issues introduced by system config
-# See: https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#solutions
-if [[ $OSTYPE =~ "darwin" ]]; then
-    unsetopt GLOBAL_RCS
-    eval `/usr/libexec/path_helper -s`
-    # Check if /etc/zprofile has been changed
-    if [[ "$(crc32 '/etc/zprofile')" != "703cd3c8" ]]; then
-        echo "$(tput setaf 3)WARNING!$(tput sgr 0)"\
-             "File \`/etc/zprofile\` seems to has been changed since checkpoint."
-    fi
-    # Check for system startup files that did not exist when
-    # macOS Sequioa was installed.
-    for file in '/etc/zshenv' '/etc/zlogin' '/etc/zlogout'; do
-        if [[ -f "$file" ]]; then
-            echo "$(tput setaf 3)WARNING!$(tput sgr 0)"\
-                 "File \`$file\` exists and should not."
-        fi
-    done
-fi
+## Description:
+# The first personal startup file to be sourced
+# Source in all shells, unless option -f is set
+# Source after /etc/zshenv
+# Source before /etc/zprofile, then /etc/profile, then ~/.zprofile.
+# This file should contain commands to set the command search path, plus other
+# important environment variables. `.zshenv' should not contain commands that
+# produce output or assume the shell is attached to a tty.
+
+## Note:
+# On macOS, the /etc/zprofile and path_helper command will clobber PATH order 
+# https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#solutions
+# I have decided that I would rather NOT have the system paths hidden by my
+# local paths... this seems to be a better from a security standpoint, we will
+# see how this works out.
+
+# print when this file is sourced
+[[ -n "$DEBUG" ]] && echo "~/.zshenv"
 
 ## Configure the homebrew environment
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -51,14 +51,14 @@ if [[ $(command -v rbenv) ]]; then
     eval "$(rbenv init -)"
 fi
 
-## Fix the vscode-server path
+## Fixup vscode-server path
 # If there is a vscode-server path element, it must be before any path that has
 # the localy installed code server. This code will find the first path element
 # that has vscode-server, remove it from the path array and prepend it to the
 # start.
 
-# Find the index of any element in the $path array that contains ".vscode-server"
-# If found (i.e., the index is valid), move the .vscode-server path to the front
+# Find the index of any element in the $path array that contains .vscode-server
+# If found (i.e. the index is valid), move the .vscode-server path to the front
 vscode_index=${path[(i)*.vscode-server*]}
 if [[ $vscode_index -le ${#path} ]]; then
   vscode_path=${path[vscode_index]}
@@ -68,18 +68,19 @@ fi
 
 
 ## Configure the path
-# Feel free to add app specific paths here since any path that does not exist
-# on the current system will not be added to the system path.
+# Feel free to add app or system specific paths here since any path that does
+# not exist on the current system will not be added to the system path.
 
 # Create an newpath array
 newpath=(
     # Prepend paths
-    ~/bin
-    ~/.local/bin
     # Add the existing paths to the newpath array
     $path
     # Append paths
-    /usr/local/sbin)
+    /usr/local/sbin
+    ~/bin
+    ~/.local/bin
+)
 
 # Replace the system path using the newpath array,
 # only existing paths will be added to the new path.
