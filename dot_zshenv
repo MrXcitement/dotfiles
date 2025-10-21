@@ -15,12 +15,34 @@
 ## Note:
 # On macOS, the /etc/zprofile and path_helper command will clobber PATH order 
 # https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#solutions
-# I have decided that I would rather NOT have the system paths hidden by my
-# local paths... this seems to be a better from a security standpoint, we will
-# see how this works out.
+# My solution is to comment out the path_helper command in the /etc/zprofile.
+# When the path is being configured correctly use the `crc32' command to 
+# get the checksum number and then use the new value to validate that the
+# /etc/zprofile has not been changed.
+#
+# Previously I used the command 'unsetopt GLOBAL_RCS' instead of commenting out
+# the 'path_helper' command, however this caused the system provided
+# /etc/zshrc to never be run, this is not what I want, so I have removed
+# this when handling macOS startup.
 
 # print when this file is sourced
 [[ -n "$DEBUG" ]] && echo "~/.zshenv"
+
+## On macOS handle path issues introduced by non-standard system config
+if [[ $OSTYPE =~ "darwin" ]]; then
+    # Set the system defined paths
+    eval `/usr/libexec/path_helper -s`
+
+    # Check if /etc/zprofile has changed and should be reviewed.
+    if [[ "$(crc32 '/etc/zprofile')" != "ee560db8" ]]; then
+        echo "$(tput setaf 3)WARNING!$(tput sgr 0)"\
+             "File \`/etc/zprofile\` has been changed since last checked."
+        echo "To stop this warning from being displayed:"
+        echo "- Make sure that the 'path_helper' line is commented out."
+        echo "- Run the command 'crc32 /etc/zprofile' and record the checksum."
+        echo "- Update the checksum number being used to check '/etc/zprofile'"
+    fi
+fi
 
 ## Configure the homebrew environment
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -82,10 +104,11 @@ newpath=(
     ~/.local/bin
 )
 
+# Remove duplicate entries from the new path
+typeset -U newpath
+
 # Replace the system path using the newpath array,
 # only existing paths will be added to the new path.
 path=($^newpath(N))
 unset newpath
 
-# Remove duplicate entries from the system path
-typeset -U path
