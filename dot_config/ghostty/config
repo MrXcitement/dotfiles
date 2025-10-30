@@ -1,0 +1,36 @@
+# config -- Ghostty config
+# vim: fdm=marker
+
+# Mike Barker <mike@thebarkers.com>
+# Created: August 20th, 2025
+# Updated: August 20th, 2025
+
+adjust-cursor-thickness = 6
+auto-update = check
+#auto-update-channel = tip
+background-blur-radius = 20
+background-opacity = 0.85
+font-family = "AtkynsonMono Nerd Font"
+font-size = 14
+font-style = "Regular"
+keybind = cmd+s>-=new_split:down
+keybind = cmd+s>\=new_split:right
+keybind = cmd+s>ctrl+h=resize_split:left,40
+keybind = cmd+s>ctrl+j=resize_split:down,40
+keybind = cmd+s>ctrl+k=resize_split:up,40
+keybind = cmd+s>ctrl+l=resize_split:right,40
+keybind = cmd+s>e=equalize_splits
+keybind = cmd+s>h=goto_split:left
+keybind = cmd+s>j=goto_split:bottom
+keybind = cmd+s>k=goto_split:top
+keybind = cmd+s>l=goto_split:right
+keybind = cmd+s>n=new_window
+keybind = cmd+s>r=reload_config
+keybind = cmd+s>x=close_surface
+keybind = cmd+s>z=toggle_split_zoom
+shell-integration = detect
+shell-integration-features = ssh-env
+theme = light:One Half Light, dark:One Half Dark
+window-save-state = always
+window-colorspace = "display-p3"
+

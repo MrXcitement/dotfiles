@@ -16,6 +16,10 @@ README.md
 .config/git
 {{ end }}
 
+{{ if not (lookPath "ghostty") }}
+.config/ghostty
+{{ end }}
+
 {{ if not (lookPath "pwsh") }}
 .config/powershell
 {{ end }}
