@@ -1,114 +1,37 @@
-# .zshenv --- Setup 'environment'
+# .zshenv --- Processed by all shells
 # Mike Barker <mike@thebarkers.com>
 # Created: November 3rd, 2022
-# Updated: October 21st, 2025
+# Updated: November 5th, 2025
 
 ## Description:
-# The first personal startup file to be sourced
-# Source in all shells, unless option -f is set
-# Source after /etc/zshenv
-# Source before /etc/zprofile, then /etc/profile, then ~/.zprofile.
-# This file should contain commands to set the command search path, plus other
+# This file could contain commands to set the command search path, plus other
 # important environment variables. `.zshenv' should not contain commands that
 # produce output or assume the shell is attached to a tty.
-
-## Note:
-# On macOS, the /etc/zprofile and path_helper command will clobber PATH order 
-# https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2#solutions
-# My solution is to comment out the path_helper command in the /etc/zprofile.
-# When the path is being configured correctly use the `crc32' command to 
-# get the checksum number and then use the new value to validate that the
-# /etc/zprofile has not been changed.
 #
-# Previously I used the command 'unsetopt GLOBAL_RCS' instead of commenting out
-# the 'path_helper' command, however this caused the system provided
-# /etc/zshrc to never be run, this is not what I want, so I have removed
-# this when handling macOS startup.
+# Startup files processed order
+# /etc/zshenv
+# $ZDOTDIR/.zshenv
+# If the shell is a login shell:
+#     /etc/zprofile
+#     $ZDOTDIR/.zprofile
+# If the shell is interactive:
+#     /etc/zshrc
+#     $ZDOTDIR/.zshrc
+# If the shell is a login shell:
+#     /etc/zlogin
+#     $ZDOTDIR/.zlogin
+# When a login shell exits:
+#     $ZDOTDIR/.zlogout
+#     /etc/zlogout
+#
+# Startup behaviour can be modified by the RCS and GLOBAL_RCS options. If
+# ZDOTDIR is unset, HOME is used instead. See the docs for more info:
+# https://zsh.sourceforge.io/Doc/Release/Files.html#Startup_002fShutdown-Files
 
-# print when this file is sourced
-[[ -n "$DEBUG" ]] && echo "~/.zshenv"
+## Notes:
+# I am no longer using this file, see $ZDOTDIR/.zprofile for more info.
 
-## On macOS handle path issues introduced by non-standard system config
-if [[ $OSTYPE =~ "darwin" ]]; then
-    # Set the system defined paths
-    eval `/usr/libexec/path_helper -s`
-
-    # Check if /etc/zprofile has changed and should be reviewed.
-    if [[ "$(crc32 '/etc/zprofile')" != "ee560db8" ]]; then
-        echo "$(tput setaf 3)WARNING!$(tput sgr 0)"\
-             "File \`/etc/zprofile\` has been changed since last checked."
-        echo "To stop this warning from being displayed:"
-        echo "- Make sure that the 'path_helper' line is commented out."
-        echo "- Run the command 'crc32 /etc/zprofile' and record the checksum."
-        echo "- Update the checksum number being used to check '/etc/zprofile'"
-    fi
-fi
-
-## Configure the homebrew environment
-if [[ -x /opt/homebrew/bin/brew ]]; then
-    BREW="/opt/homebrew/bin/brew"
-elif [[ -x /usr/local/bin/brew ]]; then
-    BREW="/usr/local/bin/brew"
-elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-    BREW="/home/linuxbrew/.linuxbrew/bin/brew"
-elif [[ -x "$HOME/.linuxbrew/bin/brew" ]]; then
-    BREW="$HOME/.linuxbrew/bin/brew"
-else
-    BREW=""
-fi
-if [[ "$BREW" != "" ]]; then
-    eval "$($BREW shellenv)"
-fi
-unset BREW
-
-## Configure pyenv environment
-if [[ -d ${HOME}/.pyenv ]]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-fi
-
-## Configure rbenv environment
-if [[ $(command -v rbenv) ]]; then
-    eval "$(rbenv init -)"
-fi
-
-## Fixup vscode-server path
-# If there is a vscode-server path element, it must be before any path that has
-# the localy installed code server. This code will find the first path element
-# that has vscode-server, remove it from the path array and prepend it to the
-# start.
-
-# Find the index of any element in the $path array that contains .vscode-server
-# If found (i.e. the index is valid), move the .vscode-server path to the front
-vscode_index=${path[(i)*.vscode-server*]}
-if [[ $vscode_index -le ${#path} ]]; then
-  vscode_path=${path[vscode_index]}
-  path[$vscode_index]=()
-  path=($vscode_path $path)
-fi
-
-
-## Configure the path
-# Feel free to add app or system specific paths here since any path that does
-# not exist on the current system will not be added to the system path.
-
-# Create an newpath array
-newpath=(
-    # Prepend paths
-    # Add the existing paths to the newpath array
-    $path
-    # Append paths
-    /usr/local/sbin
-    ~/bin
-    ~/.local/bin
-)
-
-# Remove duplicate entries from the new path
-typeset -U newpath
-
-# Replace the system path using the newpath array,
-# only existing paths will be added to the new path.
-path=($^newpath(N))
-unset newpath
-
+# Print the sourced file's name
+# For example to see the files processed for a login shell use:
+# $ DEBUG=1 zsh -l
+[[ -n "$DEBUG" ]] && echo "Loading: ${(%):-%1N}..."

@@ -1,8 +1,36 @@
-#!/bin/zsh
-
-# .zlogout --- Run at logout
+# .zlogout --- Processed when the shell is logging out
 # Mike Barker <mike@thebarkers.com>
 # Created: November 3rd, 2022
-# Updated: October 4th, 2025
-[[ -n "$DEBUG" ]] && echo "~/.zlogout"
+# Updated: November 5th, 2025
 
+## Description:
+# This file could be used to clear your terminal or any other resource which
+# was setup at login.
+#
+# Startup files processed order
+# /etc/zshenv
+# $ZDOTDIR/.zshenv
+# If the shell is a login shell:
+#     /etc/zprofile
+#     $ZDOTDIR/.zprofile
+# If the shell is interactive:
+#     /etc/zshrc
+#     $ZDOTDIR/.zshrc
+# If the shell is a login shell:
+#     /etc/zlogin
+#     $ZDOTDIR/.zlogin
+# When a login shell exits:
+#     $ZDOTDIR/.zlogout
+#     /etc/zlogout
+#
+# Startup behaviour can be modified by the RCS and GLOBAL_RCS options. If
+# ZDOTDIR is unset, HOME is used instead. See the docs for more info:
+# https://zsh.sourceforge.io/Doc/Release/Files.html#Startup_002fShutdown-Files
+
+# Print the sourced file's name
+# For example to see the files loaded for a login shell use:
+# $ DEBUG=1 zsh -l
+[[ -n "$DEBUG" ]] && echo "Loading: ${(%):-%1N}..."
+
+# Clear the screen
+cls
