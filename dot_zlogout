@@ -33,4 +33,4 @@
 [[ -n "$DEBUG" ]] && echo "Loading: ${(%):-%1N}..."
 
 # Clear the screen
-cls
+clear
