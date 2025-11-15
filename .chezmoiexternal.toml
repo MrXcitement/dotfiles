@@ -1,17 +1,3 @@
-{{ if lookPath "emacs" }}
-["src/github/mrxcitement/dot-emacs"]
-    type = "git-repo"
-    url = "https://github.com/mrxcitement/dot-emacs.git"
-["src/github/mrxcitement/dot-emacs-efs"]
-    type = "git-repo"
-    url = "https://github.com/mrxcitement/dot-emacs-efs.git"
-["src/github/mrxcitement/dot-emacs-minimal"]
-    type = "git-repo"
-    url = "https://github.com/mrxcitement/dot-emacs-minimal.git"
-["src/github/mrxcitement/dot-emacs-org"]
-    type = "git-repo"
-    url = "https://github.com/mrxcitement/dot-emacs-org.git"
-{{ end }}
 {{ if lookPath "tmux" }}
 [".config/tmux/plugins/tpm"]
     type = "archive"

@@ -7,8 +7,7 @@ README.md
 {{ end }}
 
 {{ if not (lookPath "emacs") }}
-.emacs-profile
-.emacs-profiles.el
+.config/emacs
 {{ end }}
 
 {{ if not (lookPath "git") }}
@@ -49,6 +48,6 @@ README.md
 {{ end }}
 
 {{ if ne .chezmoi.os "darwin" }}
-.config/1Password 
+.config/1Password
 {{ end }}
 

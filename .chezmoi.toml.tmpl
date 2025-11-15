@@ -1,9 +1,7 @@
-[status]
-    exclude = ["scripts"]
-
 [hooks.edit-config-template.post]
     command = "chezmoi"
     args = ["init"]
-
+[status]
+    exclude = ["scripts"]
 [update]
     apply = false
