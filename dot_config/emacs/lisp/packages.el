@@ -93,11 +93,12 @@
 ;; Configure the c major mode
 (use-package cc-mode
   :config
-  (setopt c-basic-offset 4)
   (add-hook 'c-mode-hook
 	    (lambda()
 	      ;; Use 'extra-line at top/bottom in c-mode only
-	      (setq-local comment-style 'extra-line))))
+	      (setq-local comment-style 'extra-line)))
+  :custom
+  (c-basic-offset 4))
 
 ;;; cedet
 ;; Configure the cedet mode

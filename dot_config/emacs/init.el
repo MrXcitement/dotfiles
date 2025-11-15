@@ -128,21 +128,21 @@ or the git command is not found."
    " "))
 
 ;; Needed for colors to have an effect
-(setopt eshell-highlight-prompt nil)
+(customize-set-variable 'eshell-highlight-prompt nil)
 
 ;; Needed to tweek for completion to work
-(setopt eshell-prompt-regexp "^[^#$\n]*[#$] ")
+(customize-set-variable 'eshell-prompt-regexp "^[^#$\n]*[#$] ")
 
 ;; History settings
 ;; make sure the history vars are defined
-(setopt eshell-history-size 1024)
+(customize-set-variable 'eshell-history-size 1024)
 (if (boundp 'eshell-save-history-on-exit)
-    (setopt eshell-save-history-on-exit t))
+    (customize-set-variable 'eshell-save-history-on-exit t))
 (if (boundp 'ehsell-ask-to-save-history)
-    (setopt eshell-ask-to-save-history 'always))
+    (customize-set-variable 'eshell-ask-to-save-history 'always))
 
 ;; Set the prompt function
-(setopt eshell-prompt-function 'my-prompt-function)
+(customize-set-variable 'eshell-prompt-function 'my-prompt-function)
 
 ;; Configure cua mode to allow selection of text only.
 ;; This allows the C-x,c,v keys to retain their original functionality
@@ -240,13 +240,13 @@ Use the following commands to add/remove the advice:
 (add-hook 'package-menu-mode-hook (lambda() (hl-line-mode 1)))
 
 ;; Initialize the package manager and installed packages.
-(when (< emacs-major-version 27)
+(when (< emacs-major-version 29)
   (package-initialize))
 
 ;; Bootstrap `use-package'
 
 ;; Install and configure the `use-package' package.
-(when (< emacs-major-version 28)
+(when (< emacs-major-version 29)
   (my-package-install 'use-package))
 
 (require 'use-package nil t)
@@ -279,7 +279,8 @@ Use the following commands to add/remove the advice:
 ;; (unless (member auto-install-directory load-path)
 ;;   (add-to-list 'load-path auto-install-directory))
 
-;;; AutoSave, Backup, Save
+;;; Backup and Saving
+
 ;; Remove trailing whitespace from lines when saving files
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
