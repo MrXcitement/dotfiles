@@ -1,7 +1,8 @@
 [hooks.edit-config-template.post]
     command = "chezmoi"
     args = ["init"]
-[status]
-    exclude = ["scripts"]
+[interpreters.ps1]
+    command = "powershell"
+    args = ["-NoLogo", "-noni"]
 [update]
     apply = false
