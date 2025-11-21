@@ -1,24 +1,29 @@
 # profile.ps1 --- Default power shell config
 #
 # Mike Barker <mike@thebarkers.com>
-# June 26th, 2015
+# Created: June 26th, 2015
+# Updated: November 20th, 2025
 
+# Warning!
+# You should only edit if this file is ~\.config\powershell\profile.ps1
+#
 # Notes:
-# There are many different profile files used by powershell at
-# startup. There are files for the system and for the user. The system
-# profiles are placed in C:\Programs Files\WindowsPowerShell and the
-# users profiles are located in the WindowsPowerShell folder under the
-# users Documents folder. The profile files that can exist in both of
-# these locations have a specific nameing convention.
-
-# Default profile, loaded by both cmd and ISE powershell
-# profile.ps1
-
-# Default cmd powershell profile.
-# Microsoft.PowerShell_profile.ps1
-
-# Default ISE powershell profile.
-# Microsoft.PowerShellISE_profile.ps1
+# This file is managed by chezmoi and will be copied to the default user
+# profile folders. Powershell uses 'Documents\Powershell\' and Windows
+# Powershell uses 'Documents\WindowsPowershell\' as the profile folders. If
+# OneDrive is set to Backup the Documents folder, it will be in the OneDrive
+# location, otherwise it will be in the users home directory.
+# Use $PROFILE | Select * to see the folders defined.
+#
+# Chezmoi is configured to run a script when the profile.ps1 file it is
+# managing is changed. The script will copy the profile file to the correct
+# profile folders.
+#
+# It is expected that configuration files for both powershell hosts will be
+# located in the .config\powershell\profile.d folder.  These files will be
+# loaded by both Powershell and Windows Powershell hosts.  If your
+# configuration should only run on a specific host, you will need to check the
+# current host and only run the configuration if on the correct host.
 
 function Assert-IsInteractiveShell {
 
