@@ -2,35 +2,56 @@
 
 # up - A script to manage and run other 'up-*' scripts.
 # Mike Barker <mike@thebarkers.com>
-# May 22nd, 2025
+# Created: May 22nd, 2025
+# Updated: November 17th, 2025
 
 # Error Handling
-# Exit immediately if a command exits with a non-zero status.
-# Treat unset variables as an error.
-# The exit status of a pipeline is the exit status of the last command
-# to exit with a non-zero status, or zero if all commands exit successfully.
 set -euo pipefail
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Display help message
 show_help() {
     echo "Usage: up [COMMAND] [-h|--help] [-V|--version]"
     echo ""
-    echo "Runs specific 'up-*' scripts or all of them."
+    echo "Runs specific 'up-*' scripts."
     echo ""
     echo "Commands:"
     echo "  <command>    Runs the 'up-<command>' script in the same directory."
-    echo "  all          Runs all 'up-*' scripts found in the same directory."
     echo ""
     echo "Options:"
-    echo "  -h, --help   Display this help message and exit."
-    echo "  -V, --version  Display version information and exit."
+    echo "  -h, --help    Display this help message and exit."
+    echo "  -l, --list    List the scripts that can be run."
+    echo "  -V, --version Display version information and exit."
     echo ""
     echo "Examples:"
     echo "  up brew      # Runs the 'up-brew' script"
-    echo "  up all       # Runs all 'up-*' scripts"
+}
+
+# List scripts
+list_scripts() {
+
+    # Find all executable files starting with 'up-'
+    if [[ $(uname -s) == "Darwin" ]]; then 
+        local perm_arg=+111
+    else
+        local perm_arg=/111
+    fi
+    local scripts=($(find "$SCRIPT_DIR" -type f -perm $perm_arg -name 'up-*' | sort))
+
+    # Check if the find returned any results
+    # if [ "${#scripts[@]}" -eq 1 ] && [ ! -e "${scripts[0]}" ]; then
+    #     echo "No 'up-' scripts found in $SCRIPT_DIR."
+    #     return 0
+    # fi
+
+    # List all executable up-* scripts
+    for script_path in "${scripts[@]}"; do
+        local script_base_name=$(basename "$script_path")
+        local command_name="${script_base_name#up-}"
+        echo "$command_name"
+    done
 }
 
 # Run a specific up script
@@ -47,30 +68,6 @@ run_script() {
     fi
 }
 
-# Run all up scripts
-run_all_scripts() {
-    # Find all executable files starting with 'up-'
-    if [[ $(uname -s) == "Darwin" ]]; then 
-        local perm_arg=+111
-    else
-        local perm_arg=/111
-    fi
-    local scripts=($(find "$SCRIPT_DIR" -type f -perm $perm_arg -iname 'up-*'))
-
-    # Check if the find returned any results
-    if [ "${#scripts[@]}" -eq 1 ] && [ ! -e "${scripts[0]}" ]; then
-        echo "No 'up-' scripts found in $SCRIPT_DIR."
-        return 0
-    fi
-
-    # Run all executable up-* scripts
-    for script_path in "${scripts[@]}"; do
-        local script_base_name=$(basename "$script_path")
-        local command_name="${script_base_name#up-}"
-        run_script "$command_name"
-    done
-}
-
 # Display help if no arguments given
 if [ "$#" -eq 0 ]; then
     show_help
@@ -83,12 +80,12 @@ case "$1" in
         show_help
         exit 0
         ;;
-    -V|--version)
-        echo "up version $VERSION"
+    -l|--list)
+        list_scripts
         exit 0
         ;;
-    all)
-        run_all_scripts
+    -V|--version)
+        echo "up version $VERSION"
         exit 0
         ;;
     *)

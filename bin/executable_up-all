@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# up-all - A script to run all other 'up-*' scripts.
+# Mike Barker <mike@thebarkers.com>
+# Created: November 17th, 2025
+# Updated: November 20th, 2025
+
+# Error Handling
+set -euo pipefail
+
+VERSION="1.0.1"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+
+# Find upgrade scripts
+if [[ $(uname -s) == "Darwin" ]]; then
+    perm_arg=+111
+else
+    perm_arg=/111
+fi
+scripts=($(find "$SCRIPT_DIR" -type f -perm $perm_arg -name 'up-*' ! -name 'up-all'))
+
+# Check if upgrade scripts where found
+if [ "${#scripts[@]}" -eq 1 ] && [ ! -e "${scripts[0]}" ]; then
+    echo "No 'up-' scripts found in $SCRIPT_DIR."
+    return 0
+fi
+
+# Run found upgrade scripts
+for script in "${scripts[@]}"; do
+    "$script"
+done
+
+exit 0
