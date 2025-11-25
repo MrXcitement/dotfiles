@@ -7,8 +7,11 @@
 ;; Nerd-icons.el is a library for easily using Nerd Font icons inside
 ;; Emacs, an alternative to all-the-icons.  It works on both GUI and
 ;; terminal! You only need a Nerd Font installed on your system.
+;; Install the "Symbols Nerd Font Mono" font for the icons to display.
 
 ;;; History:
+;; 2025.11.25
+;; - Updated commentary
 ;; 2025.11.23
 ;; - Created
 

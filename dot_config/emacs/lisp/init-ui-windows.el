@@ -22,8 +22,8 @@
     (when (display-graphic-p)
 
       ;; Font customization
-      (when (member "Lucida Console" (font-family-list))
-	(set-face-font 'default "Lucida Console 10"))))
+      (when (member "FiraCode Nerd Font" (font-family-list))
+	(set-face-font 'default "FiraCode Nerd Font 10"))))
 
   ;; Hook make frame to apply `windows' specific configuration
   (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)

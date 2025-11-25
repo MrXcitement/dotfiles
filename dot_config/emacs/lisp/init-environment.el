@@ -25,7 +25,9 @@
 (when (eq system-type 'linux))
 
 ;; Windows environment here...
-(when (eq system-type 'windows-nt))
+(when (eq system-type 'windows-nt)
+  ;; Force the current directory to be the users home dir
+  (setq default-directory "~/"))
 
 (provide 'init-environment)
 ;;; init-environment.el ends here.

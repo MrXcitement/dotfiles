@@ -1,10 +1,10 @@
-;;; packages-package.el --- Configure package
+;;; packages-template.el --- Configure template
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 24th, 2025
 
 ;;; Commentary:
-;; Configure the package
+;; Configure the template
 
 ;;; History:
 ;; 2025.11.24
@@ -12,5 +12,4 @@
 
 ;;; Code:
 
-(provide 'packages-package)
-;; packages-package.el
+(provide 'packages-template)
