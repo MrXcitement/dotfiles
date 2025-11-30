@@ -3,13 +3,13 @@
 # up - A script to manage and run other 'up-*' scripts.
 # Mike Barker <mike@thebarkers.com>
 # Created: May 22nd, 2025
-# Updated: November 17th, 2025
+# Updated: November 30th, 2025
 
 # Error Handling
 set -euo pipefail
 
-VERSION="1.1.0"
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+version="1.1.1"
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Display help message
 show_help() {
@@ -38,13 +38,7 @@ list_scripts() {
     else
         local perm_arg=/111
     fi
-    local scripts=($(find "$SCRIPT_DIR" -type f -perm $perm_arg -name 'up-*' | sort))
-
-    # Check if the find returned any results
-    # if [ "${#scripts[@]}" -eq 1 ] && [ ! -e "${scripts[0]}" ]; then
-    #     echo "No 'up-' scripts found in $SCRIPT_DIR."
-    #     return 0
-    # fi
+    local scripts=($(find "$script_dir" -type f -perm $perm_arg -name 'up-*' | sort))
 
     # List all executable up-* scripts
     for script_path in "${scripts[@]}"; do
@@ -57,13 +51,13 @@ list_scripts() {
 # Run a specific up script
 run_script() {
     local script_name="up-$1"
-    local script_path="$SCRIPT_DIR/$script_name"
+    local script_path="$script_dir/$script_name"
 
     if [ -x "$script_path" ]; then
         echo "--> Running $script_name..."
         "$script_path"
     else
-        echo "Error: Script '$script_name' not found or not executable in $SCRIPT_DIR"
+        echo "Error: Script '$script_name' not found or not executable in $script_dir"
         exit 1
     fi
 }
@@ -85,7 +79,7 @@ case "$1" in
         exit 0
         ;;
     -V|--version)
-        echo "up version $VERSION"
+        echo "up version $version"
         exit 0
         ;;
     *)
