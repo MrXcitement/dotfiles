@@ -8,44 +8,31 @@
 # Error Handling
 set -euo pipefail
 
-version="1.1.1"
+version="1.2.0"
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Display help message
 show_help() {
-    echo "Usage: up [COMMAND] [-h|--help] [-V|--version]"
-    echo ""
-    echo "Runs specific 'up-*' scripts."
-    echo ""
+    echo "Usage: up [COMMAND] [OPTIONS]"
+    echo
     echo "Commands:"
-    echo "  <command>    Runs the 'up-<command>' script in the same directory."
-    echo ""
+    echo "  up <script>        Run a specific up-* script"
+    echo
     echo "Options:"
-    echo "  -h, --help    Display this help message and exit."
-    echo "  -l, --list    List the scripts that can be run."
-    echo "  -V, --version Display version information and exit."
-    echo ""
-    echo "Examples:"
-    echo "  up brew      # Runs the 'up-brew' script"
+    echo "  -a, --all          Run all up-* scripts"
+    echo "  -l, --list         List available up-* scripts"
+    echo "  -h, --help         Show this help message"
+    echo "  -V, --version      Show script version"
 }
 
-# List scripts
+
+# List all up-* executable scripts
 list_scripts() {
 
     # Find all executable files starting with 'up-'
-    if [[ $(uname -s) == "Darwin" ]]; then 
-        local perm_arg=+111
-    else
-        local perm_arg=/111
-    fi
-    local scripts=($(find "$script_dir" -type f -perm $perm_arg -name 'up-*' | sort))
-
-    # List all executable up-* scripts
-    for script_path in "${scripts[@]}"; do
-        local script_base_name=$(basename "$script_path")
-        local command_name="${script_base_name#up-}"
-        echo "$command_name"
-    done
+    for f in "$script_dir"/up-*; do
+        [[ -f "$f" && -x "$f" && "$(basename "$f")" != "up" ]] && basename "$f"
+    done | sort
 }
 
 # Run a specific up script
@@ -62,6 +49,13 @@ run_script() {
     fi
 }
 
+# Run all up-* executable scripts
+run_all_scripts() {
+    while IFS= read -r script; do
+        "$script_dir/$script"
+    done < <(list_scripts)
+}
+
 # Display help if no arguments given
 if [ "$#" -eq 0 ]; then
     show_help
@@ -70,6 +64,9 @@ fi
 
 # Parse arguments
 case "$1" in
+    -a|--all)
+        run_all_scripts
+        ;;
     -h|--help)
         show_help
         exit 0
