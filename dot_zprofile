@@ -96,8 +96,10 @@ fi
 # Create an newpath array
 newpath=(
     # Prepend paths
-    ~/bin
-    ~/.local/bin
+    /Users/mike/bin
+    /Users/mike/.local/bin
+    # Added by Antigravity
+    /Users/mike/.antigravity/antigravity/bin
     # Add the existing paths to the newpath array
     $path
     # Append paths
