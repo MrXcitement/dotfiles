@@ -12,6 +12,17 @@
 
 ;;; Code:
 
+;; Customizable light and dark theme
+(defcustom my-theme-light 'tango
+  "The theme to used when the `appearance' is 'light."
+  :type 'symbol
+  :group 'my-ui)
+
+(defcustom my-theme-dark 'tango-dark
+  "The theme to used when the `appearance' is 'dark."
+  :type 'symbol
+  :group 'my-ui)
+
 ;; Any ui settings
 (blink-cursor-mode -1)
 (column-number-mode t)
@@ -27,8 +38,8 @@
   (interactive)
   (mapc #'disable-theme custom-enabled-themes)
   (pcase appearance
-    ('light (load-theme 'vs-light t))
-    ('dark (load-theme 'vs-dark t))))
+    ('light (load-theme my-theme-light t))
+    ('dark (load-theme my-theme-dark t))))
 
 ;; Apply light theme
 (defun my-apply-theme-light ()
@@ -56,6 +67,7 @@
 ;; Emacs was started normally
 (unless (daemonp)
   (my-after-make-frame))
+
 
 ;;; System specific UI customization
 

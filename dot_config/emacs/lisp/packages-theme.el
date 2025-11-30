@@ -12,6 +12,10 @@
 ;; * First release.
 
 ;;; Code:
+(use-package leuven-theme
+  :if window-system
+  :ensure t)
+
 (use-package vs-dark-theme
   :if window-system
   :ensure t)
