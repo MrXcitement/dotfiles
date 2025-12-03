@@ -92,7 +92,7 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 fi
 
-## 
+##
 # Configure the prompt
 # Use starship if installed and not running in xterm
 if (( $+commands[starship] )) && [[ $TERM != xterm ]]; then
@@ -167,6 +167,8 @@ export EDITOR='vim'
 # to define aliases within the ZSH_CUSTOM folder.  For a full list of active
 # aliases, run `alias`.
 (( $+commands[chezmoi] )) && alias cm=chezmoi
+(( $+commands[emacs] )) && alias em=emacs
+(( $+commands[emacsclient] )) && alias emc="emacsclient -a=''"
 
 ##
 # Configure 1Password cli op command completion
@@ -219,7 +221,7 @@ if (( $+commands[fzf])) && (( $+commands[fd])); then
 fi
 
 ##
-# Configure `mise` 
+# Configure `mise`
 if (( $+commands[mise] )); then
     # mise setup
     eval "$(mise activate zsh)"
