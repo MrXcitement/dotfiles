@@ -8,7 +8,7 @@
 # Error Handling
 set -euo pipefail
 
-version="1.2.0"
+version="1.2.1"
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Display help message
@@ -31,7 +31,9 @@ list_scripts() {
 
     # Find all executable files starting with 'up-'
     for f in "$script_dir"/up-*; do
-        [[ -f "$f" && -x "$f" && "$(basename "$f")" != "up" ]] && basename "$f"
+        [[ -f "$f" && -x "$f" && "$(basename "$f")" != "up" ]] || continue
+        local name="$(basename "$f")"
+        echo "${name#up-}"
     done | sort
 }
 
@@ -41,7 +43,6 @@ run_script() {
     local script_path="$script_dir/$script_name"
 
     if [ -x "$script_path" ]; then
-        echo "--> Running $script_name..."
         "$script_path"
     else
         echo "Error: Script '$script_name' not found or not executable in $script_dir"
@@ -52,7 +53,8 @@ run_script() {
 # Run all up-* executable scripts
 run_all_scripts() {
     while IFS= read -r script; do
-        "$script_dir/$script"
+        "$script_dir/up-$script"
+	echo
     done < <(list_scripts)
 }
 
