@@ -1,13 +1,11 @@
 ;;; init-ui-darwin.el --- initialze the user interface on Darwin (macOS) systems
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 24th, 2025
+;; Created: November 24th, 2025
+;; Updated: December 3rd, 2025
 
 ;;; Commentary:
 ;; Initialize the user interface on Darwin systems
-
-;;; History:
-;; - Created.
 
 ;;; Code:
 
@@ -28,14 +26,12 @@
     ;; raise Emacs using AppleScript."
     (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-;; Hook make frame to apply `darwin' specific configuration
-(add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
-
-;; Hook to change theme based on system appearence
+;; Change theme based on system appearence
 (add-hook 'ns-system-appearance-change-functions #'my-apply-theme)
 
-;; Emacs not started in `daemon' mode.
-(unless (daemonp)
+;; Emacs started in `daemon' mode.
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
   (my-after-make-frame-darwin))
 
 (provide 'init-ui-darwin)
