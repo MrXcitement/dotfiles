@@ -23,15 +23,6 @@
   :type 'symbol
   :group 'my-ui)
 
-;; Any ui settings
-(blink-cursor-mode -1)
-(column-number-mode t)
-(show-paren-mode t)
-
-;; Whitespace display configuration
-(setq whitespace-line-column 80 whitespace-style
-      '(face newline space-mark tab-mark newline-mark trailing lines-tail))
-
 ;; Apply theme based on system appearance
 (defun my-apply-theme (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
@@ -60,6 +51,20 @@
   ;; Display the menubar in GUI and hide in TUI frames
   (let ((lines (if (display-graphic-p frame) 1 0)))
     (set-frame-parameter frame 'menu-bar-lines lines)))
+
+;; Any ui settings
+(blink-cursor-mode -1)
+(column-number-mode t)
+(show-paren-mode t)
+
+;; Line number type to relative, and display in text and program derived modes
+(setopt display-line-numbers-type 'relative)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; Whitespace display configuration
+(setq whitespace-line-column 80 whitespace-style
+      '(face newline space-mark tab-mark newline-mark trailing lines-tail))
 
 ;; Add hook to configure new frames either GUI or TUI
 (add-hook 'after-make-frame-functions 'my-after-make-frame)
