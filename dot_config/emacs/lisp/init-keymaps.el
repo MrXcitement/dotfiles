@@ -57,6 +57,11 @@ The DWIM behaviour of this command is as follows:
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
+;; Configure mouse-3 ffap bindings as documented here:
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/FFAP.html
+(global-set-key (kbd "S-<mouse-3>") 'ffap-at-mouse)
+(global-set-key (kbd "C-S-<mouse-3>") 'ffap-menu)
+
 ;; Darwin (Mac OS X) key mappings
 (when (eq system-type 'darwin)
   (global-set-key [kp-delete] 'delete-char)       ; Make fn-del delete forward
