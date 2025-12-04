@@ -59,7 +59,6 @@ The DWIM behaviour of this command is as follows:
 
 ;; Darwin (Mac OS X) key mappings
 (when (eq system-type 'darwin)
-  (global-set-key (kbd "s-<mouse-1>") 'browse-url-at-mouse)
   (global-set-key [kp-delete] 'delete-char)       ; Make fn-del delete forward
   (global-set-key (kbd "s-=") 'text-scale-increase)
   (global-set-key (kbd "s--") 'text-scale-decrease)
@@ -69,8 +68,7 @@ The DWIM behaviour of this command is as follows:
 (when (eq system-type 'linux))
 
 ;; Windows key mappings
-(when (eq system-type 'windows-nt)
-  (global-set-key (kbd "C-<mouse-1>") 'browse-url-at-mouse))
+(when (eq system-type 'windows-nt))
 
 (provide 'init-keymaps)
 ;;; init-keymaps.el ends here.
