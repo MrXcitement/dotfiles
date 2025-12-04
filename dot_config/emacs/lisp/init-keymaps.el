@@ -1,3 +1,4 @@
+
 ;;; init-keymaps.el --- Initialize global and system specific key maps
 
 ;; Mike Barker <mike@thebarkers.com>
@@ -58,6 +59,7 @@ The DWIM behaviour of this command is as follows:
 
 ;; Darwin (Mac OS X) key mappings
 (when (eq system-type 'darwin)
+  (global-set-key (kbd "s-<mouse-1>") 'browse-url-at-mouse)
   (global-set-key [kp-delete] 'delete-char)       ; Make fn-del delete forward
   (global-set-key (kbd "s-=") 'text-scale-increase)
   (global-set-key (kbd "s--") 'text-scale-decrease)
