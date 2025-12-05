@@ -22,6 +22,7 @@
   (when (eq system-type 'gnu/linux))
 
   (when (eq system-type 'windows-nt)
+    (setenv "LANG" "en_US")
     (setopt ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff")))))
 
 (provide 'init-spelling)
