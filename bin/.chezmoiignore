@@ -1,8 +1,14 @@
-{{ if eq .chezmoi.os "windows" -}}
+{{ if eq .chezmoi.os "windows" }}
+# Darwin and Linux files to be ignored on Windows systems
 up
 up-brew
 up-uv-tool
-{{ end -}}
-{{ if ne .chezmoi.os "windows" -}}
+{{ end }}
+{{ if ne .chezmoi.os "darwin" }}
+# Darwin files to be ignored on other systems
+up-mas
+{{ end }}
+{{ if ne .chezmoi.os "windows" }}
+# Windows files to be ignored on other systems
 *.ps1
-{{ end -}}
+{{ end }}
