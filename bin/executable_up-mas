@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# upgrade-mas -- upgrade apple store applications
+# Mike Barker <mike@thebarkers.com>
+# April 25th, 2025
+
+## Description
+# Use the 'mas' command line tool to upgrade Apple Store Apps.
+# This script will make sure 'mas' is installed and available
+# If any Apple Store Apps that are outdated, use 'mas' to upgrade
+# them.
+
+## History
+# 2025.11.24
+# As of mas v4, the upgrade issue has been mitigated.
+# https://github.com/mas-cli/mas/issues/1029#issuecomment-3568152481
+# 2025.11.4?
+# The mas program has been borked as of 11/2025 with the release of 26.1
+# this script will just show any outdated apps instead of updating
+# https://github.com/mas-cli/mas/issues/1029#issuecomment-3484011882
+
+if [[ $(command -v mas) ]]; then
+    # Upgrade apps
+    echo "Upgrade 'apple store' applications..."
+    echo "-------------------------------------"
+    # Are there apps to upgrade?
+    if [[ $(mas outdated) != "" ]]; then
+        mas upgrade
+    else
+	echo "Nothing to upgrade"
+    fi
+fi
