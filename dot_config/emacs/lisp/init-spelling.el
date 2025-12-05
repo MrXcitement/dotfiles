@@ -15,14 +15,14 @@
 
 (when (executable-find "hunspell")
   (setq ispell-program-name "hunspell")
+  (setq ispell-local-dictionary "en_US")
 
-  (when (eq system-type 'darwin)
-    (setenv "DICTIONARY" "en_US"))
+  (when (eq system-type 'darwin))
+
+  (when (eq system-type 'gnu/linux))
 
   (when (eq system-type 'windows-nt)
-    (setq ispell-local-dictionary "en_US")
-    (setopt ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff"))))
-)
+    (setopt ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff")))))
 
 (provide 'init-spelling)
 ;; init-spelling.el ends here.
