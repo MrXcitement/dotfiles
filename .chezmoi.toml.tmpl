@@ -1,3 +1,7 @@
+{{ if eq .chezmoi.os "windows" -}}
+[cd]
+    command = "powershell.exe"
+{{ end -}}
 [hooks.edit-config-template.post]
     command = "chezmoi"
     args = ["init"]
