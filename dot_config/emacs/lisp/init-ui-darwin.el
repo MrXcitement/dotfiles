@@ -2,10 +2,14 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: December 3rd, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Initialize the user interface on Darwin systems
+
+;;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 
@@ -26,13 +30,18 @@
     ;; raise Emacs using AppleScript."
     (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-;; Change theme based on system appearence
-(add-hook 'ns-system-appearance-change-functions #'my-apply-theme)
 
-;; Emacs started in `daemon' mode.
-(if (daemonp)
-    (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
-  (my-after-make-frame-darwin))
+;; Only customize when on Darwin (macOS)
+(when (eq system-type 'darwin)
+
+  ;; Change theme based on system appearence
+  (add-hook 'ns-system-appearance-change-functions #'my-apply-theme)
+
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
+  ;; just call my frame configuration function
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
+    (my-after-make-frame-darwin)))
 
 (provide 'init-ui-darwin)
 ;;; End of init-ui-darwin.el

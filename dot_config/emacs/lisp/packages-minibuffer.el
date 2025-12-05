@@ -1,14 +1,15 @@
 ;;; packages-minibuffer.el --- Configure minibuffer
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 24th, 2025
+;; Created: November 24th, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Configure the minibuffer
 
 ;;; History:
-;; 2025.11.24
-;; - Created.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

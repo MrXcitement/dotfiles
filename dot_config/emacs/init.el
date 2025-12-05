@@ -1,14 +1,21 @@
 ;;; init.el --- My Emacs initialization file
 
 ;; Mike Barker <mike@thebarkers.com>
-;; October 10, 2007
+;; Created: November 23rd, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
+;; The primary `init' file for emacs. This file specifies how to
+;; initialize Emacs for you and how to customize its various optional
+;; features.
 
 ;;; History
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 
+;;; Check for valid emacs version
 ;; Emacs < 26 are too old, just error and exit.
 (when (< emacs-major-version 26)
   (error "Your Emacs v%s is too old -- this config requires v26 or higher"
@@ -23,18 +30,20 @@
 ;; Add the `lisp' dir in emacs init dir, to load path
 (add-to-list 'load-path (concat user-emacs-directory "lisp/" ))
 
-;;; Initialize emacs, no packages, yet!
+;;; Initialize emacs, before packages loaded.
+(require 'init-backup-save)
 (require 'init-customize)
 (require 'init-dired)
 (require 'init-environment)
 (require 'init-eshell)
-(require 'init-keymaps)
 (require 'init-lock-buffers)
 (require 'init-package)
-(require 'init-backup-save)
 (require 'init-server)
 (require 'init-spelling)
 (require 'init-ui)
+(require 'init-ui-darwin)
+(require 'init-ui-linux)
+(require 'init-ui-windows)
 
 ;;; Initialize packages
 (require 'packages-dashboard)
@@ -42,6 +51,9 @@
 (require 'packages-corfu)
 (require 'packages-nerd-icons)
 (require 'packages-minibuffer)
+
+;;; Intialize emacs, after packages loaded.
+(require 'init-keymaps)
 
 (provide 'init)
 ;;; end of init.el

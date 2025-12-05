@@ -1,8 +1,20 @@
-;;; corfu
+;;; packages-corfu.el --- Initialize the corfu package and configure emacs to work with it
+
+;; Mike Barker <mike@thebarkers.com>
+;; Created: November 24th, 2025
+;; Updated: December 4th, 2025
+
+;;; Commentary:
 ;; Corfu enhances in-buffer completion with a small completion
 ;; popup. The current candidates are shown in a popup below or above
 ;; the point, and can be selected by moving up and down.
 ;; https://github.com/minad/corfu
+
+;;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
+
+;;; Code:
 
 (use-package corfu
   ;; Optional customizations

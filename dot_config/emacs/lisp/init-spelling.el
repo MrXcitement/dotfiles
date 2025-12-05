@@ -1,13 +1,15 @@
 ;; init-spelling.el -- initialize the spelling sub system.
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 24th, 2025
+;; Created: November 24th, 2025
+;; Updated: Decmeber 4th, 2025
 
 ;;; Commentary:
 ;; When the spelling program exists, initialize the spelling system.
 
 ;;; History:
-;; - Created.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 
@@ -18,8 +20,9 @@
     (setenv "DICTIONARY" "en_US"))
 
   (when (eq system-type 'windows-nt)
-    (setq ispell-local-dictionary-alist
-	  '((nil "[[:alpha:]]" "[^[:alpha:]]" "[']" t ("-d" "en_US") nil utf-8)))))
+    (setq ispell-local-dictionary "en_US")
+    (setopt ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff"))))
+)
 
 (provide 'init-spelling)
 ;; init-spelling.el ends here.

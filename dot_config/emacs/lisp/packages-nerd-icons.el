@@ -1,7 +1,8 @@
 ;;; packages-nerd-icons.el --- Initialize nerd-icons packages
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 23rd, 2025
+;; Created: November 23rd, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Nerd-icons.el is a library for easily using Nerd Font icons inside
@@ -10,10 +11,8 @@
 ;; Install the "Symbols Nerd Font Mono" font for the icons to display.
 
 ;;; History:
-;; 2025.11.25
-;; - Updated commentary
-;; 2025.11.23
-;; - Created
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

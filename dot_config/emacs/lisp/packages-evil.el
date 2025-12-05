@@ -1,35 +1,29 @@
-;;; packages-evil --- Install and configure the `evil' package.
+;;; packages-evil.el --- Install and configure the `evil' and associated packages.
 
 ;; Mike Barker <mike@thebarkers.com>
-;; June 27th, 2015
+;; Created: November 24th, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Install and configure evil and associated packages.
 
 ;;; History:
-;; 2023.03.17
-;; * rename and refactor this file into a valid package.
-;; 2021-03-15 MRB
-;; Copied evil setup from here:
-;; - https://ryan.himmelwright.net/post/emacs-update-evil-usepackage/
-;; 2016-01-28 MRB
-;; * Added evil leader
-;; * Added powerline-evil
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
   :config
-  (evil-mode 1)
+  (evil-mode 1))
 
-  (use-package evil-collection
-    :after evil
-    :ensure t
-    :config
-    (evil-collection-init))
+(use-package evil-collection
+   :after evil
+   :ensure t
+   :config
+   (evil-collection-init))
 
   ;; (use-package evil-leader
   ;;   :ensure t
@@ -43,20 +37,20 @@
   ;;     "b" 'switch-to-buffer
   ;;     "k" 'kill-buffer))
 
-  (use-package evil-surround
-    :after evil
-    :ensure t
-    :config (global-evil-surround-mode))
+  ;; (use-package evil-surround
+  ;;   :after evil
+  ;;   :ensure t
+  ;;   :config (global-evil-surround-mode))
 
-  (use-package evil-indent-textobject
-    :after evil
-    :ensure t)
+  ;; (use-package evil-indent-textobject
+  ;;   :after evil
+  ;;   :ensure t)
 
-  (use-package powerline-evil
-    :after evil
-    :ensure t
-    :config
-    (powerline-evil-vim-color-theme)))
+  ;; (use-package powerline-evil
+  ;;   :after evil
+  ;;   :ensure t
+  ;;   :config
+  ;;   (powerline-evil-vim-color-theme)))
 
 (provide 'packages-evil)
 ;; end of packages-evil-mode.el

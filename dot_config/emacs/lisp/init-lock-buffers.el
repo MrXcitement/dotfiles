@@ -1,14 +1,15 @@
 ;;; init-lock-buffers.el --- Protect system buffers
 
 ;; Mike Barker <mike@thebarkers.com>
-;; Nuvember 24th, 2025
+;; Created: November 24th, 2025
+;; Updated: Decmeber 4th, 2025
 
 ;;; Commentary:
 ;; Lock the `*scratch*' and `*Messages*' buffers so they can not be killed.
 
 ;;; History:
-;; 2025.11.24
-;; - Created.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

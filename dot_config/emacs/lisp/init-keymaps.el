@@ -3,12 +3,16 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 24th, 2025
-;; December 3rd, 2025
+;; December 4th, 2025
 
 ;;; Commentary:
 ;; Put keymaps that should be available in any emacs session regardless
 ;; of the system in the `Global' section. Any system specific ones go into
 ;; `darwin', `linux' or `windows-nt' sections.
+
+;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

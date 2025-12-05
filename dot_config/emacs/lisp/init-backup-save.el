@@ -1,14 +1,15 @@
 ;;; init-backup-save.el --- Initialize save, autosave and backup settings
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 23rd, 2025
+;; Created: November 23rd, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Initialize the save, autosave and backup of files
 
 ;;; History:
-;; 2025.11.23
-;; - Created
+;; See my dotfiles and emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

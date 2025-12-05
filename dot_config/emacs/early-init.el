@@ -1,7 +1,9 @@
 ;;; early-init.el --- Early initialization
 
 ;; Mike Barker <mike@thebarkers.com>
-;; March 24th, 2023
+;; Created: November 23rd, 2025
+;; Updated: December 4th, 2025
+
 
 ;;; Commentary:
 ;; I have added this file in an attempt to speed up Emacs' startup time.
@@ -10,8 +12,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html
 
 ;;; History:
-;; 2023-03-25
-;; * Created
+;; See my dotfiles and emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 

@@ -1,14 +1,15 @@
 ;;; init-customize.el --- Configure the customize file
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 23rd, 2025
+;; Created: November 23rd, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Store the customize settings in a 'custom.el' file in the users emacs directory
 
 ;;; History:
-;; 2025.11.23
-;; - Created
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 (setq custom-file (locate-user-emacs-file "custom.el"))

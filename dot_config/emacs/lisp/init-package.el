@@ -1,14 +1,16 @@
-;;; init-package.el --- Initialize the package manager and the installed packages
+;;; init-package.el --- Initialize the package manager and the use-package macro
 
 ;; Mike Barker <mike@thebarkers.com>
-;; November 24th, 2025
+;; Created: November 24th, 2025
+;; Updated: December 4th, 2025
 
 ;;; Commentary:
 ;; Initialize and configure `package.el' package.
 ;; Initialize and configure the `use-package' package.
 
 ;;; History:
-;; - Created.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 
