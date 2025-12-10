@@ -10,7 +10,7 @@ up-mas
 {{ end }}
 {{ if ne .chezmoi.os "gnu/linux" }}
 # GNU/Linux files to be ignored on other systems
-bin/install-nedfont.sh
+install-nedfont.sh
 {{ end }}
 {{ if ne .chezmoi.os "windows" }}
 # Windows files to be ignored on other systems
