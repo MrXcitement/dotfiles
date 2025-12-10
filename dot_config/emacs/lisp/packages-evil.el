@@ -25,32 +25,32 @@
    :config
    (evil-collection-init))
 
-  ;; (use-package evil-leader
-  ;;   :ensure t
-  ;;   :config
-  ;;   (global-evil-leader-mode t)
-  ;;   (evil-leader/set-leader "<SPC>")
-  ;;   (evil-leader/set-key
-  ;;     "s s" 'swiper
-  ;;     "d x w" 'delete-trailing-whitespace
-  ;;     "e" 'counsel-find-file
-  ;;     "b" 'switch-to-buffer
-  ;;     "k" 'kill-buffer))
+;; (use-package evil-indent-textobject
+;;   :after evil
+;;   :ensure t)
 
-  ;; (use-package evil-surround
-  ;;   :after evil
-  ;;   :ensure t
-  ;;   :config (global-evil-surround-mode))
+;; (use-package evil-leader
+;;   :ensure t
+;;   :config
+;;   (global-evil-leader-mode t)
+;;   (evil-leader/set-leader "<SPC>")
+;;   (evil-leader/set-key
+;;     "s s" 'swiper
+;;     "d x w" 'delete-trailing-whitespace
+;;     "e" 'counsel-find-file
+;;     "b" 'switch-to-buffer
+;;     "k" 'kill-buffer))
 
-  ;; (use-package evil-indent-textobject
-  ;;   :after evil
-  ;;   :ensure t)
+(use-package evil-surround
+  :after evil
+  :ensure t
+  :config (global-evil-surround-mode))
 
-  ;; (use-package powerline-evil
-  ;;   :after evil
-  ;;   :ensure t
-  ;;   :config
-  ;;   (powerline-evil-vim-color-theme)))
+(use-package powerline-evil
+  :after evil
+  :ensure t
+  :config
+  (powerline-evil-vim-color-theme)))
 
 (provide 'packages-evil)
 ;; end of packages-evil-mode.el

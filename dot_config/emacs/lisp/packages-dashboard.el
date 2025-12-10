@@ -18,6 +18,7 @@
  (setq dashboard-items '((bookmarks . 5)
                          (recents   . 5)
 			 (projects  . 5)))
+ (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
  (dashboard-setup-startup-hook))
 
 (provide 'packages-dashboard)
