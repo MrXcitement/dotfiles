@@ -1,18 +1,21 @@
-{{ if eq .chezmoi.os "windows" }}
 # Darwin and Linux files to be ignored on Windows systems
+{{- if eq .chezmoi.os "windows" }}
 up
 up-brew
 up-uv-tool
-{{ end }}
-{{ if ne .chezmoi.os "darwin" }}
+{{- end }}
+
 # Darwin files to be ignored on other systems
+{{- if ne .chezmoi.os "darwin" }}
 up-mas
-{{ end }}
-{{ if ne .chezmoi.os "gnu/linux" }}
+{{- end }}
+
 # GNU/Linux files to be ignored on other systems
-install-nedfont.sh
-{{ end }}
-{{ if ne .chezmoi.os "windows" }}
+{{- if ne .chezmoi.os "gnu/linux" }}
+install-nerdfont.sh
+{{- end }}
+
 # Windows files to be ignored on other systems
+{{- if ne .chezmoi.os "windows" }}
 *.ps1
-{{ end }}
+{{- end }}
