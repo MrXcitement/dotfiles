@@ -29,10 +29,12 @@ show_help() {
 # List all up-* executable scripts
 list_scripts() {
 
+    local name
+
     # Find all executable files starting with 'up-'
     for f in "$script_dir"/up-*; do
         [[ -f "$f" && -x "$f" && "$(basename "$f")" != "up" ]] || continue
-        local name="$(basename "$f")"
+        name="$(basename "$f")"
         echo "${name#up-}"
     done | sort
 }
@@ -51,9 +53,15 @@ run_script() {
 }
 
 # Run all up-* executable scripts
+# Runs the script in a subshell, so that any side effect does not cause this script to fail.
 run_all_scripts() {
     while IFS= read -r script; do
-        "$script_dir/up-$script"
+	(
+	    set +e
+	    if ! "$script_dir/up-$script"; then
+		echo "Warning: up-$script failed."
+	    fi
+	)
 	echo
     done < <(list_scripts)
 }
