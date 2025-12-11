@@ -1,6 +1,7 @@
 LICENSE
 README.md
 .vscode/
+.DS_Store
 
 {{ if not (lookPath "atuin") }}
 .config/atuin
@@ -50,4 +51,3 @@ README.md
 {{ if ne .chezmoi.os "darwin" }}
 .config/1Password
 {{ end }}
-
