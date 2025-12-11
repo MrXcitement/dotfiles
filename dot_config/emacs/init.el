@@ -51,6 +51,7 @@
 (require 'packages-corfu)
 (require 'packages-nerd-icons)
 (require 'packages-minibuffer)
+(require 'packages-yasnippet)
 
 ;;; Intialize emacs, after packages loaded.
 (require 'init-keymaps)

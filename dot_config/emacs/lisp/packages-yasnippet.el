@@ -6,9 +6,21 @@
 ;; Provide a snippet/template engine
 
 ;;; History:
+;; See my github dotfiles repository
+;; https://github.com/mrxcitement/dotfiles
 
 ;;; Code:
 (use-package yasnippet
-  :ensure)
+  :ensure t
+  :hook ((text-mode
+	  prog-mode
+	  conf-mode
+	  snippet-mode) . yas-minor-mode-on)
+  :init
+  (setq yas-snippet-dir (expand-file-name "snippets" user-emacs-directory)))
+
+
+(use-package yasnippet-snippets
+  :ensure t)
 
 (provide 'packages-yasnippet)

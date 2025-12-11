@@ -17,6 +17,7 @@
 ;;; Code:
 
 (use-package corfu
+  :ensure
   ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -27,9 +28,9 @@
   ;; (corfu-on-exact-match 'insert) ;; Configure handling of exact matches
 
   ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
+  :hook ((prog-mode . corfu-mode)
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
 
   :init
 
@@ -47,7 +48,7 @@
 (use-package emacs
   :custom
   ;; TAB cycle if there are only few candidates
-  ;; (completion-cycle-threshold 3)
+  (completion-cycle-threshold 3)
 
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.

@@ -50,7 +50,7 @@
   :after evil
   :ensure t
   :config
-  (powerline-evil-vim-color-theme)))
+  (powerline-evil-vim-color-theme))
 
 (provide 'packages-evil)
 ;; end of packages-evil-mode.el
