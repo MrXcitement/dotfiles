@@ -18,7 +18,6 @@
 
 (use-package corfu
   :ensure
-  ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
@@ -33,16 +32,10 @@
          (eshell-mode . corfu-mode))
 
   :init
-
   ;; Recommended: Enable Corfu globally.  Recommended since many modes provide
   ;; Capfs and Dabbrev can be used globally (M-/).  See also the customization
   ;; variable `global-corfu-modes' to exclude certain modes.
-  (global-corfu-mode)
-
-  ;; Enable optional extension modes:
-  ;; (corfu-history-mode)
-  ;; (corfu-popupinfo-mode)
-  )
+  (global-corfu-mode))
 
 ;; A few more useful configurations...
 (use-package emacs
