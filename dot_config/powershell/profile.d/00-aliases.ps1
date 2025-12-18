@@ -5,3 +5,8 @@
 if (Get-Command "chezmoi" -ErrorAction SilentlyContinue) {
     Set-Alias -Name cm -Value chezmoi
 }
+
+# emacs aliases
+if (Get-Command "emacs" -ErrorAction SilentlyContinue) {
+   Set-ALias -Name e -Value emacs
+}

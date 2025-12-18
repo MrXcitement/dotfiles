@@ -70,3 +70,10 @@ function Set-PSReadLineColors {
         }
     }
 }
+
+# Emacs helper functions
+if (Get-Command "emacsclient" -ErrorAction SilentlyContinue) {
+   function ec() {
+      emacsclient -a "" @args
+   }
+}
