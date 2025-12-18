@@ -167,8 +167,8 @@ export EDITOR='vim'
 # to define aliases within the ZSH_CUSTOM folder.  For a full list of active
 # aliases, run `alias`.
 (( $+commands[chezmoi] )) && alias cm=chezmoi
-(( $+commands[emacs] )) && alias em=emacs
-(( $+commands[emacsclient] )) && alias emc="emacsclient -a=''"
+(( $+commands[emacs] )) && alias e=emacs
+(( $+commands[emacsclient] )) && alias ec="emacsclient -a=''"
 
 ##
 # Configure 1Password cli op command completion
