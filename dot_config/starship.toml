@@ -1,6 +1,6 @@
+scan_timeout = 60
 [aws]
 disabled = true
 [shell]
 disabled = false
 style = 'cyan'
-
