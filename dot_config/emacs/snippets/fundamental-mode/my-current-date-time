@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: my-current-date-time
+# key: mydt
+# contributor: Mike Barker <mike@thabrkers.com>
+# --
+`(format-time-string "%Y.%m.%d %H:%M:%S" (current-time))`

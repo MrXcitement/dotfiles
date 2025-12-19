@@ -52,9 +52,9 @@
 (require 'packages-nerd-icons)
 (require 'packages-minibuffer)
 (require 'packages-yasnippet)
+;; (require 'packages-tree-sitter)
 
 ;;; Intialize emacs, after packages loaded.
 (require 'init-keymaps)
 
-(provide 'init)
 ;;; end of init.el

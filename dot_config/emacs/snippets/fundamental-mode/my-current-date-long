@@ -1,10 +1,8 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: current date long
-# key: yycdl
-# binding: direct-keybinding
+W# -*- mode: snippet; require-final-newline: nil -*-
+# name: my-current-date-long
+# key: mydl
 # type: command
 # --
-
 (let* ((oi '(("1" . "st")("2" . "nd")("3" . "rd")("21" . "st")("22" . "nd")("23" . "rd")("31" . "st")))
        (day (format-time-string "%d"))
        (day-oi (assoc-default day oi)))
