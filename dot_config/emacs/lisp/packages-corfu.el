@@ -17,7 +17,7 @@
 ;;; Code:
 
 (use-package corfu
-  :ensure
+  :ensure t
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
@@ -27,14 +27,11 @@
   ;; (corfu-on-exact-match 'insert) ;; Configure handling of exact matches
 
   ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
 
   :init
-  ;; Recommended: Enable Corfu globally.  Recommended since many modes provide
-  ;; Capfs and Dabbrev can be used globally (M-/).  See also the customization
-  ;; variable `global-corfu-modes' to exclude certain modes.
   (global-corfu-mode))
 
 ;; A few more useful configurations...
