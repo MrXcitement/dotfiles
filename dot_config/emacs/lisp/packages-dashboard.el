@@ -12,7 +12,6 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-(message command-line-args-left)
 (use-package dashboard
  :ensure t
  :config

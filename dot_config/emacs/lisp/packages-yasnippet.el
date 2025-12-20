@@ -17,10 +17,8 @@
   ;; 	  prog-mode
   ;; 	  conf-mode
   ;; 	  snippet-mode) . yas-minor-mode-on)
-  :init
-  (setq yas-snippet-dir (expand-file-name "snippets" user-emacs-directory))
-  :config
-  (yas-global-mode-1))
+  :custom (setq yas-snippet-dir (expand-file-name "snippets" user-emacs-directory))
+  :hook (after-init . yas-global-mode))
 
 
 (use-package yasnippet-snippets
