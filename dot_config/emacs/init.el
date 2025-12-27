@@ -46,11 +46,13 @@
 (require 'init-ui-windows)
 
 ;;; Initialize packages
+(require 'packages-corfu)
 (require 'packages-dashboard)
 (require 'packages-evil)
-(require 'packages-corfu)
-(require 'packages-nerd-icons)
+(require 'packages-magit)
+(require 'packages-markdown)
 (require 'packages-minibuffer)
+(require 'packages-nerd-icons)
 (require 'packages-yasnippet)
 ;; (require 'packages-tree-sitter)
 
