@@ -54,7 +54,6 @@
 (require 'packages-minibuffer)
 (require 'packages-nerd-icons)
 (require 'packages-yasnippet)
-;; (require 'packages-tree-sitter)
 
 ;;; Intialize emacs, after packages loaded.
 (require 'init-keymaps)
