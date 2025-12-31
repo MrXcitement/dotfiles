@@ -38,6 +38,7 @@
 (require 'init-eshell)
 (require 'init-lock-buffers)
 (require 'init-package)
+(require 'init-recentf)
 (require 'init-server)
 (require 'init-spelling)
 (require 'init-ui)

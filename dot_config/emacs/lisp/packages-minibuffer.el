@@ -38,5 +38,12 @@
   :ensure nil ; it is built-in
   :hook (after-init . savehist-mode))
 
+;; Which-key: Discover keybindings
+(use-package which-key
+  :ensure t
+  :init (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3))
+
 (provide 'packages-minibuffer)
-;; packages-minibuffer.el
+;;; packages-minibuffer.el ends here
