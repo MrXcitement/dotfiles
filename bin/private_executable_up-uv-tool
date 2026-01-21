@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+
 # up-uv-tool -- upgrade 'uv' installed tools
+# Mike Barker <mike@thebarkers.com>
+# Created: April 25th, 2025
+# Updated: January 21st, 2026
 
 if [[ $(command -v uv) ]]; then
     echo "Upgrade 'uv' installed tools..."
     echo "-------------------------------"
     uv tool upgrade --all
 fi
-
