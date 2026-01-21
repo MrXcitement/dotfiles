@@ -2,14 +2,11 @@
 
 # up-brew --- update and upgrade brew managed software
 # Mike Barker <mike@thebarkers.com>
-# January 10th 2019
+# Created: January 10th, 2019
+# Updated: January 21st, 2026
 
 if [[ $(command -v brew) ]]; then
     echo "Upgrade 'brew' installed software..."
     echo "------------------------------------"
-    brew update
-    brew upgrade
-    brew autoremove
-    brew cleanup
+    HOMEBREW_NO_ENV_HINTS=1 brew upgrade
 fi
-
