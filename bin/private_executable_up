@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# up - A script to manage and run other 'up-*' scripts.
+# up - A script to manage and run other 'update' scripts.
 # Mike Barker <mike@thebarkers.com>
 # Created: May 22nd, 2025
-# Updated: November 30th, 2025
+# Updated: January 21st, 2026
 
 # Error Handling
 set -euo pipefail
 
-version="1.2.1"
+version="1.3.0"
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Display help message
@@ -16,17 +16,17 @@ show_help() {
     echo "Usage: up [COMMAND] [OPTIONS]"
     echo
     echo "Commands:"
-    echo "  up <script>        Run a specific up-* script"
+    echo "  up <script>        Run a specific update script"
     echo
     echo "Options:"
-    echo "  -a, --all          Run all up-* scripts"
-    echo "  -l, --list         List available up-* scripts"
+    echo "  -a, --all          Run all update scripts"
+    echo "  -l, --list         List available update scripts"
     echo "  -h, --help         Show this help message"
     echo "  -V, --version      Show script version"
 }
 
 
-# List all up-* executable scripts
+# List all update executable scripts
 list_scripts() {
 
     local name
@@ -52,18 +52,23 @@ run_script() {
     fi
 }
 
-# Run all up-* executable scripts
-# Runs the script in a subshell, so that any side effect does not cause this script to fail.
+# Run all update executable scripts
+# Runs the script in a sub-shell to keep any side effects when running
+# the script from causing this script to fail.
 run_all_scripts() {
+    local script
+    local all_scripts
+
+    all_scripts=$(list_scripts)
+
     while IFS= read -r script; do
-	(
-	    set +e
-	    if ! "$script_dir/up-$script"; then
-		echo "Warning: up-$script failed."
-	    fi
-	)
-	echo
-    done < <(list_scripts)
+        (
+            if ! "$script_dir/up-$script"; then
+                printf 'Warning: up-%s failed.\n' "$script" >&2
+            fi
+        )
+        echo
+    done <<< "$all_scripts"
 }
 
 # Display help if no arguments given
