@@ -61,14 +61,14 @@ run_all_scripts() {
 
     all_scripts=$(list_scripts)
 
-    while IFS= read -r script; do
+    for script in $all_scripts; do
         (
-            if ! "$script_dir/up-$script"; then
+            if ! "$script_dir/up-$script"  </dev/null; then
                 printf 'Warning: up-%s failed.\n' "$script" >&2
             fi
         )
         echo
-    done <<< "$all_scripts"
+    done
 }
 
 # Display help if no arguments given
