@@ -15,6 +15,8 @@
 (use-package dashboard
  :ensure t
  :config
+ (setq dashboard-banner-logo-title (format "Welcome to Emacs %s!" emacs-version))
+ (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory))
  (setq dashboard-items '((bookmarks . 5)
                          (recents   . 5)
 			 (projects  . 5)))

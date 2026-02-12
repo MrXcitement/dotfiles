@@ -39,6 +39,7 @@
 (require 'init-lock-buffers)
 (require 'init-package)
 (require 'init-recentf)
+(require 'init-secure)
 (require 'init-server)
 (require 'init-spelling)
 (require 'init-ui)
@@ -54,6 +55,7 @@
 (require 'packages-markdown)
 (require 'packages-minibuffer)
 (require 'packages-nerd-icons)
+(require 'packages-theme)
 (require 'packages-yasnippet)
 
 ;;; Intialize emacs, after packages loaded.
