@@ -53,6 +53,14 @@ if !empty(glob(vim_plug_path))
     Plug 'farmergreg/vim-lastplace'
     Plug 'editorconfig/editorconfig-vim'
 
+    " Snippet plugins
+    if has('python3')
+        Plug 'SirVer/ultisnips'
+        Plug 'honza/vim-snippets'
+        let g:UltiSnipsListSnippets="<A-tab>"
+    endif
+
+
     " UI plugins...
     Plug 'sonph/onehalf', { 'rtp': 'vim' }
     Plug 'vim-airline/vim-airline'
