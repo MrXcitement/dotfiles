@@ -12,6 +12,15 @@
 ;; * First release.
 
 ;;; Code:
+(use-package auto-dark
+  :if window-system
+  :ensure t
+  :custom
+  (auto-dark-themes `((,my-theme-dark) (,my-theme-light)))
+  (auto-dark-polling-interval-seconds 5)
+  :init
+  (auto-dark-mode))
+
 (use-package leuven-theme
   :if window-system
   :ensure t)
