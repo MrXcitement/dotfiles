@@ -1,11 +1,21 @@
-### Any System ###
+# ignore --- A system wide git ignore file
+# Be aware that this file is created by Chezmoi from a template so you should
+# not just cm re-add/add any changes, you will need to add the changes to the
+# template stored in Chezmoi.
+# The system ignore files for the Linux/macOS/Windows system where originaly
+# created at https://www.toptal.com/developers/gitignore
+
+
+## Any System
+# temp files
 *~
 
-{{ if eq .chezmoi.os "darwin" -}}
-# Created by https://www.toptal.com/developers/gitignore/api/macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos
+# ignore jujitsu folder anywhere
+**/.jj/
 
-### macOS ###
+## End Any System
+{{ if eq .chezmoi.os "darwin" -}}
+## macOS
 # General
 .DS_Store
 .AppleDouble
@@ -27,14 +37,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# End of https://www.toptal.com/developers/gitignore/api/macos
+## End macOS
 {{ end -}}
 {{ if eq .chezmoi.os "linux" -}}
-# Created by https://www.toptal.com/developers/gitignore/api/linux
-# Edit at https://www.toptal.com/developers/gitignore?templates=linux
-
-### Linux ###
-
+## Linux
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
 
@@ -47,13 +53,10 @@ Temporary Items
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-# End of https://www.toptal.com/developers/gitignore/api/linux
+## End Linux 
 {{ end -}}
 {{ if eq .chezmoi.os "windows" -}}
-# Created by https://www.toptal.com/developers/gitignore/api/windows
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows
-
-### Windows ###
+## Windows
 # Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
