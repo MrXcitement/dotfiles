@@ -33,9 +33,6 @@
       ;; raise Emacs using AppleScript."
       (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-  ;; Change theme based on system appearence
-  (add-hook 'ns-system-appearance-change-functions #'my-apply-theme)
-
   ;; When Emacs is in `daemon' mode, hook the after-make-frame
   (if (daemonp)
       (add-hook 'after-make-frame-functions
