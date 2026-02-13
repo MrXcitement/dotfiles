@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: December 4th, 2025
+;; Updated: February 13th, 2026
 
 ;;; Commentary:
 ;; The primary `init' file for emacs. This file specifies how to
@@ -48,6 +48,7 @@
 (require 'init-ui-windows)
 
 ;;; Initialize packages
+(require 'packages-auto-dark-mode)
 (require 'packages-corfu)
 (require 'packages-dashboard)
 (require 'packages-evil)
@@ -55,7 +56,7 @@
 (require 'packages-markdown)
 (require 'packages-minibuffer)
 (require 'packages-nerd-icons)
-(require 'packages-theme)
+(require 'packages-themes)
 (require 'packages-yasnippet)
 
 ;;; Intialize emacs, after packages loaded.

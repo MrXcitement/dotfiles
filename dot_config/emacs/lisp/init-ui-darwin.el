@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: December 5th, 2025
+;; Updated: February 13th, 2026
 
 ;;; Commentary:
 ;; Initialize the user interface on Darwin systems
