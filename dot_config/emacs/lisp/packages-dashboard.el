@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: December 4th, 2025
+;; Updated: February 14th, 2026
 
 ;;; Commentary:
 ;; Provide a 'dashboard' window at start that provides custom information
@@ -13,15 +13,15 @@
 
 ;;; Code:
 (use-package dashboard
- :ensure t
- :config
- (setq dashboard-banner-logo-title (format "Welcome to Emacs %s!" emacs-version))
- (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory))
- (setq dashboard-items '((bookmarks . 5)
-                         (recents   . 5)
-			 (projects  . 5)))
- ;; (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
- (dashboard-setup-startup-hook))
+  :ensure t
+  :config
+  (setq dashboard-banner-logo-title (format "Welcome to Emacs %s!" emacs-version))
+  (setq dashboard-startup-banner (expand-file-name "emacs.png" user-emacs-directory))
+  (setq dashboard-items '((bookmarks . 5)
+			  (recents   . 5)
+			  (projects  . 5)))
+  (setq initial-buffer-choice (lambda () (get-buffer dashboard-buffer-name)))
+  (dashboard-setup-startup-hook))
 
 (provide 'packages-dashboard)
 ;; end of packages-dashboard.el
