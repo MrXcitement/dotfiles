@@ -9,4 +9,5 @@ if (Get-Command "chezmoi" -ErrorAction SilentlyContinue) {
 # emacs aliases
 if (Get-Command "emacs" -ErrorAction SilentlyContinue) {
    Set-ALias -Name e -Value emacs
+   Set-ALias -Name ec -Value emacsclient
 }
