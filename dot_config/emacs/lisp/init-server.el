@@ -22,8 +22,7 @@
 (when (eq system-type 'gnu/linux))
 
 ;; Windows
-(when (eq system-type 'windows-nt)
-  (setq server-auth-dir (getenv "TMP")))
+(when (eq system-type 'windows-nt))
 
 ;; When running as a GUI
 ;; Start a server for client processes, but only if one is not already running
