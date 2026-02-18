@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: December 4th, 2025
+;; Updated: February 18th, 2026
 
 ;;; Commentary:
 ;; Install and configure evil and associated packages.
@@ -16,6 +16,7 @@
   :ensure t
   :init
   (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
 
