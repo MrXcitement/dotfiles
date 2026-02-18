@@ -1,18 +1,17 @@
 ;;; packages-undo-tree --- Initialize and configure the `undo-tree' package.
 
 ;; Mike Barker <mike@thebarkers.com>
+;; Created: February 18th, 2026
+;; Updated: February 18th, 2026
 
 ;;; Commentary:
 ;; Provides a visulization to the undo buffer
-
-;;; History:
+;; https://www.dr-qubit.org/undo-tree.html
 
 ;;; Code:
 (use-package undo-tree
-  :disabled
   :ensure t
-  :config
-  (progn
-    (global-undo-tree-mode)))
+  :init
+  (global-undo-tree-mode))
 
 (provide 'packages-undo-tree)

@@ -1,17 +1,13 @@
 ;;; packages-git-gutter.el --- Install and configure the `git-gutter' package.
 
 ;; Mike Barker <mike@thebarkers.com>
-;; May 15, 2015
+;; Created: May 15, 2015
+;; Updated: February 18th, 2026
 
 ;;; Commentary:
 ;; Provide git status in the gutter of the frame and provide key
 ;; bindings to operate on the changes.
-
-;;; History:
-;; 2023.03.17
-;; * rename and refactor this file into a valid package.
-;; 2015.05.15
-;; * First release.
+;; https://github.com/emacsorphanage/git-gutter
 
 ;;; Code:
 (use-package git-gutter
