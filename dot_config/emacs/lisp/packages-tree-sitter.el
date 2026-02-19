@@ -16,10 +16,13 @@
   (add-to-list 'major-mode-remap-alist
 	       '(python-mode . python-ts-mode)))
 
-(use-package tree-sitter-langs
+(use-package treesit-auto
   :after tree-sitter
   :ensure t
-  :custom (global-tree-sitter-mode t))
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (global-treesit-auto-mode))
 
 (provide 'packages-tree-sitter)
 ;;; end of packages-tree-siter
