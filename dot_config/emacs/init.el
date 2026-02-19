@@ -18,7 +18,7 @@
 ;;; Check for valid emacs version
 ;; Emacs < 29 are too old, just error and exit.
 (when (< emacs-major-version 29)
-  (error "Your Emacs v%s is too old -- this config requires v26 or higher"
+  (error "Your Emacs v%s is too old -- this config requires v29 or higher"
          emacs-version))
 
 ;; Add the `lisp' dir in emacs init dir, to load path
@@ -45,6 +45,7 @@
 (require 'packages-auto-dark-mode)
 (require 'packages-corfu)
 (require 'packages-dashboard)
+(require 'packages-eglot)
 (require 'packages-evil)
 (require 'packages-git-gutter)
 (require 'packages-magit)
