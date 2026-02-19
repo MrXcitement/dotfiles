@@ -11,6 +11,8 @@
 ;;; Code:
 (use-package undo-tree
   :ensure t
+  :config
+  (setq undo-tree-auto-save-history nil)
   :init
   (global-undo-tree-mode))
 

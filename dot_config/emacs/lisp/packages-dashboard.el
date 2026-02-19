@@ -20,8 +20,11 @@
   (setq dashboard-items '((bookmarks . 5)
 			  (recents   . 5)
 			  (projects  . 5)))
-  (setq initial-buffer-choice (lambda () (get-buffer dashboard-buffer-name)))
   (dashboard-setup-startup-hook))
+
+;; When running as a daemon, set the initial buffer to open the dashboard
+(when (daemonp)
+  (setq initial-buffer-choice 'dashboard-open))
 
 (provide 'packages-dashboard)
 ;; end of packages-dashboard.el
