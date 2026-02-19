@@ -54,6 +54,7 @@
 (require 'packages-minibuffer)
 (require 'packages-nerd-icons)
 (require 'packages-themes)
+(require 'packages-tree-sitter)
 (require 'packages-undo-tree)
 (require 'packages-yasnippet)
 

@@ -11,10 +11,15 @@
 ;;; Code
 
 (use-package tree-sitter
-  :ensure t)
+  :ensure t
+  :config
+  (add-to-list 'major-mode-remap-alist
+	       '(python-mode . python-ts-mode)))
 
 (use-package tree-sitter-langs
-  :ensure t)
+  :after tree-sitter
+  :ensure t
+  :custom (global-tree-sitter-mode t))
 
 (provide 'packages-tree-sitter)
 ;;; end of packages-tree-siter

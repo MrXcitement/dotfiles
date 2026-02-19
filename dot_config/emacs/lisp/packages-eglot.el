@@ -12,7 +12,11 @@
 
 (use-package eglot
   :ensure t
-  :hook ((python-mode . eglot-ensure)))
+  :hook
+  ((python-ts-mode . eglot-ensure)
+   (python-ts-mode . flyspell-prog-mode)
+   (python-ts-mode . hs-minor-mode)
+   (python-ts-mode . (lambda () (set-fill-column 88)))))
 
 (provide 'packages-eglot)
 
