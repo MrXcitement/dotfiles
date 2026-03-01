@@ -48,20 +48,12 @@ if !empty(glob(vim_plug_path))
 
     call plug#begin()
 
-    " General plugins...
+    " Editing plugins...
+    Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
     Plug 'farmergreg/vim-lastplace'
-    Plug 'editorconfig/editorconfig-vim'
 
-    " Snippet plugins
-    if has('python3')
-        Plug 'SirVer/ultisnips'
-        Plug 'honza/vim-snippets'
-        let g:UltiSnipsListSnippets="<A-tab>"
-    endif
-
-
-    " UI plugins...
+    " Interface plugins...
     Plug 'sonph/onehalf', { 'rtp': 'vim' }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -82,7 +74,9 @@ if !empty(glob(vim_plug_path))
         " Keep gui colorscheme seperate from cui/term colorscheme
         let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
     endif
+
     " Developer plugins...
+    Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-commentary'
     Plug 'ervandew/supertab'
     if executable('git')
@@ -97,10 +91,18 @@ if !empty(glob(vim_plug_path))
     Plug 'mattn/gist-vim'
     Plug 'nelstrom/vim-markdown-folding'
 
-    " DevOps plugins...
-    if executable('vagrant')
-        Plug 'hashivim/vim-vagrant'
+    Plug 'dense-analysis/ale'
+    let g:ale_completion_enabled = 1
+    let g:ale_linters = {'python': ['pylsp']}
+
+    " Snippet plugins
+    if has('python3')
+        Plug 'SirVer/ultisnips'
+        Plug 'honza/vim-snippets'
+        let g:UltiSnipsListSnippets="<A-tab>"
     endif
+
+    " Ansible plugins
     if executable('ansible')
         Plug 'pearofducks/ansible-vim'
     endif
@@ -132,6 +134,11 @@ if !empty(glob(vim_plug_path))
     " Swift plugins
     if executable('swift')
         Plug 'keith/swift.vim'
+    endif
+
+    " Vagrant plugins
+    if executable('vagrant')
+        Plug 'hashivim/vim-vagrant'
     endif
 
     " Initialize plugin system
