@@ -2,7 +2,10 @@
 
 # Mike Barker <mike@thebarkers.com>
 # Created: October 9th, 2017
-# Updated: August 21st, 2025
+# Updated: March 1st, 2026
+
+# Additional configs, devpod.config, etc.
+Include *.config
 
 # External hosts and services
 Host github.com
@@ -12,20 +15,26 @@ Host github.com
 Host ct-debian12-0*
     IdentityFile ~/.ssh/id_ed25519-1p_mike.pub
     User root
+
 Host devbox
     HostName vm-debian12-01.home.thebarkers.com
     IdentityFile ~/.ssh/id_ed25519-1p_mike.pub
     User mike
+
 Host mediabox
     HostName mediabox.home.thebarkers.com
     IdentityFile ~/.ssh/id_ed25519-1p_mike.pub
     User media
+
 Host vm-debian11-01
     HostName vm-debian11-01.home.thebarkers.com
+
 Host vm-debian12-01
     HostName vm-debian12-01.home.thebarkers.com
+
 Host vm-debian12-02
     HostName vm-debian12-02.home.thebarkers.com
+
 Host vm-debian*
     IdentityFile ~/.ssh/id_ed25519-1p_archon.pub
     User archon
@@ -52,14 +61,11 @@ Host ds1
     Port 10022
     User admin_dsm
 
-# Ubiquiti devices
+# Network devices
 Host unifi
     HostName unifi.home.thebarkers.com
     IdentityFile ~/.ssh/id_ed25519-1p_ubiquiti.pub
     User root
-
-# Additional hosts, devpod, etc.
-Include config.d/*
 
 # All hosts
 Host *
