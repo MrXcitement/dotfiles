@@ -77,3 +77,21 @@ if (Get-Command "emacsclient" -ErrorAction SilentlyContinue) {
       emacsclient -a "" @args
    }
 }
+
+# Head, display 10 lines or a number provided from the start (head) of a file.
+function head {
+    param (
+        [string]$file,
+        [int]$lines = 10
+        )
+    Get-Content $file -Head $lines
+}
+
+# Tail, display 10 lines or a number provided from the end (tail) of a file.  
+function tail {
+    param (
+        [string]$file,
+        [int]$lines = 10
+        )
+    Get-Content $file -Tail $lines
+}
