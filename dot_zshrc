@@ -242,6 +242,13 @@ if [[ -z $TMUX ]] && [[ $(tmux ls 2>/dev/null) ]]; then
     fi
 fi
 
+##
+# chezmoi update and show status
+if (( $+commands[chezmoi] )); then
+    echo "Chezmoi update and status"
+    chezmoi update -a=false
+    chezmoi status
+fi
 
 # End profiling
 # zprof
