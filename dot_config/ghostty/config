@@ -10,7 +10,7 @@ auto-update = check
 #auto-update-channel = tip
 background-blur-radius = 20
 background-opacity = 0.85
-font-family = "AtkynsonMono Nerd Font"
+font-family = "FiraCode Nerd Font"
 font-size = 14
 font-style = "Regular"
 keybind = cmd+s>-=new_split:down
