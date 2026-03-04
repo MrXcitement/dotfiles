@@ -34,7 +34,6 @@ endfunction
 
 let vim_path = IsWin() ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
-
 " vim-plug -- Minimalist Vim Plugin Manager {{{
 " Install vim-plug if not found
 let vim_plug_path = vim_path . '/autoload/plug.vim'
@@ -147,7 +146,6 @@ if !empty(glob(vim_plug_path))
 
 endif
 " }}}
-
 " Editor settings {{{
 " Use the default filetype settings, so that mail gets 'tw' set to 72,
 " 'cindent' is on in C files, etc.
@@ -235,7 +233,7 @@ if has("gui_running")
         endif
 
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=FiraCodeNFM-Light:h12,Monaco:h12
+        set guifont=0xProtoNFM-Regular:h12,Monaco:h12
         if &guifont =~? 'NFM'
             set macligatures
         endif
