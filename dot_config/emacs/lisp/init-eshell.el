@@ -5,7 +5,7 @@
 ;; Updated: December 4th, 2025
 
 ;;; Commentary:
-;; Create an eshell prompt that includes git status
+;; Configure the eshell mode behaviour. Add helper functions for both emacs and the eshell mode.
 
 ;;; History:
 ;; See my dotfiles repo and the emacs folder
@@ -13,75 +13,8 @@
 
 ;;; Code:
 
-(require 'cl-lib)
+;;; History settings
 
-;; Git helper functions
-(defun my-git-p ()
-  "Is git installed and the cwd is a git project."
-  (> (length (and (eshell-search-path "git")
-		  (locate-dominating-file default-directory ".git"))) 0))
-
-(defun my-git-status-cmd ()
-  "Run the git status command in the cwd."
-  (split-string (shell-command-to-string
-		 "git status --porcelain")))
-
-(defun my-git-branch-cmd ()
-  "Run the git branch command in the cwd and return a list of branches."
-  (split-string
-   (shell-command-to-string "git branch --no-color")
-   "\n" 'omit-nulls))
-
-(defun my-git-branch-name ()
-  "Get the current branch name in the cwd."
-  (cl-loop for branch in (my-git-branch-cmd)
-           when (string-prefix-p "*" branch)
-           return (substring branch 2)
-           finally return "no branch"))
-
-;; Configure the prompt
-(defun my-prompt-tilde-for-home (dir)
-  "Returns a path with the home directory replaced with a tilde"
-  (let* ((home (expand-file-name (getenv "HOME")))
-	 (home-len (length home)))
-    (if (and (>= (length dir) home-len)
-	     (equal home (substring dir 0 home-len)))
-	(concat "~" (substring dir home-len)) dir)))
-
-(defun my-prompt-git-branch-name ()
-  "Return the current git branch as a string,
-or the empty string if cwd is not in a git repo,
-or the git command is not found."
-  (if (my-git-p)
-      (let ((git-output (my-git-branch-name)))
-	(when (> (length git-output) 0)
-	  (concat "(" git-output ")")))
-    (concat "")))
-
-(defun my-prompt-root-or-user ()
-  "Different prompt chars for root or user."
-  (if (= (user-uid) 0) "#" "$"))
-
-(defun my-prompt-function ()
-  (concat
-   (user-login-name)
-   "@"
-   (car (split-string (system-name) "\\."))
-   ": "
-   (my-prompt-tilde-for-home(eshell/pwd))
-   " "
-   (my-prompt-git-branch-name)
-   "\n"
-   (my-prompt-root-or-user)
-   " "))
-
-;; Needed for colors to have an effect
-(customize-set-variable 'eshell-highlight-prompt nil)
-
-;; Needed to tweek for completion to work
-(customize-set-variable 'eshell-prompt-regexp "^[^#$\n]*[#$] ")
-
-;; History settings
 ;; make sure the history vars are defined
 (customize-set-variable 'eshell-history-size 1024)
 (if (boundp 'eshell-save-history-on-exit)
@@ -89,7 +22,44 @@ or the git command is not found."
 (if (boundp 'ehsell-ask-to-save-history)
     (customize-set-variable 'eshell-ask-to-save-history 'always))
 
-;; Set the prompt function
-(customize-set-variable 'eshell-prompt-function 'my-prompt-function)
+;;; Eshell helper functions
+
+;; Open an eshell buffer at the current buffers directory.
+(defun mrb/eshell-here ()
+  "Opens up a new shell in the directory associated with the
+current buffer's file. The eshell is renamed to match that
+directory to make multiple eshell windows easier.
+If the eshell window is already showing, it will be closed instead."
+  (interactive)
+  (let* ((parent (if (buffer-file-name)
+                     (file-name-directory (buffer-file-name))
+                   default-directory))
+         (name (car (last (split-string parent "/" t))))
+         (eshell-buf-name (concat "*eshell: " name "*"))
+         (existing-window (get-buffer-window eshell-buf-name))
+         (existing-buffer (get-buffer eshell-buf-name)))
+    (if existing-window
+        (delete-window existing-window)
+      (let ((height (/ (window-total-height) 3)))
+        (split-window-vertically (- height))
+        (other-window 1)
+        (if existing-buffer
+            (switch-to-buffer existing-buffer)
+          (eshell "new")
+          (rename-buffer eshell-buf-name))))))
+
+;; Bind key to open eshell here function
+(global-set-key (kbd "C-`") 'mrb/eshell-here)
+
+;;; Eshell commands
+
+;; A command to exit the eshell buffer and delete the window
+(defun eshell/x ()
+  (insert "exit")
+  (eshell-send-input)
+  (delete-window))
+
+;;; Load any additional eshell configuration
+(require 'init-eshell-prompt)
 
 (provide 'init-eshell)
