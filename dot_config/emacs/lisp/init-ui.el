@@ -75,6 +75,19 @@
 (unless (daemonp)
   (my-after-make-frame))
 
+;;; OS specific UI initialization
+
+;; Darwin (macOS) customization
+(when (eq system-type 'darwin)
+  (require 'init-ui-darwin))
+
+;; GNU/Linux customization
+(when (eq system-type 'gnu/linux)
+  (require 'init-ui-linux))
+
+;; Windows customization
+(when (eq system-type 'windows-nt)
+  (require 'init-ui-windows))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here.

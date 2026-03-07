@@ -24,14 +24,11 @@
     (when (member "FiraCode Nerd Font" (font-family-list))
       (set-face-font 'default "FiraCode Nerd Font 10"))))
 
-;; Windows UI customization
-(when (eq system-type 'windows-nt)
-
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
-  ;; just call my frame configuration function
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)
-    (my-after-make-frame-windows)))
+;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
+;; just call my frame configuration function
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)
+  (my-after-make-frame-windows))
 
 (provide 'init-ui-windows)
 ;;; End of init-ui-windows

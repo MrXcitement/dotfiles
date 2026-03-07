@@ -24,15 +24,12 @@
     (when (member "Monospace" (font-family-list))
       (set-face-font 'default "Monospace 11"))))
 
-;; Only customize when on GNU/Linux system
-(when (eq system-type 'gnu/linux)
+;; Hook make frame to apply `linux' specific configuration
+(add-hook 'after-make-frame-functions 'mrb-after-make-frame-linux)
 
-  ;; Hook make frame to apply `linux' specific configuration
-  (add-hook 'after-make-frame-functions 'mrb-after-make-frame-linux)
-
-  ;; Emacs not started in `daemon' mode.
-  (unless (daemonp)
-    (mrb-after-make-frame-linux)))
+;; Emacs not started in `daemon' mode.
+(unless (daemonp)
+  (mrb-after-make-frame-linux))
 
 (provide 'init-ui-linux)
 ;;; End of init-ui-linux

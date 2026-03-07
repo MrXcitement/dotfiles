@@ -37,9 +37,6 @@
 (require 'init-server)
 (require 'init-spelling)
 (require 'init-ui)
-(require 'init-ui-darwin)
-(require 'init-ui-linux)
-(require 'init-ui-windows)
 
 ;;; Initialize packages
 (require 'packages-auto-dark-mode)
