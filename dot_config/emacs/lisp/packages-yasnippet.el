@@ -13,12 +13,13 @@
 ;;; Code:
 (use-package yasnippet
   :ensure t
-  ;; :hook ((text-mode
-  ;; 	  prog-mode
-  ;; 	  conf-mode
-  ;; 	  snippet-mode) . yas-minor-mode-on)
+  :config (yas-reload-all)
   :custom (setq yas-snippet-dir (expand-file-name "snippets" user-emacs-directory))
-  :hook (after-init . yas-global-mode))
+  :hook
+  ((text-mode
+    prog-mode
+    conf-mode
+    snippet-mode) . yas-minor-mode-on))
 
 
 (use-package yasnippet-snippets

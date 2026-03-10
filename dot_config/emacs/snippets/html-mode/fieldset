@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Mike Barker <mike@thebarkers.com>
-# name: fieldset
-# --
-<fieldset>$0</fieldset>
