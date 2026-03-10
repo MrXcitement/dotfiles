@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# contributor: Mike Barker <mike@thebarkers.com>
+# name: Document template - HTML5
+# key: doc5
+# --
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>$1</title>
+  </head>
+  <body>
+    $0
+  </body>
+</html>
