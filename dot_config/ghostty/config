@@ -30,6 +30,9 @@ keybind = cmd+s>x=close_surface
 keybind = cmd+s>z=toggle_split_zoom
 shell-integration = detect
 shell-integration-features = ssh-env
+split-inherit-working-directory = true
+tab-inherit-working-directory = false
 theme = light:One Half Light, dark:One Half Dark
 window-colorspace = "display-p3"
+window-inherit-working-directory = false
 window-save-state = always
