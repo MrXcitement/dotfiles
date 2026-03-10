@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: my current time
+# key: m;ct
+# contributor: Mike Barker <mike@thabrkers.com>
+# --
+`(format-time-string "%H:%M:%S" (current-time))`
