@@ -52,6 +52,12 @@ README.md
 .z*
 {{ end }}
 
+# macOS folders to be ignored on other systems
 {{ if ne .chezmoi.os "darwin" }}
 .config/1Password
 {{ end }}
+
+# Windows folders to be ignored on other systems
+{{- if ne .chezmoi.os "windows" }}
+AppData
+{{- end }}
