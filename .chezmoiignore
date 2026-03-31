@@ -20,6 +20,10 @@ README.md
 .config/ghostty
 {{ end }}
 
+{{ if not (lookPath "nvim") }}
+.config/nvim
+{{ end }}
+
 {{ if not (lookPath "pwsh") }}
 .config/powershell
 {{ end }}

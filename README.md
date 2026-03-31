@@ -20,6 +20,7 @@ App | Description
 [emacs](https://www.gnu.org/software/emacs/) | An extensible, customizable, free/libre text editor — and more.
 [git](https://git-scm.com/) | Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 [ghostty](https://ghostty.org/) | Ghostty is a fast, feature-rich, and cross-platform terminal emulator that uses platform-native UI and GPU acceleration.
+[neovim](https://neovim.org) | hyperextensible Vim-based text editor
 [ohmyzsh](https://ohmyz.sh/) | A delightful, open source, community-driven framework for managing your Zsh configuration.
 [powershell](https://learn.microsoft.com/en-us/powershell/) | PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework. PowerShell runs on Windows, Linux, and macOS[^1].
 [ssh](https://man.openbsd.org/ssh.1) | A program for logging into a remote machine and for executing commands on a remote machine.
