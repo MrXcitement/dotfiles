@@ -55,8 +55,9 @@
     initial-scratch-message nil)
 
 ;; Turn off ui elements
-(tool-bar-mode -1)
-(setq inhibit-splash-screen t)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
 
 ;; Disable GUI dialogs because they are inconsistent across systems, desktop
 ;; environments, and themes, and they don't match the look of Emacs.
