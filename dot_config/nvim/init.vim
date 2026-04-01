@@ -9,12 +9,12 @@
 " }}}
 " vim-plug -- Minimalist Vim Plugin Manager {{{
 " Install vim-plug if not found
-let nvim_path = stdpath("config")
-let vim_plug_path = nvim_path . '/autoload/plug.vim'
-if empty(glob(vim_plug_path))
-  silent exec "!curl --create-dirs -fLo " . vim_plug_path .
-    \ " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-endif
+let nvim_path = stdpath("data")
+let vim_plug_path = nvim_path . '/site/autoload/plug.vim'
+"if empty(glob(vim_plug_path))
+"  silent exec "!curl --create-dirs -fLo " . vim_plug_path .
+"    \ " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+"endif
 
 " Add plugins
 if !empty(glob(vim_plug_path))
@@ -169,27 +169,27 @@ set expandtab
 " Autocomands {{{
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-    " Put these in an autocmd group, so that we can delete them easily.
-    augroup vimrcEx
-        autocmd!
-        " For all text files set 'textwidth' to 80 characters.
-        autocmd FileType text setlocal textwidth=80
-    augroup end     " end of vimrcEx augroup
+"
+   " Put these in an autocmd group, so that we can delete them easily.
+   augroup vimrcEx
+       autocmd!
+       " For all text files set 'textwidth' to 80 characters.
+       autocmd FileType text setlocal textwidth=80
+   augroup end     " end of vimrcEx augroup
    
-    " Run PlugInstall if there are missing plugins
-    augroup vimPlugMissing
-        autocmd!
-        autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-        \|    PlugInstall --sync | source $MYVIMRC
-        \| endif
-    augroup end
-    " Fixup the Omnicompletion popup menu colors
-    augroup customOmnicompletionPopup
-        autocmd!
-        autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
-        autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
-    augroup end " end customOmnicompletionPopup
+   " Run PlugInstall if there are missing plugins
+   augroup vimPlugMissing
+       autocmd!
+       autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+       \|    PlugInstall --sync | source $MYVIMRC
+       \| endif
+   augroup end
+   " Fixup the Omnicompletion popup menu colors
+   augroup customOmnicompletionPopup
+       autocmd!
+       autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
+       autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
+   augroup end " end customOmnicompletionPopup
 endif " has("autocmd")
 " }}}
 " UI Settings, fonts, colors, etc. {{{
