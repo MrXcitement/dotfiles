@@ -7,6 +7,8 @@
   Updated:
 --]]
 
+local opt = vim.opt
+
 -- Plugin Manager -- lazy.nvim {{{
 
 -- Bootstrap lazy.nvim (Automatically install if missing) {{{
@@ -99,6 +101,10 @@ require("lazy").setup({
 
 },
 {
+    -- Automaticly check for plugin updates
+    checker = { enabled = true },
+    -- Disable luarocks support
+    rocks = { enabled = false },
     -- Lazy UI settings
     ui = { border = "rounded" },
 })
@@ -106,7 +112,6 @@ require("lazy").setup({
 
 -- Editor Settings {{{
 -- =============================================================================
-local opt = vim.opt
 
 -- Neovim defaults to nocompatible, and filetype/syntax are handled automatically.
 -- But we can set them explicitly if you prefer:
