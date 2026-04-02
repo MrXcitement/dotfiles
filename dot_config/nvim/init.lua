@@ -29,7 +29,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Configuration & Plugin List
 require("lazy").setup({
     -- Editing plugins
-    -- "farmergreg/vim-lastplace",
+    { "farmergreg/vim-lastplace", event = "BufReadPost", },
     "tpope/vim-commentary",
     "tpope/vim-surround",
     "tpope/vim-unimpaired",
