@@ -1,4 +1,4 @@
-;;; init-dired.el --- Initialize the `dired' mode
+;;; core-dired.el --- Initialize the `dired' mode
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -18,5 +18,5 @@
 	  (lambda() (hl-line-mode 1)))
 
 
-(provide 'init-dired)
-;;; End of init-dired.el
+(provide 'core-dired)
+;;; End of core-dired.el

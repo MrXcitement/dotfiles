@@ -1,4 +1,4 @@
-;;; packages-yasnippet --- Install and configure the `yasnippet' package.
+;;; package-yasnippet --- Install and configure the `yasnippet' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -25,4 +25,4 @@
 (use-package yasnippet-snippets
   :ensure t)
 
-(provide 'packages-yasnippet)
+(provide 'package-yasnippet)

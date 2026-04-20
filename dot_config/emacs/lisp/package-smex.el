@@ -1,4 +1,4 @@
-;;; packages-smex.el --- Install and configure the `smex' package.
+;;; package-smex.el --- Install and configure the `smex' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -18,4 +18,4 @@
   :config
   (smex-initialize))
 
-(provide 'packages-smex)
+(provide 'package-smex)

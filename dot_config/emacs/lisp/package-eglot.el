@@ -1,4 +1,4 @@
-;;; packages-eglot.el --- Install and configure eglot package
+;;; package-eglot.el --- Install and configure eglot package
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: February 18th, 2026
@@ -18,6 +18,6 @@
    (python-ts-mode . hs-minor-mode)
    (python-ts-mode . (lambda () (set-fill-column 88)))))
 
-(provide 'packages-eglot)
+(provide 'package-eglot)
 
-;;; packages-eglot.el ends here
+;;; package-eglot.el ends here

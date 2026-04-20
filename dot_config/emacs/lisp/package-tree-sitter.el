@@ -1,4 +1,4 @@
-;;; packages-tree-sitter.el --- Load the tree sitter packages
+;;; package-tree-sitter.el --- Load the tree sitter packages
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: December 18th, 2025
@@ -24,5 +24,5 @@
   :config
   (global-treesit-auto-mode))
 
-(provide 'packages-tree-sitter)
-;;; end of packages-tree-siter
+(provide 'package-tree-sitter)
+;;; end of package-tree-siter

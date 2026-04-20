@@ -1,4 +1,4 @@
-;;; packages-corfu.el --- Initialize the corfu package and configure emacs to work with it
+;;; package-corfu.el --- Initialize the corfu package and configure emacs to work with it
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -53,5 +53,5 @@
   ;; useful beyond Corfu.
   (read-extended-command-predicate #'command-completion-default-include-p))
 
-(provide 'packages-corfu)
-;; end of packages-corfu.el
+(provide 'package-corfu)
+;; end of package-corfu.el

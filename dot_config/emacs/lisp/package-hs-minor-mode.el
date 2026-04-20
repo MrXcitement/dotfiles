@@ -1,4 +1,4 @@
-;;; packages-hs-minor-mode.el --- Configure the `hs-minor-mode' package.
+;;; package-hs-minor-mode.el --- Configure the `hs-minor-mode' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; October 23, 2014
@@ -92,4 +92,4 @@
 		   sgml-skip-tag-forward
 		   nil))))
 
-(provide 'packages-hs-minor-mode)
+(provide 'package-hs-minor-mode)

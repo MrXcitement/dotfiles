@@ -1,4 +1,4 @@
-;;; packages-minibuffer.el --- Configure minibuffer
+;;; package-minibuffer.el --- Configure minibuffer
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -45,5 +45,5 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-(provide 'packages-minibuffer)
-;;; packages-minibuffer.el ends here
+(provide 'package-minibuffer)
+;;; package-minibuffer.el ends here

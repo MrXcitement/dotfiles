@@ -1,4 +1,4 @@
-;;; packages-flyspell-popup.el --- Install and configure the `flyspell-popup' package.
+;;; package-flyspell-popup.el --- Install and configure the `flyspell-popup' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 12th, 2015
@@ -18,4 +18,4 @@
   :ensure t
   :bind ("C-c $" . flyspell-popup-correct))
 
-(provide 'packages-flyspell-popup)
+(provide 'package-flyspell-popup)

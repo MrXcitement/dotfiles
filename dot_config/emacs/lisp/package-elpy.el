@@ -1,4 +1,4 @@
-;;; packages-elpy.el --- Install and configure the `elpy' package.
+;;; package-elpy.el --- Install and configure the `elpy' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -22,4 +22,4 @@
     :init
     (advice-add 'python-mode :before 'elpy-enable)))
 
-(provide 'packages-elpy)
+(provide 'package-elpy)

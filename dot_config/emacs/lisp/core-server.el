@@ -1,4 +1,4 @@
-;;; init-server.el --- Initialize the server
+;;; core-server.el --- Initialize the server
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th. 2025
@@ -31,5 +31,5 @@
   (unless (server-running-p)
     (server-start)))
 
-(provide 'init-server)
-;;; init-server.el ends here.
+(provide 'core-server)
+;;; core-server.el ends here.

@@ -1,4 +1,4 @@
-;;; packages-omnisharp.el --- Install and configure the `omnisharp' package.
+;;; package-omnisharp.el --- Install and configure the `omnisharp' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -17,4 +17,4 @@
     (setq omnisharp-server-executable-path "~/git/OmniSharpServer/OmniSharb/bin/Debug")
     (add-hook 'csharp-mode-hook 'omnisharp-mode)))
 
-(provide 'packages-omnisharp)
+(provide 'package-omnisharp)

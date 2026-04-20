@@ -1,4 +1,4 @@
-;; init-spelling.el -- initialize the spelling sub system.
+;; core-spelling.el -- initialize the spelling sub system.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -25,5 +25,5 @@
     (setenv "LANG" "en_US")
     (setopt ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff")))))
 
-(provide 'init-spelling)
-;; init-spelling.el ends here.
+(provide 'core-spelling)
+;; core-spelling.el ends here.

@@ -1,4 +1,4 @@
-;;; packages-mise.el --- Install and configure the mise package
+;;; package-mise.el --- Install and configure the mise package
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: February 18th, 2026
 ;; Updated: February 18th, 2026
@@ -14,6 +14,6 @@
   :hook
   (after-init-hook . global-mise-mode))
 
-(provide 'packages-mise)
+(provide 'package-mise)
 
-;;; packages-mise.el ends here
+;;; package-mise.el ends here

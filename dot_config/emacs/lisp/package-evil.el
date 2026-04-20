@@ -1,4 +1,4 @@
-;;; packages-evil.el --- Install and configure the `evil' and associated packages.
+;;; package-evil.el --- Install and configure the `evil' and associated packages.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -53,5 +53,5 @@
   :config
   (powerline-evil-vim-color-theme))
 
-(provide 'packages-evil)
-;; end of packages-evil-mode.el
+(provide 'package-evil)
+;; end of package-evil-mode.el

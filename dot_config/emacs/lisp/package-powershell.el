@@ -1,4 +1,4 @@
-;;; packages-powershell.el --- Install and configure the `powershell' package.
+;;; package-powershell.el --- Install and configure the `powershell' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -14,4 +14,4 @@
     :config
     (require 'powershell nil t)))
 
-(provide 'packages-powershell)
+(provide 'package-powershell)

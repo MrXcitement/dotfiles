@@ -1,4 +1,4 @@
-;;; packages-vbnet-mode.el
+;;; package-vbnet-mode.el
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -26,4 +26,4 @@
 ;; (use-package vbnet-mode
 ;;   :mode "\\.\\(frm\\|bas\\|cls\\|vb\\)$")
 
-(provide 'packages-vbnet-mode)
+(provide 'package-vbnet-mode)

@@ -1,4 +1,4 @@
-;;; packages-malabar-mode --- Install and configure the `malabar-mode' package.
+;;; package-malabar-mode --- Install and configure the `malabar-mode' package.
 
 ;;; Commentary:
 ;; Provide support for editing java source and integration with Maven
@@ -20,4 +20,4 @@
       (semantic-mode 1)
       (setq malabar-groovy-lib-dir "~/lib/malabar/lib"))))
 
-(provide 'packages-malabar-mode)
+(provide 'package-malabar-mode)

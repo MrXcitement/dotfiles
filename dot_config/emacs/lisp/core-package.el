@@ -1,4 +1,4 @@
-;;; init-package.el --- Initialize the package manager and the use-package macro
+;;; core-package.el --- Initialize the package manager and the use-package macro
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -44,5 +44,5 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
-(provide 'init-package)
-;;; init-packages.el ends here.
+(provide 'core-package)
+;;; core-packages.el ends here.

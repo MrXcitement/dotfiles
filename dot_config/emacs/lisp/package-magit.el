@@ -1,4 +1,4 @@
-;;; packages-magit.el --- Install and configure the `magit' package.
+;;; package-magit.el --- Install and configure the `magit' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: May 15, 2015
@@ -20,4 +20,4 @@
   :ensure t
   :bind (("C-x g" . magit-status)))
 
-(provide 'packages-magit)
+(provide 'package-magit)

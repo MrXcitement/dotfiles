@@ -1,4 +1,4 @@
-;;; init-eshell-prompt.el --- Configure the emacs shell prompt
+;;; core-eshell-prompt.el --- Configure the emacs shell prompt
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: March 7th, 2026
@@ -123,4 +123,4 @@ or the git command is not found."
 ;; Set the prompt function
 (customize-set-variable 'eshell-prompt-function 'mrb/prompt-function)
 
-(provide 'init-eshell-prompt)
+(provide 'core-eshell-prompt)

@@ -1,4 +1,4 @@
-;;; packages-lua-mode --- Install and configure the `lua-mode' package.
+;;; package-lua-mode --- Install and configure the `lua-mode' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -17,4 +17,4 @@
   :ensure t
   :mode "\\.lua\\'")
 
-(provide 'packages-lua-mode)
+(provide 'package-lua-mode)

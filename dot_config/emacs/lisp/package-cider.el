@@ -1,4 +1,4 @@
-;;; packages-cider.el --- Install and configure the `cider' package.
+;;; package-cider.el --- Install and configure the `cider' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -18,4 +18,4 @@
 (when (executable-find "lien")
   (use-package cider))
 
-(provide 'packages-cider)
+(provide 'package-cider)

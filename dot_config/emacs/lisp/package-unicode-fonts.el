@@ -1,4 +1,4 @@
-;;; packages-unicode-fonts.el --- Install and configure the `unicode-fonts' package.
+;;; package-unicode-fonts.el --- Install and configure the `unicode-fonts' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -22,4 +22,4 @@
     (set-fontset-font t 'unicode "Apple Color Emoji" nil 'prepend))
   (unicode-fonts-setup))
 
-(provide 'packages-unicode-fonts)
+(provide 'package-unicode-fonts)

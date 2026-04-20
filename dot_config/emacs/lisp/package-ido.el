@@ -1,4 +1,4 @@
-;;; packages-ido.el --- Configure the `ido' package.
+;;; package-ido.el --- Configure the `ido' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; October 23, 2014
@@ -35,4 +35,4 @@
     ;; use current pane for newly switched buffer
     (setq ido-default-buffer-method 'selected-window)))
 
-(provide 'packages-ido)
+(provide 'package-ido)

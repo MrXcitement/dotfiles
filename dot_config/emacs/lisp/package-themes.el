@@ -1,4 +1,4 @@
-;; packages-themes.el --- Install and configure themes
+;; package-themes.el --- Install and configure themes
 
 ;; Author: Mike Barker <mike@thebarkers.com>
 ;; Created: November  5, 2015
@@ -26,4 +26,4 @@
   :init
   (load-theme 'deeper-blue))
 
-(provide 'packages-themes)
+(provide 'package-themes)

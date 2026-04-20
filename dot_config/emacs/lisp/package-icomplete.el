@@ -1,4 +1,4 @@
-;;; packages-icomplete.el --- Configure the `icomplete' package.
+;;; package-icomplete.el --- Configure the `icomplete' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; March 23rd, 2023
@@ -33,4 +33,4 @@
       ;; Only available in Emacs 28.1+
       (fido-vertical-mode 1))))
 
-(provide 'packages-icomplete)
+(provide 'package-icomplete)

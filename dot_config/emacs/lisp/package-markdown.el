@@ -1,4 +1,4 @@
-;;; packages-markdown --- Install and configure the `markdown' package.
+;;; package-markdown --- Install and configure the `markdown' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -11,4 +11,4 @@
   :ensure t
   :mode "\\.\\(text\\|markdown\\|md\\|mdw\\|mdt\\)$")
 
-(provide 'packages-markdown)
+(provide 'package-markdown)

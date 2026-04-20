@@ -99,4 +99,4 @@ or the git command is not found."
     ;; Set the prompt function
     (setq eshell-prompt-function 'my-prompt-function)))
 
-(provide 'packages-eshell)
+(provide 'package-eshell)

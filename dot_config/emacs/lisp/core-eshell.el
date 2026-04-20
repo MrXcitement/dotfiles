@@ -60,6 +60,6 @@ If the eshell window is already showing, it will be closed instead."
   (delete-window))
 
 ;;; Load any additional eshell configuration
-(require 'init-eshell-prompt)
+(require 'core-eshell-prompt)
 
-(provide 'init-eshell)
+(provide 'core-eshell)

@@ -1,4 +1,4 @@
-;;; packages-cc-mode.el --- Configure cc-mode settings
+;;; package-cc-mode.el --- Configure cc-mode settings
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 23rd, 2025
@@ -20,4 +20,4 @@
   :custom
   (c-basic-offset 4))
 
-(provide 'packages-cc-mode)
+(provide 'package-cc-mode)

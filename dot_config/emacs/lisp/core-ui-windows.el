@@ -1,4 +1,4 @@
-;;; init-ui-windows.el --- initialze the user interface on Windows systems
+;;; core-ui-windows.el --- initialze the user interface on Windows systems
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -30,5 +30,5 @@
     (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)
   (my-after-make-frame-windows))
 
-(provide 'init-ui-windows)
-;;; End of init-ui-windows
+(provide 'core-ui-windows)
+;;; End of core-ui-windows

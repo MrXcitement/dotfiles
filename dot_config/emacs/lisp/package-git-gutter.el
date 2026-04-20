@@ -1,4 +1,4 @@
-;;; packages-git-gutter.el --- Install and configure the `git-gutter' package.
+;;; package-git-gutter.el --- Install and configure the `git-gutter' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: May 15, 2015
@@ -23,4 +23,4 @@
    ("C-c g r" . git-gutter:revert-hunk)
    ("C-c g n" . git-gutter:next-hunk)))
 
-(provide 'packages-git-gutter)
+(provide 'package-git-gutter)

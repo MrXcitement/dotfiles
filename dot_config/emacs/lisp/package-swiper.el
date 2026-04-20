@@ -1,4 +1,4 @@
-;;; packages-swiper.el --- Install and configure the `swipper' package
+;;; package-swiper.el --- Install and configure the `swipper' package
 ;;; Commentary:
 ;; This file loads swiper and related packages.
 ;; The package swiper includes ivy-mode. 'Ivy is a generic completion
@@ -38,4 +38,4 @@
   (setq ivy-re-builders-alist
 	'((t . ivy--regex-fuzzy))))
 
-(provide 'packages-swiper)
+(provide 'package-swiper)

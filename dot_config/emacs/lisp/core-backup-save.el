@@ -1,4 +1,4 @@
-;;; init-backup-save.el --- Initialize save, autosave and backup settings
+;;; core-backup-save.el --- Initialize save, autosave and backup settings
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
@@ -36,5 +36,5 @@
   (setq auto-save-file-name-transforms
 	`(("\\`/?\\([^/]*/\\)*\\([^/]*\\)\\'" ,temp-directory t))))
 
-(provide 'init-backup-save)
-;;; init-backup-save.el ends here.
+(provide 'core-backup-save)
+;;; core-backup-save.el ends here.

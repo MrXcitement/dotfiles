@@ -1,4 +1,4 @@
-;;; init-secure.el --- Configure security settings -*- lexical-binding: t -*-
+;;; core-secure.el --- Configure security settings -*- lexical-binding: t -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: January 29th, 2026
@@ -13,5 +13,5 @@
 
 (setq epa-pinentry-mode 'loopback)
 
-(provide 'init-secure)
-;;; init-secure.el ends here
+(provide 'core-secure)
+;;; core-secure.el ends here

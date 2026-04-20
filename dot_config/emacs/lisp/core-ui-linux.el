@@ -1,4 +1,4 @@
-;;; init-ui-linux.el --- initialze the user interface on Linux systems
+;;; core-ui-linux.el --- initialze the user interface on Linux systems
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -31,5 +31,5 @@
 (unless (daemonp)
   (mrb-after-make-frame-linux))
 
-(provide 'init-ui-linux)
-;;; End of init-ui-linux
+(provide 'core-ui-linux)
+;;; End of core-ui-linux

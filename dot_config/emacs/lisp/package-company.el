@@ -1,4 +1,4 @@
-;;; packages-company.el --- Install and configure the `company' package.
+;;; package-company.el --- Install and configure the `company' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -29,4 +29,4 @@
     (setq company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
     ))
 
-(provide 'packages-company)
+(provide 'package-company)

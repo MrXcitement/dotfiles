@@ -1,4 +1,4 @@
-;;; packages-neotree.el --- Install and configure the `neotree' package.
+;;; package-neotree.el --- Install and configure the `neotree' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; October 31st 2015
@@ -11,4 +11,4 @@
 (use-package neotree
   :ensure t)
 
-(provide 'packages-neotree)
+(provide 'package-neotree)

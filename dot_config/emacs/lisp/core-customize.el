@@ -1,4 +1,4 @@
-;;; init-customize.el --- Configure the customize file
+;;; core-customize.el --- Configure the customize file
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
@@ -18,5 +18,5 @@
 ;; When you press 'q' to quit a customize buffer, it will be killed not juts burried
 (setq custom-buffer-done-kill t)
 
-(provide 'init-customize)
-;;; init-customize.el ends here.
+(provide 'core-customize)
+;;; core-customize.el ends here.

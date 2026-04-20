@@ -1,4 +1,4 @@
-;;; packages-csharp-mode.el --- Install and configure the `csharp-mode' package.
+;;; package-csharp-mode.el --- Install and configure the `csharp-mode' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -18,4 +18,4 @@
   :ensure t
   :mode "\\.cs\\'")
 
-(provide 'packages-csharp-mode)
+(provide 'package-csharp-mode)

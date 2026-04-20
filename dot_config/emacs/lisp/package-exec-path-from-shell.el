@@ -1,4 +1,4 @@
-;;; packages-exec-path-from-shell.el --- Install and configure the `exec-path-from-shell' package.
+;;; package-exec-path-from-shell.el --- Install and configure the `exec-path-from-shell' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; March 16th, 2023
@@ -21,4 +21,4 @@
     :config
     (exec-path-from-shell-initialize)))
 
-(provide 'packages-exec-path-from-shell)
+(provide 'package-exec-path-from-shell)

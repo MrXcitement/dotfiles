@@ -1,4 +1,4 @@
-;;; packages-dashboard.el --- Install and configure the emacs dashboard package
+;;; package-dashboard.el --- Install and configure the emacs dashboard package
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
@@ -26,5 +26,5 @@
 (when (daemonp)
   (setq initial-buffer-choice 'dashboard-open))
 
-(provide 'packages-dashboard)
-;; end of packages-dashboard.el
+(provide 'package-dashboard)
+;; end of package-dashboard.el

@@ -1,4 +1,4 @@
-;;; init-ui.el --- Initialize the user interface
+;;; core-ui.el --- Initialize the user interface
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -6,7 +6,7 @@
 
 ;;; Commentary:
 ;; Initialize the user interface handling text and gui modes.
-;; System specific initialization is handled in the `init-ui-<system>.el' files.
+;; System specific initialization is handled in the `core-ui-<system>.el' files.
 
 ;;; History:
 ;; See my dotfiles repo and the emacs folder
@@ -79,15 +79,15 @@
 
 ;; Darwin (macOS) customization
 (when (eq system-type 'darwin)
-  (require 'init-ui-darwin))
+  (require 'core-ui-darwin))
 
 ;; GNU/Linux customization
 (when (eq system-type 'gnu/linux)
-  (require 'init-ui-linux))
+  (require 'core-ui-linux))
 
 ;; Windows customization
 (when (eq system-type 'windows-nt)
-  (require 'init-ui-windows))
+  (require 'core-ui-windows))
 
-(provide 'init-ui)
-;;; init-ui.el ends here.
+(provide 'core-ui)
+;;; core-ui.el ends here.

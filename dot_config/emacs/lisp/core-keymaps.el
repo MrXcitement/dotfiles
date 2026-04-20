@@ -1,5 +1,5 @@
 
-;;; init-keymaps.el --- Initialize global and system specific key maps
+;;; core-keymaps.el --- Initialize global and system specific key maps
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 24th, 2025
@@ -79,5 +79,5 @@ The DWIM behaviour of this command is as follows:
 ;; Windows key mappings
 (when (eq system-type 'windows-nt))
 
-(provide 'init-keymaps)
-;;; init-keymaps.el ends here.
+(provide 'core-keymaps)
+;;; core-keymaps.el ends here.

@@ -1,4 +1,4 @@
-;;; packages-iy-go-to-char --- Install and configure the `iy-go-to-char' package.
+;;; package-iy-go-to-char --- Install and configure the `iy-go-to-char' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; May 15, 2015
@@ -21,4 +21,4 @@
     (("C-c m" . iy-go-to-char)
      ("C-c M" . iy-go-to-char-backward)))
 
-(provide 'packages-iy-goto-char)
+(provide 'package-iy-goto-char)

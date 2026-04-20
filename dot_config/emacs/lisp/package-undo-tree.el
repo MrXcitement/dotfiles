@@ -1,4 +1,4 @@
-;;; packages-undo-tree --- Initialize and configure the `undo-tree' package.
+;;; package-undo-tree --- Initialize and configure the `undo-tree' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: February 18th, 2026
@@ -16,4 +16,4 @@
   :init
   (global-undo-tree-mode))
 
-(provide 'packages-undo-tree)
+(provide 'package-undo-tree)

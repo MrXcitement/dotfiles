@@ -1,4 +1,4 @@
-;;; init-environment.el --- Initialize the system environment
+;;; core-environment.el --- Initialize the system environment
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -30,5 +30,5 @@
   ;; Force the current directory to be the users home dir
   (setq default-directory "~/"))
 
-(provide 'init-environment)
-;;; init-environment.el ends here.
+(provide 'core-environment)
+;;; core-environment.el ends here.

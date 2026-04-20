@@ -1,4 +1,4 @@
-;;; packages-nerd-icons.el --- Initialize nerd-icons packages
+;;; package-nerd-icons.el --- Initialize nerd-icons packages
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
@@ -37,5 +37,5 @@
   (dired-mode . nerd-icons-dired-mode))
 
 
-(provide 'packages-nerd-icons)
+(provide 'package-nerd-icons)
 ;;; init-nerd-icons.el ends here.

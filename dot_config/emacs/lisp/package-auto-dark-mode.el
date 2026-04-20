@@ -1,4 +1,4 @@
-;; packages-auto-dark-mode.el --- Install and configure themes
+;; package-auto-dark-mode.el --- Install and configure themes
 
 ;; Author: Mike Barker <mike@thebarkers.com>
 ;; Created: February 13th, 2026
@@ -35,4 +35,4 @@
       (add-hook 'after-make-frame-functions #'my-auto-dark-make-frame)
     (auto-dark-mode 1)))
 
-(provide 'packages-auto-dark-mode)
+(provide 'package-auto-dark-mode)

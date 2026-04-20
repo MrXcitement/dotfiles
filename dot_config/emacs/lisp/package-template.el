@@ -1,4 +1,4 @@
-;;; packages-template.el --- Configure template
+;;; package-template.el --- Configure template
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; November 24th, 2025
@@ -12,4 +12,4 @@
 
 ;;; Code:
 
-(provide 'packages-template)
+(provide 'package-template)

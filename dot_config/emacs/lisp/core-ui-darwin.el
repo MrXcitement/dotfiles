@@ -1,4 +1,4 @@
-;;; init-ui-darwin.el --- initialze the user interface on Darwin (macOS) systems
+;;; core-ui-darwin.el --- initialze the user interface on Darwin (macOS) systems
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
@@ -39,5 +39,5 @@
   ;; Call my frame configuration function
   (my-after-make-frame-darwin))
 
-(provide 'init-ui-darwin)
-;;; End of init-ui-darwin.el
+(provide 'core-ui-darwin)
+;;; End of core-ui-darwin.el

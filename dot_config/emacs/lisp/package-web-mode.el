@@ -1,4 +1,4 @@
-;;; packages-web-mode --- Install and configure the `web-mode' package.
+;;; package-web-mode --- Install and configure the `web-mode' package.
 
 ;; Mike Barker <mike@thebarkers.com>
 
@@ -67,4 +67,4 @@
     	    (yas-deactivate-extra-mode 'css-mode)))))
     ))
 
-(provide 'packages-web-mode)
+(provide 'package-web-mode)

@@ -1,4 +1,4 @@
-;;; init-recentf.el --- Initialize the recentf package -*- lexical-binding: t -*-
+;;; core-recentf.el --- Initialize the recentf package -*- lexical-binding: t -*-
 
 ;; Author: Mike Barker
 ;; Maintainer: Mike Barker
@@ -20,6 +20,6 @@
 ; 50 files ought to be enough.
 (setq recentf-max-saved-items 50)
 
-(provide 'init-recentf)
+(provide 'core-recentf)
 
-;;; init-recentf.el ends here
+;;; core-recentf.el ends here
