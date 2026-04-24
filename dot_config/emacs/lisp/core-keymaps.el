@@ -1,4 +1,3 @@
-
 ;;; core-keymaps.el --- Initialize global and system specific key maps
 
 ;; Mike Barker <mike@thebarkers.com>
@@ -20,7 +19,7 @@
 
 ;; Make C-g a little more helpful
 ;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/
-(defun my-keyboard-quit-dwim ()
+(defun my-keyboard-quit ()
   "Do-What-I-Mean behaviour for a general `keyboard-quit'.
 
 The generic `keyboard-quit' does not do the expected thing when
@@ -43,8 +42,8 @@ The DWIM behaviour of this command is as follows:
     (abort-recursive-edit))
    (t
     (keyboard-quit))))
-
-(define-key global-map (kbd "C-g") #'my-keyboard-quit-dwim)
+;; Rebind C-g to use the modified my-keyboard-quit
+(global-set-key (kbd "C-g") #'my-keyboard-quit)
 
 ;; Configure cua mode to allow selection of text only.
 ;; This allows the C-x,c,v keys to retain their original functionality
@@ -63,7 +62,7 @@ The DWIM behaviour of this command is as follows:
 
 ;; Configure mouse-3 ffap bindings as documented here:
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/FFAP.html
-(global-set-key (kbd "S-<mouse-3>") 'ffap-at-mouse)
+(global-set-key (kbd "C-S-<mouse-1>") 'ffap-at-mouse)
 (global-set-key (kbd "C-S-<mouse-3>") 'ffap-menu)
 
 ;; Darwin (Mac OS X) key mappings
