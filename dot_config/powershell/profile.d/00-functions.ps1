@@ -95,3 +95,14 @@ function tail {
         )
     Get-Content $file -Tail $lines
 }
+
+# take - Make a directory and change into it
+function take {
+    [CmdletBinding()]
+    param(
+      [Parameter(Mandatory = $true)]
+      $path
+    )
+    New-Item -Path $Path -ItemType directory
+    Set-Location -Path $Path
+  }

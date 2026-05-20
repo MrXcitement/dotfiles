@@ -29,29 +29,23 @@ function Assert-IsInteractiveShell {
 
     $commandline_args = [Environment]::GetCommandLineArgs()
 
-    # A list of command line args that indicate an interactive session
-    $interactive_args = '-login', '-l', '-noexit', '-noe'
-
-    # If any of the interactive args are found, return true
-    if ($commandline_args | Where-Object -FilterScript {$PSItem -in $interactive_args}) {
-        return $True
-    }
-
     # A list of command line args that indicate a non interactive session
     $non_interactive_args = '-command', '-c', '-encodedcommand', '-e', '-ec', '-file', '-f', '-noni', '-noninteractive'
 
     # If any of the non interactive args are found, return false, otherwise true
-    return -not ($commandline_args | Where-Object -FilterScript {$PSItem -in $non_interactive_args})
+    if ($commandline_args | Where-Object -FilterScript {$PSItem -in $non_interactive_args}) {
+        return $False
+    }
+    return $True
 }
 
-if (-not (Assert-IsInteractiveShell)) {
-    exit
-}
-
-Write-Host "Loading profile.ps1..."
-$scripts = Get-Item -ErrorAction SilentlyContinue "$home\.config\powershell\profile.d\*.ps1"
-foreach ($script in $scripts) {
-    Write-Host "Loading $($script.Name)..."
-    . $script
+if ( Assert-IsInteractiveShell ) {
+    Write-Host [Environment]::GetCommandLineArgs()
+    Write-Host "Loading profile.ps1..."
+    $scripts = Get-Item -ErrorAction SilentlyContinue "$home\.config\powershell\profile.d\*.ps1"
+    foreach ($script in $scripts) {
+        Write-Host "Loading $($script.Name)..."
+            . $script
+    }
 }
 
