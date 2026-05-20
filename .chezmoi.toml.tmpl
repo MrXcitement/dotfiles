@@ -1,6 +1,7 @@
 {{ if eq .chezmoi.os "windows" -}}
 [cd]
     command = "powershell.exe"
+    args = ["-NoLogo", "-noni"]
 {{ end -}}
 [hooks.edit-config-template.post]
     command = "chezmoi"
