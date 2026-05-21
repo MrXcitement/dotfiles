@@ -40,7 +40,6 @@ function Assert-IsInteractiveShell {
 }
 
 if ( Assert-IsInteractiveShell ) {
-    Write-Host [Environment]::GetCommandLineArgs()
     Write-Host "Loading profile.ps1..."
     $scripts = Get-Item -ErrorAction SilentlyContinue "$home\.config\powershell\profile.d\*.ps1"
     foreach ($script in $scripts) {
