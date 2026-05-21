@@ -1,6 +1,8 @@
 scan_timeout = 60
 [aws]
 disabled = true
+[gcloud]
+disabled = true
 [shell]
 disabled = false
 style = 'cyan'
