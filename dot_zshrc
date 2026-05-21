@@ -250,5 +250,8 @@ if (( $+commands[chezmoi] )); then
     chezmoi status
 fi
 
+## remove duplicates from fpath
+typeset -U fpath
+
 # End profiling
 # zprof

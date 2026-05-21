@@ -107,8 +107,6 @@ newpath=(
     # Prepend paths
     "$HOME/bin"
     "$HOME/.local/bin"
-    # mise - https://mise.jdx.dev
-    "$HOME/.local/share/mise/shims"
     # Add the existing paths to the newpath array
     $path
     # Append paths
