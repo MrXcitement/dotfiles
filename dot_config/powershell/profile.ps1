@@ -44,7 +44,7 @@ if ( Assert-IsInteractiveShell ) {
     $scripts = Get-Item -ErrorAction SilentlyContinue "$home\.config\powershell\profile.d\*.ps1"
     foreach ($script in $scripts) {
         Write-Host "Loading $($script.Name)..."
-            . $script
+        . $script
     }
 }
 
