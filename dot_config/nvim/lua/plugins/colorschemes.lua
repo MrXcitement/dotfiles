@@ -1,5 +1,6 @@
 return {
   { "clearaspect/onehalf", lazy = false, priority = 1000 },
+  -- Configure auto dark mode plugin to switch colorschemes when system changes
   {
     "f-person/auto-dark-mode.nvim",
     opts = {
@@ -12,6 +13,13 @@ return {
         vim.cmd("colorscheme onehalflight")
         vim.api.nvim_set_option_value("background", "light", {})
       end,
+    },
+  },
+  -- Configure LazyVim to load "vim" to minimize flash when loading
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "vim",
     },
   },
 }
