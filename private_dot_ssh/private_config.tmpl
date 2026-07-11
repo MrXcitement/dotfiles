@@ -4,7 +4,10 @@
 # Created: October 9th, 2017
 # Updated: March 1st, 2026
 
-# Additional configs, devpod.config, etc.
+# Additional configs, colima, devpod.config, etc.
+{{- if eq .chezmoi.os "darwin" }}
+Include /Users/mike/.colima/ssh_config
+{{- end }}
 Include *.config
 
 # External hosts and services
@@ -47,7 +50,12 @@ Host gmktec*
 # Raspberry Pi hosts
 Host rpi2* rpi4*
     IdentityFile ~/.ssh/id_ed25519-1p_archon.pub
+
+Host rpi2*
     User archon
+
+Host rpi4-01
+    User root
 
 # Proxmox hosts (Supermicro)
 Host sm*
