@@ -246,7 +246,7 @@ fi
 # chezmoi update and show status
 if (( $+commands[chezmoi] )); then
     echo "Chezmoi update and status"
-    chezmoi update -a=false
+    chezmoi update -a=false > /dev/null
     chezmoi status
 fi
 
