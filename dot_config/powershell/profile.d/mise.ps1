@@ -3,11 +3,8 @@
 # Mike Barker <mike@thebarkers.com>
 # July 15th, 2025
 
-if (Get-Command mise -ErrorAction SilentlyContinue) {
+# Check for mise.exe and running in powershell version 7 or later
+if ((Get-Command mise -ErrorAction SilentlyContinue) -and 
+    ($PSVersionTable.PSVersion.Major -ge 7)){
   mise activate pwsh | Out-String | Invoke-Expression
-  # Add mise shims to PATH so all the downloaded packages work correctly
-  $shim = "$env:LOCALAPPDATA\mise\shims"
-  if (Test-Path $shim) {
-    $env:PATH = "$shim;$env:PATH"
-  }
 }
