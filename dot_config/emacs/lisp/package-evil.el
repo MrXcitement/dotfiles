@@ -18,6 +18,10 @@
   (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-redo)
   :config
+  (setq evil-buffer-regexps
+	'(("Customize.*" . nil)  ; Disable Evil for this buffer
+	  ("SPEEDBAR" . nil)))
+  (defvar evil-mode-buffers '())
   (evil-mode 1))
 
 (use-package evil-collection
