@@ -27,6 +27,12 @@
 ;; Add the `lisp' dir in emacs init dir, to load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; When debugging the init file, provide more use-package info
+(when init-file-debug
+  (setq use-package-verbose t
+        use-package-expand-minimally nil
+        use-package-compute-statistics t
+        debug-on-error t))
 ;;;
 ;;; Install and configure package manager
 ;;; https://github.com/radian-software/straight.el

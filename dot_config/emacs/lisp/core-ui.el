@@ -15,6 +15,7 @@
 ;; Configure UI
 (use-package emacs
   :straight nil
+
   :config
   (blink-cursor-mode -1)
   (column-number-mode t)
@@ -34,8 +35,8 @@
 
 ;; Configure GUI
 (use-package emacs
-  :straight nil
   :if (display-graphic-p)
+  :straight nil
 
   :config
   ;; Customizable light and dark theme variables
@@ -83,8 +84,9 @@
 
 ;; Configure macOS GUI
 (use-package emacs
-  :straight nil
   :if (eq system-type 'darwin)
+  :straight nil
+
   :config
   ;; Frame configuration for `darwin'
   (defun my-after-make-frame-darwin(&optional frame)
@@ -103,7 +105,8 @@
       ;; raise Emacs using AppleScript."
       (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-  ;; When Emacs is in `daemon' mode, hook the after-make-frame
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
+  ;; just call my frame configuration function
   (if (daemonp)
       (add-hook 'after-make-frame-functions
 		(lambda (frame)
@@ -112,11 +115,12 @@
     ;; Call my frame configuration function
     (my-after-make-frame-darwin)))
 
-;
 ;; Configure Linux GUI
 (use-package emacs
-  :straight nil
   :if (eq system-type 'gnu/linux)
+  :straight nil
+
+  :config
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-linux(&optional frame)
     "Configure a new FRAME (default: selected frame) on `linux' system"
@@ -128,18 +132,18 @@
       (when (member "Monospace" (font-family-list))
 	(set-face-font 'default "Monospace 11"))))
 
-  ;; Hook make frame to apply `linux' specific configuration
-  (add-hook 'after-make-frame-functions 'my-after-make-frame-linux)
-
-  ;; Emacs not started in `daemon' mode.
-  (unless (daemonp)
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
+  ;; just call my frame configuration function
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions 'my-after-make-frame-linux)
     (my-after-make-frame-linux)))
 
 ;; Configure Windows GUI
 (use-package emacs
-  :straight nil
   :if (eq system-type 'windows-nt)
+  :straight nil
 
+  :config
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-windows(&optional frame)
     "Configure a new FRAME (default: selected frame) on `windows' system"
@@ -156,6 +160,7 @@
   (if (daemonp)
       (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)
     (my-after-make-frame-windows)))
+
 
 (provide 'core-ui)
 ;;; core-ui.el ends here.
