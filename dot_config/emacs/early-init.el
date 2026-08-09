@@ -2,8 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: December 4th, 2025
-
+;; Updated: August 9th, 2026
 
 ;;; Commentary:
 ;; I have added this file in an attempt to speed up Emacs' startup time.
@@ -52,7 +51,7 @@
 ;; Using `fundamental-mode' for the initial buffer to avoid unnecessary
 ;; startup overhead.
 (setq initial-major-mode 'fundamental-mode
-    initial-scratch-message nil)
+      initial-scratch-message nil)
 
 ;; Turn off ui elements
 (push '(menu-bar-lines . 0) default-frame-alist)
@@ -68,6 +67,11 @@
 (setq gnutls-verify-error t)  ; Prompts user if there are certificate issues
 (setq tls-checktrust t)  ; Ensure SSL/TLS connections undergo trust verification
 (setq gnutls-min-prime-bits 3072)  ; Stronger GnuTLS encryption
+
+;;; Packages
+(setq package-enable-at-startup nil)
+
+;;; Cleanup
 
 ;; After emacs has started...
 ;; Tell us how long it took to start and how many times the GC ran

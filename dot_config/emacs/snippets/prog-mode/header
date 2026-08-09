@@ -1,11 +1,12 @@
 # -*- mode: snippet -*-
 # name: my header
-# key: m;head
+# key: ;;head
 # --
 ${1:`(file-name-nondirectory (buffer-file-name))`} --- ${2:Simple Description}
 
 `user-full-name` <`user-mail-address`>
 Created: `(format-time-string "%B %e, %Y")`
+Updated:
 
 Description:
 ${3:Full Description}

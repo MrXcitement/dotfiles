@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: February 18th, 2026
+;; Updated: August 8th, 2026
 
 ;;; Commentary:
 ;; The primary `init' file for emacs. This file specifies how to
@@ -14,7 +14,9 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
+(message "Loading init...")
 
+;;;
 ;;; Check for valid emacs version
 
 ;; Emacs < 29 are too old, just error and exit.
@@ -25,8 +27,35 @@
 ;; Add the `lisp' dir in emacs init dir, to load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;;; Initialize emacs, before packages loaded.
+;;;
+;;; Install and configure package manager
+;;; https://github.com/radian-software/straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
+;; Install use-package
+(straight-use-package 'use-package)
+
+;; Configure use-package to use straight.el by default
+(use-package straight
+  :custom
+  (straight-use-package-by-default t))
+
+;;; Configure built-in packages and core emacs settings
+(message "Loading core...")
 (require 'core-customize)
 (require 'core-dired)
 (require 'core-environment)
@@ -34,7 +63,6 @@
 (require 'core-files)
 (require 'core-keymaps)
 (require 'core-lock-buffers)
-(require 'core-package)
 (require 'core-recentf)
 (require 'core-secure)
 (require 'core-server)
@@ -42,7 +70,8 @@
 (require 'core-ui)
 
 ;;; Initialize packages
-
+(message "Loading packages...")
+(require 'package-exec-path-from-shell)
 (require 'package-auto-dark-mode)
 (require 'package-corfu)
 (require 'package-dashboard)
@@ -51,7 +80,7 @@
 (require 'package-git-gutter)
 (require 'package-magit)
 (require 'package-markdown)
-(require 'package-mise)
+;; (require 'package-mise)
 (require 'package-minibuffer)
 (require 'package-nerd-icons)
 (require 'package-themes)

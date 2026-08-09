@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: December 4th, 2025
+;; Updated: August 9th, 2026
 
 ;;; Commentary:
 ;; Configure the minibuffer
@@ -39,9 +39,10 @@
 ;; Simple but effective sorting and filtering for Emacs.
 ;; https://github.com/radian-software/prescient.el
 (use-package prescient
-  :ensure t
-  :init
-  (vertico-prescient-mode))
+  :ensure t)
+
+(use-package vertico-prescient
+  :ensure t)
 
 ;; Emacs Mini-Buffer Actions Rooted in Keymaps
 ;; https://github.com/oantolin/embark

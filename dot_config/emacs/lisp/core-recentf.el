@@ -1,25 +1,30 @@
 ;;; core-recentf.el --- Initialize the recentf package -*- lexical-binding: t -*-
 
-;; Author: Mike Barker
-;; Maintainer: Mike Barker
-;; Version: 0.1.0
+;; Mike Barker <mike@thebarkers.com>
+;; Created: January 1st, 2025
+;; Updated: August 9th, 2026
 
 ;;; Commentary:
+;; Configure recentf recent files built-in package
 
-;; Use this package to initialize the recentf internal Emacs package
+;;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-(require 'recentf)
+(use-package recentf
+  :straight nil
+  :bind
+  ;; Replace `find-file-read-only' keybinding with recentf.
+  ("C-x C-r" . recentf-open)
 
-;; Replace `find-file-read-only' keybinding with recentf.
-(global-set-key (kbd "C-x C-r") 'recentf-open)
+  :init
+  ;; 50 files ought to be enough.
+  (setq recentf-max-saved-items 50)
 
-;; enable recent files mode.
-(recentf-mode t)
-
-; 50 files ought to be enough.
-(setq recentf-max-saved-items 50)
+  :config
+  ;; enable recent files mode.
+  (recentf-mode t))
 
 (provide 'core-recentf)
-
 ;;; core-recentf.el ends here

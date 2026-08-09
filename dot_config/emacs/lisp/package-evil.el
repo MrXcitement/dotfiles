@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: February 18th, 2026
+;; Updated: August 9th, 2026
 
 ;;; Commentary:
 ;; Install and configure evil and associated packages.
@@ -12,6 +12,9 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
+
+;;; evil
+;; https://github.com/emacs-evil/evil
 (use-package evil
   :ensure t
   :init
@@ -19,43 +22,46 @@
   (setq evil-undo-system 'undo-redo)
   :config
   (setq evil-buffer-regexps
-	'(("Customize.*" . nil)  ; Disable Evil for this buffer
-	  ("SPEEDBAR" . nil)))
+        '(("\*Customize" . nil)  ; Disable Evil for the any Customize,
+	  ("\*eshell\*" . nil)   ; *eshell* and,
+          ("SPEEDBAR" . nil)))   ; SPEEDBAR buffers.
   (defvar evil-mode-buffers '())
   (evil-mode 1))
 
+;;; evil-collection
+;; https://github.com/emacs-evil/evil-collection
 (use-package evil-collection
-   :after evil
-   :ensure t
-   :config
-   (evil-collection-init))
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
-;; (use-package evil-indent-textobject
-;;   :after evil
-;;   :ensure t)
+;;; evil-indent-plus
+;; https://github.com/TheBB/evil-indent-plus
+(use-package evil-indent-plus
+  :after evil
+  :ensure t)
 
-;; (use-package evil-leader
-;;   :ensure t
-;;   :config
-;;   (global-evil-leader-mode t)
-;;   (evil-leader/set-leader "<SPC>")
-;;   (evil-leader/set-key
-;;     "s s" 'swiper
-;;     "d x w" 'delete-trailing-whitespace
-;;     "e" 'counsel-find-file
-;;     "b" 'switch-to-buffer
-;;     "k" 'kill-buffer))
+;;; evil-leader
+;; https://github.com/cofi/evil-leader
+(use-package evil-leader
+  :ensure t
+  :config
+  (global-evil-leader-mode t)
+  (evil-leader/set-leader "<SPC>")
+  (evil-leader/set-key
+    "b" 'switch-to-buffer
+    "e" 'find-file
+    "k" 'kill-buffer
+    "d x w" 'delete-trailing-whitespace
+    "p f" 'project-find-file))
 
+;;; evil-surround
+;; https://github.com/emacs-evil/evil-surround
 (use-package evil-surround
   :after evil
   :ensure t
   :config (global-evil-surround-mode))
-
-(use-package powerline-evil
-  :after evil
-  :ensure t
-  :config
-  (powerline-evil-vim-color-theme))
 
 (provide 'package-evil)
 ;; end of package-evil-mode.el

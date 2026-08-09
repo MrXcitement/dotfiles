@@ -1,24 +1,27 @@
 ;;; package-exec-path-from-shell.el --- Install and configure the `exec-path-from-shell' package.
 
 ;; Mike Barker <mike@thebarkers.com>
-;; March 16th, 2023
+;; Created: March 16th, 2023
+;; Updated: August 9th, 2026
 
 ;;; Commentary:
-;; When on a Darwin (macOS) system
-;; copy important environment variables from the user's shell
-;; by asking your shell to print out the variables of interest,
-;; then copying them into the Emacs environment.
-;; https://github.com/purcell/exec-path-from-shell
+;; On a Darwin (macOS) system, copy environment variables from the
+;; user's shell by asking your shell to print out the variables of
+;; interest, then copying them into the Emacs environment.
+;; See: https://github.com/purcell/exec-path-from-shell
 
 ;;; History:
-;; 2023-03-16
-;; * First release.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-(when (eq system-type 'darwin)
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
+(use-package exec-path-from-shell
+  :if (eq system-type 'darwin)
+  :ensure t
+  :config
+  ;; Only run exec-path-from-shell-initialize when PATH has not
+  ;; allready been injected
+  (unless (bound-and-true-p ns-emacs-plus-injected-path)
     (exec-path-from-shell-initialize)))
 
 (provide 'package-exec-path-from-shell)

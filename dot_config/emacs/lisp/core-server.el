@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th. 2025
-;; Updated: December 4th, 2025
+;; Updated: August 8th, 2026
 
 ;;; Commentary:
 ;; Start the server whenever the main emacs app is run as a `gui' If
@@ -14,22 +14,15 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-
-;; Darwin (Mac OS X)
-(when (eq system-type 'darwin))
-
-;; Gnu/linux
-(when (eq system-type 'gnu/linux))
-
-;; Windows
-(when (eq system-type 'windows-nt))
-
-;; When running as a GUI
-;; Start a server for client processes, but only if one is not already running
-(when (window-system)
-  (load "server")
-  (unless (server-running-p)
-    (server-start)))
+;;; Configure server
+(use-package emacs
+  :config
+  ;; When running as a GUI
+  ;; Start a server for client processes, but only if one is not already running
+  (when (window-system)
+    (load "server")
+    (unless (server-running-p)
+      (server-start))))
 
 (provide 'core-server)
 ;;; core-server.el ends here.

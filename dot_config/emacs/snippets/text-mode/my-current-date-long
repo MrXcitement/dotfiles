@@ -1,7 +1,8 @@
-W# -*- mode: snippet; require-final-newline: nil -*-
+# -*- mode: snippet; require-final-newline: nil -*-
 # name: my current date long
-# key: m;cdl
+# key: ;;cdl
 # type: command
+# contributor: Mike Barker <mike@thebarkers.com>
 # --
 (let* ((oi '(("1" . "st")("2" . "nd")("3" . "rd")("21" . "st")("22" . "nd")("23" . "rd")("31" . "st")))
        ;; Use %-d to prevent leading zeros
