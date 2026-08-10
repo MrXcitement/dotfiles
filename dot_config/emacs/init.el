@@ -60,7 +60,7 @@
   :custom
   (straight-use-package-by-default t))
 
-;;; Configure built-in packages and core emacs settings
+;;; Configure core (built-in) packages and emacs settings
 (message "Loading core...")
 (require 'core-customize)
 (require 'core-dired)

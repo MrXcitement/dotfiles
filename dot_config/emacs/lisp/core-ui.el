@@ -12,30 +12,9 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
+
 ;; Configure UI
 (use-package emacs
-  :straight nil
-
-  :config
-  (blink-cursor-mode -1)
-  (column-number-mode t)
-  (show-paren-mode t)
-
-  ;; Higlight current line in package menu
-  (add-hook 'package-menu-mode-hook (lambda() (hl-line-mode 1)))
-
-  ;; Line number type to relative, and display in text and program derived modes
-  (setopt display-line-numbers-type 'relative)
-  (add-hook 'text-mode-hook 'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-
-  ;; Whitespace display configuration
-  (setq whitespace-line-column 80 whitespace-style
-	'(face newline space-mark tab-mark newline-mark trailing lines-tail)))
-
-;; Configure GUI
-(use-package emacs
-  :if (display-graphic-p)
   :straight nil
 
   :config
@@ -43,11 +22,12 @@
   (defcustom my-theme-light 'tango
     "The theme to used when the `appearance' is 'light."
     :type 'symbol
-    :group 'my-ui)
+    :group 'my)
+
   (defcustom my-theme-dark 'tango-dark
     "The theme to used when the `appearance' is 'dark."
     :type 'symbol
-    :group 'my-ui)
+    :group 'my)
 
   ;; Theme application functions
   (defun my-apply-theme (appearance)
@@ -68,21 +48,23 @@
     (interactive)
     (my-apply-theme 'dark))
 
-  ;; GUI frame configuration
-  ;; (defun my-after-make-frame (&optional frame)
-  ;;   "Configure a new FRAME (default: selected frame) on any system."
-  ;;   (let* ((frame (or frame (selected-frame)))
-  ;;          (lines (if (display-graphic-p frame) 1 0)))
-  ;;     (set-frame-parameter frame 'menu-bar-lines lines)))
+  (blink-cursor-mode -1)
+  (column-number-mode t)
+  (show-paren-mode t)
 
-  ;; Add hook to configure new GUI frames
-  ;; (add-hook 'after-make-frame-functions #'my-after-make-frame)
+  ;; Higlight current line in package menu
+  (add-hook 'package-menu-mode-hook (lambda() (hl-line-mode 1)))
 
-  ;; Emacs was started normally
-  (unless (daemonp)
-    (my-after-make-frame)))
+  ;; Line number type to relative, and display in text and program derived modes
+  (setopt display-line-numbers-type 'relative)
+  (add-hook 'text-mode-hook 'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-;; Configure macOS GUI
+  ;; Whitespace display configuration
+  (setq whitespace-line-column 80 whitespace-style
+	'(face newline space-mark tab-mark newline-mark trailing lines-tail)))
+
+;; Configure macOS
 (use-package emacs
   :if (eq system-type 'darwin)
   :straight nil
@@ -91,6 +73,8 @@
   ;; Frame configuration for `darwin'
   (defun my-after-make-frame-darwin(&optional frame)
     "Configure a new FRAME (default: selected frame) on `darwin' system"
+
+    (message "my-after-make-frame-darwin(%s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
@@ -108,14 +92,11 @@
   ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
   ;; just call my frame configuration function
   (if (daemonp)
-      (add-hook 'after-make-frame-functions
-		(lambda (frame)
-		  (with-selected-frame frame
-		    (my-after-make-frame-darwin))))
+      (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
     ;; Call my frame configuration function
     (my-after-make-frame-darwin)))
 
-;; Configure Linux GUI
+;; Configure Linux
 (use-package emacs
   :if (eq system-type 'gnu/linux)
   :straight nil
@@ -124,6 +105,8 @@
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-linux(&optional frame)
     "Configure a new FRAME (default: selected frame) on `linux' system"
+
+    (message "my-after-make-frame-linux(&optional %s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
@@ -138,7 +121,7 @@
       (add-hook 'after-make-frame-functions 'my-after-make-frame-linux)
     (my-after-make-frame-linux)))
 
-;; Configure Windows GUI
+;; Configure Windows
 (use-package emacs
   :if (eq system-type 'windows-nt)
   :straight nil
@@ -147,6 +130,8 @@
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-windows(&optional frame)
     "Configure a new FRAME (default: selected frame) on `windows' system"
+
+    (message "my-after-make-frame-windows(&optional %s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
