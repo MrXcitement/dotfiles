@@ -69,14 +69,14 @@
     (my-apply-theme 'dark))
 
   ;; GUI frame configuration
-  (defun my-after-make-frame (&optional frame)
-    "Configure a new FRAME (default: selected frame) on any system."
-    (let* ((frame (or frame (selected-frame)))
-           (lines (if (display-graphic-p frame) 1 0)))
-      (set-frame-parameter frame 'menu-bar-lines lines)))
+  ;; (defun my-after-make-frame (&optional frame)
+  ;;   "Configure a new FRAME (default: selected frame) on any system."
+  ;;   (let* ((frame (or frame (selected-frame)))
+  ;;          (lines (if (display-graphic-p frame) 1 0)))
+  ;;     (set-frame-parameter frame 'menu-bar-lines lines)))
 
   ;; Add hook to configure new GUI frames
-  (add-hook 'after-make-frame-functions #'my-after-make-frame)
+  ;; (add-hook 'after-make-frame-functions #'my-after-make-frame)
 
   ;; Emacs was started normally
   (unless (daemonp)

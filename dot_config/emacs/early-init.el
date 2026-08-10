@@ -57,6 +57,8 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
+;; (when (eq system-type 'windows-nt)
+(setq menu-bar-mode nil)
 
 ;; Disable GUI dialogs because they are inconsistent across systems, desktop
 ;; environments, and themes, and they don't match the look of Emacs.

@@ -86,7 +86,6 @@
 (require 'package-git-gutter)
 (require 'package-magit)
 (require 'package-markdown)
-;; (require 'package-mise)
 (require 'package-minibuffer)
 (require 'package-nerd-icons)
 (require 'package-themes)
@@ -94,5 +93,7 @@
 (require 'package-tree-sitter)
 (require 'package-undo-tree)
 (require 'package-yasnippet)
+
+;; (require 'package-mise)
 
 ;;; end of init.el
