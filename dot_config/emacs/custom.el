@@ -13,10 +13,6 @@
      default))
  '(my-theme-dark 'modus-vivendi)
  '(my-theme-light 'modus-operandi)
- '(package-selected-packages
-   '(cape consult corfu eat embark evil-collection evil-surround
-	  exec-path-from-shell marginalia markdown-mode orderless
-	  undo-tree vertico yasnippet-snippets))
  '(tramp-term-host-shells '(("devbox" . bash)))
  '(warning-suppress-types '((use-package))))
 (custom-set-faces
