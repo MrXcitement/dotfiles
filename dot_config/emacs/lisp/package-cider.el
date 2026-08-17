@@ -16,6 +16,7 @@
 
 ;;; Code:
 (when (executable-find "lien")
-  (use-package cider))
+  (use-package cider)
+  :disabled)
 
 (provide 'package-cider)

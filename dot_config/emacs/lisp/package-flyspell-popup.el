@@ -15,6 +15,7 @@
 
 ;;; Code:
 (use-package flyspell-popup
+  :disabled
   :ensure t
   :bind ("C-c $" . flyspell-popup-correct))
 

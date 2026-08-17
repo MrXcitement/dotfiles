@@ -9,6 +9,7 @@
 
 ;;; Code:
 (use-package neotree
+  :disabled
   :ensure t)
 
 (provide 'package-neotree)

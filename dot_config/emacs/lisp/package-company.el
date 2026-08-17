@@ -14,7 +14,7 @@
 
 ;;; Code:
 (use-package company
-  :disabled t
+  :disabled
   :ensure nil
   :demand t 				; make sure this is loaded at startup, not defered.
   :bind (("C-c SPC" . company-complete)	; key to force completion

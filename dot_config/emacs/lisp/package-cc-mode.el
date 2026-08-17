@@ -12,6 +12,7 @@
 
 ;;; Code:
 (use-package cc-mode
+  :disabled
   :config
   (add-hook 'c-mode-hook
 	    (lambda()

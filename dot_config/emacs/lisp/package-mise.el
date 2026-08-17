@@ -10,6 +10,7 @@
 ;;; Code:
 
 (use-package mise
+  :disabled
   :ensure t
   :hook
   (after-init-hook . global-mise-mode))

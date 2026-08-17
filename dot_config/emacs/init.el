@@ -16,26 +16,50 @@
 ;;; Code:
 (message "Loading init...")
 
-;;;
-;;; Check for valid emacs version
+;;; Core Functionality
 
-;; Emacs < 29 are too old, just error and exit.
+;; Only support Emacs v29+.
 (when (< emacs-major-version 29)
-  (error "Your Emacs v%s is too old -- this config requires v29 or higher"
+  (error "Your Emacs v%s is too old -- this config requires Emacs v27 or higher"
          emacs-version))
 
-;; Add the `lisp' dir in emacs init dir, to load path
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; when in batch mode
+(when noninteractive
+  (setq enable-dir-local-variables nil)
+  (setq-default case-fold-search nil))
 
-;; When debugging the init file, provide more use-package info
-(when init-file-debug
-  (setq use-package-verbose t
-        use-package-expand-minimally nil
-        use-package-compute-statistics t
-        debug-on-error t))
-;;;
-;;; Install and configure package manager
-;;; https://github.com/radian-software/straight.el
+;; The initial buffer is created during startup even in non-interactive
+;; sessions, and its major mode is fully initialized. Modes like `text-mode',
+;; `org-mode', or even the default `lisp-interaction-mode' load extra packages
+;; and run hooks, which can slow down startup.
+;;
+;; Using `fundamental-mode' for the initial buffer to avoid unnecessary
+;; startup overhead.
+(setq initial-major-mode 'fundamental-mode
+      initial-scratch-message nil)
+
+;; Ask the user whether to terminate asynchronous compilations on exit.
+;; This prevents native compilation from leaving temporary files in /tmp.
+(setq native-comp-async-query-on-exit t)
+
+;; Allow for shorter responses: "y" for yes and "n" for no.
+(setq read-answer-short t)
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (advice-add 'yes-or-no-p :override #'y-or-n-p))
+(setq revert-buffer-quick-short-answers t)
+
+;; Handle the customize file
+(setq custom-file (locate-user-emacs-file "custom.el"))
+;; Press 'q' to quit a customize buffer, and it will be killed not just burried
+(setq custom-buffer-done-kill t)
+(load custom-file :no-error-if-file-is-missing)
+
+
+;;; Package management
+
+;; Install and configure straight.el package manager
+;; https://github.com/radian-software/straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -52,7 +76,7 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-;; Install use-package
+;; Straight install use-package and configure straight to use-package by default
 (straight-use-package 'use-package)
 
 ;; Configure use-package to use straight.el by default
@@ -60,40 +84,24 @@
   :custom
   (straight-use-package-by-default t))
 
-;;; Configure core (built-in) packages and emacs settings
-(message "Loading core...")
-(require 'core-customize)
-(require 'core-dired)
-(require 'core-environment)
-(require 'core-eshell)
-(require 'core-files)
-(require 'core-keymaps)
-(require 'core-lock-buffers)
-(require 'core-recentf)
-(require 'core-secure)
-(require 'core-server)
-(require 'core-spelling)
-(require 'core-ui)
+;;; Feature configuration
 
-;;; Initialize packages
-(message "Loading packages...")
-(require 'package-exec-path-from-shell)
-(require 'package-auto-dark-mode)
-(require 'package-corfu)
-(require 'package-dashboard)
-(require 'package-eglot)
-(require 'package-evil)
-(require 'package-git-gutter)
-(require 'package-magit)
-(require 'package-markdown)
-(require 'package-minibuffer)
-(require 'package-nerd-icons)
-(require 'package-themes)
-(require 'package-speedbar)
-(require 'package-tree-sitter)
-(require 'package-undo-tree)
-(require 'package-yasnippet)
+;; Require all `.el' files matching FILESPEC in DIRECTORY.
+(defun my-require-features (filespec directory)
+  "Require all `.el' files matching FILESPEC in DIRECTORY."
+  (when (file-exists-p directory)
+    (add-to-list 'load-path directory)
+    (let ((pattern (wildcard-to-regexp filespec)))
+      (dolist (file (directory-files directory nil pattern))
+        (message "require file %s..." file)
+        (require (intern (file-name-sans-extension file)) nil t)))))
 
-;; (require 'package-mise)
+;;; Require core features to configure emacs and built-in packages.
+(message "Require core features...")
+(my-require-features "core-*.el" (expand-file-name "lisp" user-emacs-directory))
+
+;;; Require 3rd party packages.
+(message "Require 3rd party packages...")
+(my-require-features "package-*.el" (expand-file-name "lisp" user-emacs-directory))
 
 ;;; end of init.el

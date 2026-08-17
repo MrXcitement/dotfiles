@@ -1,7 +1,8 @@
-;;; package-hs-minor-mode.el --- Configure the `hs-minor-mode' package.
+;;; core-hideshow.el --- Configure the `hs-minor-mode' package.
 
 ;; Mike Barker <mike@thebarkers.com>
-;; October 23, 2014
+;; Created: October 23, 2014
+;; Updated: August 17th, 2026
 
 ;;; Commentary:
 ;; Hideshow mode is a buffer-local minor mode that allows you to
@@ -11,13 +12,8 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Hideshow.html
 
 ;;; History:
-;; 202#.03.22
-;; * rename personal functions from `my/funcname' to `my-funcname'
-;; 2023.03.17
-;; * rename and refactor this file into a valid package.
-;; * rename personal functions from mrb:funcname to my/funcname
-;; 2014.11.12
-;; * removed loading message
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 
@@ -54,7 +50,7 @@
   	(error nil)))))
 
 ;; initialize and configure the `hideshow.el' system package
-(use-package hs-minor-mode
+(use-package hideshow
   :bind
   (("C-c =" . my-toggle-hiding)
    ("C-c +" . my-toggle-selective-display))
@@ -92,4 +88,4 @@
 		   sgml-skip-tag-forward
 		   nil))))
 
-(provide 'package-hs-minor-mode)
+(provide 'core-hideshow)

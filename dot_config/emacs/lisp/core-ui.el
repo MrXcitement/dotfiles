@@ -2,10 +2,12 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: August 8th, 2026
+;; Updated: August 13th, 2026
 
 ;;; Commentary:
 ;; Initialize the user interface handling text and gui modes.
+;; C source, frame.el, hl-line.el, mouse.el, mule-cmds.el, mule-util.el,
+;; paren.el, simple.el, time.el, window.el
 
 ;;; History:
 ;; See my dotfiles repo and the emacs folder
@@ -13,56 +15,110 @@
 
 ;;; Code:
 
-;; Configure UI
-(use-package emacs
-  :straight nil
+(blink-cursor-mode -1)
+(column-number-mode t)
+(show-paren-mode t)
 
-  :config
-  ;; Customizable light and dark theme variables
-  (defcustom my-theme-light 'tango
-    "The theme to used when the `appearance' is 'light."
-    :type 'symbol
-    :group 'my)
+;; Highlighting the current window, reducing clutter and improving performance
+(setq hl-line-sticky-flag nil)
+(setq global-hl-line-sticky-flag nil)
+;; Higlight current line in package menu
+(add-hook 'package-menu-mode-hook (lambda() (hl-line-mode 1)))
 
-  (defcustom my-theme-dark 'tango-dark
-    "The theme to used when the `appearance' is 'dark."
-    :type 'symbol
-    :group 'my)
+;; Line numbers
 
-  ;; Theme application functions
-  (defun my-apply-theme (appearance)
-    "Load theme, taking current system APPEARANCE into consideration."
-    (interactive)
-    (mapc #'disable-theme custom-enabled-themes)
-    (pcase appearance
-      ('light (load-theme my-theme-light t))
-      ('dark  (load-theme my-theme-dark t))))
+(setopt display-line-numbers-width 3)
+(setopt display-line-numbers-widen t)
 
-  (defun my-apply-theme-light ()
-    "Apply the light theme."
-    (interactive)
-    (my-apply-theme 'light))
+;; Line number type to relative, and display in text and program derived modes
+(setopt display-line-numbers-type 'relative)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-  (defun my-apply-theme-dark ()
-    "Apply the dark theme."
-    (interactive)
-    (my-apply-theme 'dark))
+;; Whitespace display configuration
+(setq whitespace-line-column nil  ; Use the value of `fill-column'
+      whitespace-style
+      '(face newline space-mark tab-mark newline-mark trailing lines-tail))
 
-  (blink-cursor-mode -1)
-  (column-number-mode t)
-  (show-paren-mode t)
+;; By default, Emacs "updates" its ui more often than it needs to
+(setq which-func-update-delay 1.0)
+(with-no-warnings
+  ;; Obsolete in >= 30.1
+  (setq idle-update-delay which-func-update-delay))
 
-  ;; Higlight current line in package menu
-  (add-hook 'package-menu-mode-hook (lambda() (hl-line-mode 1)))
+(defalias #'view-hello-file #'ignore)  ; Never show the hello file
 
-  ;; Line number type to relative, and display in text and program derived modes
-  (setopt display-line-numbers-type 'relative)
-  (add-hook 'text-mode-hook 'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; No beeping or blinking
+(setq visible-bell nil)
+(setq ring-bell-function #'ignore)
 
-  ;; Whitespace display configuration
-  (setq whitespace-line-column 80 whitespace-style
-	'(face newline space-mark tab-mark newline-mark trailing lines-tail)))
+;; Position underlines at the descent line instead of the baseline.
+(setq x-underline-at-descent-line t)
+
+(setq truncate-string-ellipsis "…")
+
+(setq display-time-default-load-average nil) ; Omit load average
+
+;; Prefer vertical splits over horizontal ones
+(setq split-width-threshold 170
+      split-height-threshold nil)
+
+;; Show parenthesis
+
+(setq show-paren-delay 0.1
+      show-paren-highlight-openparen t
+      show-paren-when-point-inside-paren t
+      show-paren-when-point-in-periphery t)
+
+;; Frames and windows
+
+(setq resize-mini-windows 'grow-only)
+(setq max-mini-window-height 0.33)
+
+;; The native border "uses" a pixel of the fringe on the rightmost
+;; splits, whereas `window-divider-mode' does not.
+(setq window-divider-default-bottom-width 1
+      window-divider-default-places t
+      window-divider-default-right-width 1)
+
+;; Scrolling
+
+;; Enables faster scrolling. This may result in brief periods of inaccurate
+;; syntax highlighting, which should quickly self-correct.
+(setq fast-but-imprecise-scrolling t)
+
+;; Move point to top/bottom of buffer before signaling a scrolling error.
+(setq scroll-error-top-bottom t)
+
+;; Keep screen position if scroll command moved it vertically out of the window.
+(setq scroll-preserve-screen-position t)
+
+;; Emacs recenters the window when the cursor moves past `scroll-conservatively'
+;; lines beyond the window edge. A value over 101 disables recentering; the
+;; default (0) is too eager. Here it is set to 20 for a balanced behavior.
+(setq scroll-conservatively 20)
+
+;; 1. Preventing automatic adjustments to `window-vscroll' for long lines.
+;; 2. Resolving the issue of random half-screen jumps during scrolling.
+(setq auto-window-vscroll nil)
+
+;; Horizontal scrolling
+(setq hscroll-margin 2
+      hscroll-step 1)
+
+;; Cursor
+
+;; The blinking cursor is distracting and interferes with cursor settings in
+;; some minor modes that try to change it buffer-locally (e.g., Treemacs).
+(when (bound-and-true-p blink-cursor-mode)
+  (blink-cursor-mode -1))
+
+;; Don't blink the paren matching the one at point, it's too distracting.
+(setq blink-matching-paren nil)
+
+;; Reduce rendering/line scan work by not rendering cursors or regions in
+;; non-focused windows.
+(setq highlight-nonselected-windows nil)
 
 ;; Configure macOS
 (use-package emacs

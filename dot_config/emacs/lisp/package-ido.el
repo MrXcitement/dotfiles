@@ -22,6 +22,7 @@
 ;; Ido - interactive do - switches between buffers and opens files and
 ;; directories with a minimum of keystrokes.
 (use-package ido
+  :disabled
   :if (version< emacs-version "28.1")
   :config
   (progn

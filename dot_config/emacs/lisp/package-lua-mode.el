@@ -14,6 +14,7 @@
 
 ;;; Code:
 (use-package lua-mode
+  :disabled
   :ensure t
   :mode "\\.lua\\'")
 

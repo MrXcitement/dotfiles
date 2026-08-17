@@ -9,6 +9,7 @@
 ;;; Code:
 (when (executable-find "mvn")
   (use-package malabar-mode
+    :disabled
     :mode "\\.java\\'"
     :config
     (progn

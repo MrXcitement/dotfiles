@@ -16,6 +16,7 @@
 ;;; Code:
 
 (use-package icomplete
+  :disabled
   :config
   (progn
     (when (version< emacs-version "28.1")

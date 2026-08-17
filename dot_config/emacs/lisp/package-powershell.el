@@ -10,6 +10,7 @@
 ;;; Code:
 (when (eq system-type 'windows-nt)
   (use-package powershell
+    :disabled
     :ensure t
     :config
     (require 'powershell nil t)))
