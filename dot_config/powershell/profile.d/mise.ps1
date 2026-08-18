@@ -4,7 +4,7 @@
 # July 15th, 2025
 
 # Check for mise.exe and running in powershell version 7 or later
-if ((Get-Command mise -ErrorAction SilentlyContinue) -and 
+if ((Get-Command mise.exe -ErrorAction SilentlyContinue) -and 
     ($PSVersionTable.PSVersion.Major -ge 7)){
   mise activate pwsh | Out-String | Invoke-Expression
 }
