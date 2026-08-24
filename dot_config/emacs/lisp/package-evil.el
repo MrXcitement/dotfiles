@@ -18,8 +18,9 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-redo)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-keybinding nil)
   :config
   (setq evil-buffer-regexps
         '(("\*Customize" . nil)  ; Disable Evil for the any Customize,
