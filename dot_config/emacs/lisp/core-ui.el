@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: August 13th, 2026
+;; Updated: August 24th, 2026
 
 ;;; Commentary:
 ;; Initialize the user interface handling text and gui modes.
@@ -121,11 +121,8 @@
 (setq highlight-nonselected-windows nil)
 
 ;; Configure macOS
-(use-package emacs
-  :if (eq system-type 'darwin)
-  :straight nil
+(when (eq system-type 'darwin)
 
-  :config
   ;; Frame configuration for `darwin'
   (defun my-after-make-frame-darwin(&optional frame)
     "Configure a new FRAME (default: selected frame) on `darwin' system"
@@ -140,24 +137,21 @@
 
       ;; set default font
       (when (member "FiraCode Nerd Font" (font-family-list))
-	(set-frame-font "FiraCode Nerd Font" t t))
+        (set-frame-font "FiraCode Nerd Font" t t))
 
       ;; raise Emacs using AppleScript."
       (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
-  ;; just call my frame configuration function
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin)
-    ;; Call my frame configuration function
-    (my-after-make-frame-darwin)))
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  (when (daemonp)
+    (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin))
+
+  ;; Always call my frame configuration function
+  (my-after-make-frame-darwin))
 
 ;; Configure Linux
-(use-package emacs
-  :if (eq system-type 'gnu/linux)
-  :straight nil
+(when (eq system-type 'gnu/linux)
 
-  :config
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-linux(&optional frame)
     "Configure a new FRAME (default: selected frame) on `linux' system"
@@ -167,22 +161,23 @@
     ;; When the frame is GUI
     (when (display-graphic-p)
 
-      ;; Font customization
-      (when (member "Monospace" (font-family-list))
-	(set-face-font 'default "Monospace 11"))))
+      ;; Default Font
+      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
+             (available-fonts (font-family-list))
+             (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
+        (when chosen-font
+          (set-face-font 'default (format "%s 10" chosen-font))))))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
-  ;; just call my frame configuration function
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions 'my-after-make-frame-linux)
-    (my-after-make-frame-linux)))
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  (when (daemonp)
+    (add-hook 'after-make-frame-functions 'my-after-make-frame-linux))
+  
+  ;; Always call my frame configuration function
+  (my-after-make-frame-linux))
 
 ;; Configure Windows
-(use-package emacs
-  :if (eq system-type 'windows-nt)
-  :straight nil
+(when (eq system-type 'windows-nt)
 
-  :config
   ;; Frame configuration for `windows' systems.
   (defun my-after-make-frame-windows(&optional frame)
     "Configure a new FRAME (default: selected frame) on `windows' system"
@@ -194,13 +189,14 @@
 
       ;; Font customization
       (when (member "FiraCode Nerd Font" (font-family-list))
-	(set-face-font 'default "FiraCode Nerd Font 10"))))
+        (set-face-font 'default "FiraCode Nerd Font 10"))))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame otherwise
-  ;; just call my frame configuration function
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions 'my-after-make-frame-windows)
-    (my-after-make-frame-windows)))
+  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  (when (daemonp)
+    (add-hook 'after-make-frame-functions 'my-after-make-frame-windows))
+  
+  ;; Always call my frame configuration function
+  (my-after-make-frame-windows))
 
 
 (provide 'core-ui)
