@@ -135,16 +135,19 @@
       ;; set key to toggle fullscreen mode
       (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
-      ;; set default font
-      (when (member "FiraCode Nerd Font" (font-family-list))
-        (set-frame-font "FiraCode Nerd Font" t t))
+      ;; Default Font
+      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
+             (available-fonts (font-family-list))
+             (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
+        (when chosen-font
+          (set-face-font 'default (format "%s 12" chosen-font))))
 
       ;; raise Emacs using AppleScript."
       (ns-do-applescript "tell application \"Emacs\" to activate")))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'after-make-frame-functions 'my-after-make-frame-darwin))
+    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-darwin))
 
   ;; Always call my frame configuration function
   (my-after-make-frame-darwin))
@@ -168,9 +171,9 @@
         (when chosen-font
           (set-face-font 'default (format "%s 10" chosen-font))))))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'after-make-frame-functions 'my-after-make-frame-linux))
+    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-linux))
   
   ;; Always call my frame configuration function
   (my-after-make-frame-linux))
@@ -191,9 +194,9 @@
       (when (member "FiraCode Nerd Font" (font-family-list))
         (set-face-font 'default "FiraCode Nerd Font 10"))))
 
-  ;; If Emacs is in `daemon' mode, hook the after-make-frame 
+  ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'after-make-frame-functions 'my-after-make-frame-windows))
+    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-windows))
   
   ;; Always call my frame configuration function
   (my-after-make-frame-windows))
