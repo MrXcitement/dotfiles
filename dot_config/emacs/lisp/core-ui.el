@@ -193,7 +193,7 @@
     (when (display-graphic-p)
 
       ;; Set the default font
-      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
+      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Cascadia Code" "Consolas"))
              (available-fonts (font-family-list))
              (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
         (when chosen-font
