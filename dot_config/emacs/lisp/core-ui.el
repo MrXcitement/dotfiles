@@ -124,10 +124,10 @@
 (when (eq system-type 'darwin)
 
   ;; Frame configuration for `darwin'
-  (defun my-after-make-frame-darwin(&optional frame)
+  (defun my-make-frame-darwin(&optional frame)
     "Configure a new FRAME (default: selected frame) on `darwin' system"
 
-    (message "my-after-make-frame-darwin(%s)" frame)
+    (message "my-make-frame-darwin(%s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
@@ -136,10 +136,11 @@
       (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen)
 
       ;; Default Font
-      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
+      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Menlo"))
              (available-fonts (font-family-list))
              (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
         (when chosen-font
+          (message "Setting default font: %s" chosen-font)
           (set-face-font 'default (format "%s 12" chosen-font))))
 
       ;; raise Emacs using AppleScript."
@@ -147,59 +148,65 @@
 
   ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-darwin))
+    (add-hook 'server-after-make-frame-hook #'my-make-frame-darwin))
 
   ;; Always call my frame configuration function
-  (my-after-make-frame-darwin))
+  (my-make-frame-darwin))
 
 ;; Configure Linux
 (when (eq system-type 'gnu/linux)
 
   ;; Frame configuration for `windows' systems.
-  (defun my-after-make-frame-linux(&optional frame)
+  (defun my-make-frame-linux(&optional frame)
     "Configure a new FRAME (default: selected frame) on `linux' system"
 
-    (message "my-after-make-frame-linux(&optional %s)" frame)
+    (message "my-make-frame-linux(&optional %s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
 
-      ;; Default Font
+      ;; Set the default font
       (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
              (available-fonts (font-family-list))
              (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
         (when chosen-font
+          (message "Setting default font: %s" chosen-font)
           (set-face-font 'default (format "%s 10" chosen-font))))))
 
   ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-linux))
+    (add-hook 'server-after-make-frame-hook #'my-make-frame-linux))
   
   ;; Always call my frame configuration function
-  (my-after-make-frame-linux))
+  (my-make-frame-linux))
 
 ;; Configure Windows
 (when (eq system-type 'windows-nt)
 
   ;; Frame configuration for `windows' systems.
-  (defun my-after-make-frame-windows(&optional frame)
+  (defun my-make-frame-windows(&optional frame)
     "Configure a new FRAME (default: selected frame) on `windows' system"
 
-    (message "my-after-make-frame-windows(&optional %s)" frame)
+    (message "my-make-frame-windows(&optional %s)" frame)
 
     ;; When the frame is GUI
     (when (display-graphic-p)
 
-      ;; Font customization
-      (when (member "FiraCode Nerd Font" (font-family-list))
-        (set-face-font 'default "FiraCode Nerd Font 10"))))
+      ;; Set the default font
+      (let* ((font-priority '("0xProto Nerd Font"  "FiraCode Nerd Font" "Monospace"))
+             (available-fonts (font-family-list))
+             (chosen-font (seq-find (lambda (font) (member font available-fonts)) font-priority)))
+        (when chosen-font
+          (message "Setting default font: %s" chosen-font)
+          (set-face-font 'default (format "%s 10" chosen-font))))))
+
 
   ;; If Emacs is in `daemon' mode, hook the server-after-make-frame-hook 
   (when (daemonp)
-    (add-hook 'server-after-make-frame-hook #'my-after-make-frame-windows))
+    (add-hook 'server-after-make-frame-hook #'my-make-frame-windows))
   
   ;; Always call my frame configuration function
-  (my-after-make-frame-windows))
+  (my-make-frame-windows))
 
 
 (provide 'core-ui)
