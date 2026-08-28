@@ -1,4 +1,4 @@
-;;; init.el --- My Emacs initialization file
+;;; init.el --- My Emacs initialization file -*- lexical-binding: t -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025

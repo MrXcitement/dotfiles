@@ -1,4 +1,4 @@
-;;; early-init.el --- Early initialization
+;;; early-init.el --- Early initialization -*- lexical-binding: t -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
