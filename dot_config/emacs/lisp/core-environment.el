@@ -12,24 +12,18 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-(use-package emacs
-  :straight nil
-  :init
-  ;; Force the current directory to be the users home dir
-  (setq default-directory "~/")
 
-  :config
-  ;; Darwin (mac os x) environment setup here...
-  (when (eq system-type 'darwin)
-    ;; Use the provided elisp version of ls
-    (require 'ls-lisp)
-    (setq ls-lisp-use-insert-directory-program nil))
+;; Force the current directory to be the users home dir
+(setq default-directory "~/")
 
-  ;; Linux environment here...
-  (when (eq system-type 'linux))
+;; Darwin (mac os x) environment setup here...
+(when (eq system-type 'darwin))
 
-  ;; Windows environment here...
-  (when (eq system-type 'windows-nt)))
+;; Linux environment here...
+(when (eq system-type 'linux))
+
+;; Windows environment here...
+(when (eq system-type 'windows-nt))
 
 (provide 'core-environment)
 ;;; core-environment.el ends here.
