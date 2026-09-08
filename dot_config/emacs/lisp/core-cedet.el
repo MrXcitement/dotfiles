@@ -1,4 +1,4 @@
-;;; package-cedet.el --- Initialize the cedet mode
+;;; core-cedet.el --- Initialize the cedet mode
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; October 23, 2014
@@ -18,4 +18,4 @@
     (global-ede-mode t)
     (semantic-mode 1)))
 
-(provide 'package-cedet)
+(provide 'core-cedet)
