@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: license mit
-# key: ;;licemit
+# name: my license mit
+# key: mylicmit
+# contributor: Mike Barker <mike@thebarkers.com>
 # --
 MIT License
 

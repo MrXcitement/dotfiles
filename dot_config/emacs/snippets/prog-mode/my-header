@@ -1,18 +1,17 @@
 # -*- mode: snippet -*-
 # name: my header
-# key: ;;head
+# key: myhead
+# contributor: Mike Barker <mike@thebarkers.com>
 # --
 ${1:`(file-name-nondirectory (buffer-file-name))`} --- ${2:Simple Description}
 
 `user-full-name` <`user-mail-address`>
-Created: `(format-time-string "%B %e, %Y")`
+Created: `(yas-expand-snippet (yas-lookup-snippet "my current date long"))`
 Updated:
 
 Description:
 ${3:Full Description}
 
-History:
-`(format-time-string "%Y.%m.%d")`
-* First release.
 `(comment-region (point-min) (point-at-eol 0))`
+
 $0

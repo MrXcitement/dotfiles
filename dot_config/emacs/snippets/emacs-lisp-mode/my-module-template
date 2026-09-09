@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: my module template
+# key: mymt
+# contributor: Mike Barker <mike@thebarkers.com>
+# --
+;;; ${1:`(file-name-base buffer-file-name)`}.el --- Module $1.
+
+;; `user-full-name` <`user-mail-address`>
+;; Created: `(yas-expand-snippet (yas-lookup-snippet "my current date long"))`
+;; Updated:
+
+;;; Commentary:
+;; Configure $1.
+
+;;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
+
+;;; Code:
+
+$0
+
+(provide '$1)
+;;; $1.el ends here.

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: Document template - HTML5
-# key: doc5
+# name: My document template - HTML5
+# key: myd5
 # contributor: Mike Barker <mike@thebarkers.com>
 # --
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: my current date long
-# key: ;;cdl
+# key: mycdl
 # type: command
 # contributor: Mike Barker <mike@thebarkers.com>
 # --
