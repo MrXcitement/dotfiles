@@ -76,20 +76,10 @@ if (( $+commands[eza] )); then
     fi
 fi
 
-# Clone zsh-users/zsh-autosuggestions
-if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-fi
-
 # Clone zsh-users/zsh-completions
 if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]]; then
     git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
     fpath+="$ZSH_CUSTOM/custom/plugins/zsh-completions/src"
-fi
-
-# Clone zsh-users/zsh-syntax-highlighting
-if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 fi
 
 ##
@@ -119,13 +109,7 @@ zstyle ':omz:update' frequency 7
 plugins=()
 
 # Only add plugin if it's associated command is available.
-if (( $+commands[brew] )); then
-    fpath+="$(brew --prefix)/share/zsh/site-functions"
-    plugins+=(brew)
-fi
 (( $+commands[chezmoi] )) && plugins+=(chezmoi)
-(( $+commands[code] )) && plugins+=(vscode)
-(( $+commands[direnv] )) && plugins+=(direnv)
 if (( $+commands[eza] )); then
     _EZA_PARAMS=(
         '--git'
@@ -137,10 +121,6 @@ if (( $+commands[eza] )); then
         '--color-scale-mode=fixed')
     plugins+=(zsh-eza)
 fi
-(( $+commands[fzf] )) && plugins+=(fzf)
-(( $+commands[git] )) && plugins+=(git)
-(( $+commands[nvm] )) && plugins+=(nvm)
-(( $+commands[tmux] )) && plugins+=(tmux)
 if (( $+commands[zoxide] )); then
     ZOXIDE_CMD_OVERRIDE=cd
     plugins+=(zoxide)

@@ -67,20 +67,6 @@ if [[ "$BREW" != "" ]]; then
 fi
 unset BREW
 
-## Configure pyenv environment
-if [[ -d ${HOME}/.pyenv ]]; then
-    debug_trace "Setup pyenv..."
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init --path)"
-fi
-
-## Configure rbenv environment
-if [[ $(command -v rbenv) ]]; then
-    debug_trace "Setup rbenv..."
-    eval "$(rbenv init -)"
-fi
-
 ## Fixup vscode-server path
 # If there is a vscode-server path element, it must be before any path that has
 # the locally installed code server. This code will find the first path element
