@@ -39,6 +39,11 @@
   ;(setq eglot-events-buffer-size 0)  ; Deprecated
   (setq eglot-events-buffer-config '(:size 0 :format short)))
 
+;;; Configure Servers
+
+;; Ruby mode -- Rubocop
+(add-to-list 'eglot-server-programs '(ruby-mode . ("bundle" "exec" "rubocop" "--lsp")))
+(add-hook 'ruby-mode-hook 'eglot-ensure)
 
 (provide 'core-eglot)
 ;;; core-eglot.el ends here.
