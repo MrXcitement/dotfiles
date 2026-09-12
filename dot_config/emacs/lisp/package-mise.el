@@ -10,10 +10,10 @@
 ;;; Code:
 
 (use-package mise
-  :disabled
   :ensure t
   :hook
-  (after-init-hook . global-mise-mode))
+  (prog-mode . mise-mode)
+  (eshell-mode . mise-mode))
 
 (provide 'package-mise)
 
