@@ -138,6 +138,7 @@ This should be called after changing `auto-save-list-file-prefix'."
 
 ;; Auto-revert in Emacs is a feature that automatically updates the contents of
 ;; a buffer to reflect changes made to the underlying file.
+(setq global-auto-revert-mode 1)
 
 ;; Revert other buffers (e.g, Dired)
 (setq global-auto-revert-non-file-buffers t)
