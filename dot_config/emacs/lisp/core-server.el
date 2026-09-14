@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th. 2025
-;; Updated: August 8th, 2026
+;; Updated: September 12th, 2026
 
 ;;; Commentary:
 ;; Start the server whenever the main emacs app is run as a `gui' If
@@ -14,15 +14,12 @@
 ;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-;;; Configure server
-(use-package emacs
+;;; Configure server for non-daemon emacs
+(use-package server
+  :unless (daemonp)
   :config
-  ;; When running as a GUI
-  ;; Start a server for client processes, but only if one is not already running
-  (when (window-system)
-    (load "server")
-    (unless (server-running-p)
-      (server-start))))
+  (unless (server-running-p)
+    (server-start)))
 
 (provide 'core-server)
 ;;; core-server.el ends here.
