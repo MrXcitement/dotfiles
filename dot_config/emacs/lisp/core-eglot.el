@@ -14,37 +14,6 @@
 
 ;;; Code:
 
-;; (setq eglot-report-progress my-debug)  ; Prevent minibuffer spam
-;; (setq eglot-autoshutdown t)  ; Shut down after killing last managed buffer
-
-;; A setting of nil or 0 means Eglot will not block the UI at all, allowing
-;; Emacs to remain fully responsive, although LSP features will only become
-;; available once the connection is established in the background.
-;; (setq eglot-sync-connect 0)
-
-;; Activate Eglot in cross-referenced non-project files
-;; (setq eglot-extend-to-xref t)
-
-;; Disable margin indicators to prevent line-height shifts caused by emoji font
-;; rendering issues. This disables both `left-fringe' and `margin' indicators.
-;; (setq eglot-code-action-indications '(eldoc-hint))
-
-;; Eglot optimization
-;;
-;; (if my-debug
-;;     (setq eglot-events-buffer-config '(:size 2000000 :format full))
-;;   ;; This reduces log clutter to improves performance.
-;;   (setq jsonrpc-event-hook nil)
-;;   ;; Reduce memory usage and avoid cluttering *EGLOT events* buffer
-;;   ;(setq eglot-events-buffer-size 0)  ; Deprecated
-;;   (setq eglot-events-buffer-config '(:size 0 :format short)))
-
-;;; Configure Servers
-
-;; Ruby mode -- Rubocop
-;; (add-to-list 'eglot-server-programs '(ruby-mode . ("bundle" "exec" "rubocop" "--lsp")))
-;; (add-hook 'ruby-mode-hook 'eglot-ensure)
-
 (use-package eglot
   :ensure nil ; Built-in to Emacs 29+
   :config
@@ -53,19 +22,14 @@
       (setq eglot-events-buffer-config '(:size 2000000 :format full))
     (setq jsonrpc-event-hook nil)
     (setq eglot-events-buffer-config '(:size 0 :format short)))
-
-  Server Configurations
-  (add-to-list 'eglot-server-programs '(ruby-mode . ("bundle" "exec" "rubocop" "--lsp"))))
-
   :custom
   (eglot-report-progress my-debug) ; Prevent minibuffer spam
   (eglot-autoshutdown t) ; Shut down after killing last managed buffer
   (eglot-sync-connect 0) ; Connect asynchronously in background
   (eglot-extend-to-xref t) ; Activate in cross-referenced non-project files
-  (eglot-code-action-indications '(eldoc-hint))) ; Disable margin indicators
-
+  (eglot-code-action-indications '(eldoc-hint)) ; Disable margin indicators
   :hook
-  (ruby-mode . eglot-ensure)
+  (ruby-mode . eglot-ensure))
 
 (provide 'core-eglot)
 ;;; core-eglot.el ends here.
