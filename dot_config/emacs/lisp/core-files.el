@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: August 13th, 2026
+;; Updated: September 17th, 2026
 
 ;;; Commentary:
 ;; Initialize the save, autosave and backup of files
@@ -152,6 +152,9 @@ This should be called after changing `auto-save-list-file-prefix'."
 
 ;; Remove trailing whitespace from lines when saving files
 ;; (before-save-hook . delete-trailing-whitespace)
+
+;; Skip confirmation prompts when creating a new file or buffer
+(setq confirm-nonexistent-file-or-buffer nil)
 
 (provide 'core-files)
 ;;; core-files.el ends here.

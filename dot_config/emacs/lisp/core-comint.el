@@ -14,9 +14,12 @@
 
 ;;; Code:
 
-(setq ansi-color-for-comint-mode t ; Renders native ANSI colors in the shell
-      comint-prompt-read-only t
-      comint-buffer-maximum-size 4096)
+(use-package emacs
+  :ensure nil
+  :custom
+  (ansi-color-for-comint-mode t) ; Renders native ANSI colors in the shell
+  (comint-prompt-read-only t)
+  (comint-buffer-maximum-size 4096))
 
 (provide 'core-comint)
 ;;; core-comint.el ends here.

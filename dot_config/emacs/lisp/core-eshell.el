@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: August 9th, 2026
+;; Updated: September 17th, 2026
 
 ;;; Commentary:
 ;; Configure the eshell mode behaviour.
@@ -44,7 +44,7 @@ If the eshell window is already showing, it will be closed instead."
   (delete-window))
 
 (use-package eshell
-  :straight nil
+  :ensure nil
   :bind
   ("C-`" . my-eshell-here)
 

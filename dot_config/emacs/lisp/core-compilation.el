@@ -14,15 +14,15 @@
 
 ;;; Code:
 
-(setq compilation-ask-about-save nil
-      compilation-always-kill t
-      ;; Parse up to 2048 characters per line in compilation buffers. This
-      ;; safely catches deep errors and long paths without risking hangs.
-      compilation-max-output-line-length 2048
-      compilation-scroll-output 'first-error)
-
-;; Skip confirmation prompts when creating a new file or buffer
-(setq confirm-nonexistent-file-or-buffer nil)
+(use-package compile
+  :ensure nil
+  :custom
+  (compilation-ask-about-save nil)
+  (compilation-always-kill t)
+  ;; Parse up to 2048 characters per line in compilation buffers. This
+  ;; safely catches deep errors and long paths without risking hangs.
+  (compilation-max-output-line-length 2048)
+  (compilation-scroll-output 'first-error))
 
 (provide 'core-compilation)
 ;;; core-compilation.el ends here.
