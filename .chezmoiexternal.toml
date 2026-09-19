@@ -6,11 +6,3 @@
     stripComponents = 1
     refreshPeriod = "168h"
 {{ end }}
-{{ if lookPath "emacs" }}
-[".config/minimal-emacs.d"]
-    type = "git-repo"
-    url = "https://github.com/jamescherti/minimal-emacs.d.git"
-    refreshPeriod = "168h"
-    [".config/minimal-emacs.d".clone]
-        args = ["--depth -1"]
-{{ end }}
