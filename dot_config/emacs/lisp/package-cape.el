@@ -1,8 +1,8 @@
-;;; package-cape.el --- Module package-cape.
+;;; package-cape.el --- Module package-cape. -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Mike Barker <mike@mbp15-12>
 ;; Created: September 15th, 2026
-;; Updated:
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
 ;; Configure package-cape.
@@ -25,7 +25,7 @@
   ;;        ("C-c p h" . cape-history)
   ;;        ("C-c p f" . cape-file)
   ;;        ...)
-  :init
+  ;; :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.  The order of the functions matters, the
   ;; first function returning a result wins.  Note that the list of buffer-local

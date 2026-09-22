@@ -2,12 +2,11 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: August 8th, 2026
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
-;; The primary `init' file for emacs. This file specifies how to
-;; initialize Emacs for you and how to customize its various optional
-;; features.
+;; The primary `init' file for emacs. This file specifies how to initialize
+;; Emacs and how to customize its various optional features.
 
 ;;; History
 ;; See my dotfiles repo and the emacs folder
@@ -21,19 +20,58 @@
   (error "Your Emacs v%s is too old -- this config requires Emacs v27 or higher"
          emacs-version))
 
-;;; Core Functionality
-;; TODO: Configuration in this section needs to be reviewed!
+;;; Pocakage management configuration - `straight.el'
 
+;; ** Note **
+;; When using `straight.el' to manage packages, do not use
+;; :ensure or :if/:unless/:when.
+;; 
+;; Examples:
+;; replace :ensure nil
+;; with    :straight (:type built-in)
+;; replace (use-package :if (condition) ...)
+;; with    (if (condition (use-package ...))
+
+;; Install and configure straight.el package manager
+;; https://github.com/radian-software/straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Straight install use-package and configure straight to use-package by default
+(straight-use-package 'use-package)
+
+;; Configure use-package to use straight.el by default
+(use-package straight
+  :custom
+  (straight-use-package-by-default t))
+
+;;; Customize file
 ;; Define and load the customize file
 ;; TODO: Should this happen first, last or somewhere in-between?
 (setq custom-file (expand-file-name "custom.el" my-user-directory))
 (load custom-file :no-error-if-file-is-missing)
 
+;;; Core Functionality
+;; TODO: Configuration in this section needs to be reviewed!
+
  ;; The initial buffer is created during startup even in non-interactive
  ;; sessions, and its major mode is fully initialized. Modes like `text-mode',
  ;; `org-mode', or even the default `lisp-interaction-mode' load extra packages
- ;; and run hooks, which can slow down startup.
- ;;
+;; and run hooks, which can slow down startup.
+
  ;; Using `fundamental-mode' for the initial buffer to avoid unnecessary
  ;; startup overhead.
 (setq initial-major-mode 'fundamental-mode
@@ -55,31 +93,12 @@
     (setq use-short-answers t)
   (advice-add 'yes-or-no-p :override #'y-or-n-p))
 
-;; The initial buffer is created during startup even in non-interactive
-;; sessions, and its major mode is fully initialized. Modes like `text-mode',
-;; `org-mode', or even the default `lisp-interaction-mode' load extra packages
-;; and run hooks, which can slow down startup.
-;;
-;; Using `fundamental-mode' for the initial buffer to avoid unnecessary
-;; startup overhead.
-(setq initial-major-mode 'fundamental-mode
-      initial-scratch-message nil)
-
-;; Ask the user whether to terminate asynchronous compilations on exit.
-;; This prevents native compilation from leaving temporary files in /tmp.
-(setq native-comp-async-query-on-exit t)
-
-;; Allow for shorter responses: "y" for yes and "n" for no.
-(setq read-answer-short t)
-(if (boundp 'use-short-answers)
-    (setq use-short-answers t)
-  (advice-add 'yes-or-no-p :override #'y-or-n-p))
+;; Short y or n for reverted buffers
 (setq revert-buffer-quick-short-answers t)
 
 ;;; Abbreviation 
 
 (use-package emacs
-  :ensure nil
   :custom
   ;; Ensure the abbrev_defs file is stored in the correct location when
   ;; `user-emacs-directory' is modified, as it defaults to ~/.emacs.d/abbrev_defs
@@ -101,12 +120,13 @@
 ;; By default, Emacs stores sensitive authinfo credentials as unencrypted text
 ;; in your home directory. Use GPG to encrypt the authinfo file for enhanced
 ;; security.
-(setq auth-sources (list "~/.authinfo.gpg"))
+(use-package emacs
+  :custom
+  (auth-sources (list "~/.authinfo.gpg")))
 
 ;;; Buffer 
 
 (use-package emacs
-  :ensure nil
   :custom
   ;; Disable auto-adding a new line at the bottom when scrolling.
   (next-line-add-newlines nil)
@@ -121,7 +141,6 @@
 ;;; Comint 
 
 (use-package emacs
-  :ensure nil
   :custom
   (ansi-color-for-comint-mode t) ; Renders native ANSI colors in the shell
   (comint-prompt-read-only t)
@@ -130,7 +149,6 @@
 ;;; Customize 
 
 (use-package emacs
-  :ensure nil
   :custom
   ;; Exiting a customize buffer should kill it.
   (custom-buffer-done-kill t))
@@ -139,7 +157,6 @@
 
 ;; Configure dired behavior
 (use-package emacs
-  :ensure nil
   :config
   ;; The `ls' command on darwin and bsd systems doesn't support --dired
   (when (or (eq system-type 'darwin) (eq system-type 'berkeley-unix))
@@ -195,8 +212,10 @@
 
 ;;; Environment 
 
-;; Force the current directory to be the users home dir
-(setq default-directory "~/")
+(use-package emacs
+  :custom
+  ;; Force the current directory to be the users home dir
+  (default-directory "~/"))
 
 ;; Darwin (macOS) environment setup here...
 (when (eq system-type 'darwin))
@@ -209,7 +228,7 @@
 
 ;;; Files (start)
 ;; TODO: This section needs to be reviewed! It is doing alot and most likely not
-;; at the right time, e.g. cache directory should be configured musch earlier...
+;; at the right time, e.g. cache directory should be configured much earlier...
 
 (defcustom my-cache-directory (expand-file-name "cache/" user-emacs-directory)
   "Base directory for Emacs cache files.
@@ -355,38 +374,41 @@ This should be called after changing `auto-save-list-file-prefix'."
 
 ;;; Findfile 
 
-;; Speed up 'find-library' and reduce completion clutter by excluding internal
-;; helper files. This provides a library-focused list.
-(setq find-library-include-other-files nil)
+(use-package emacs
+  :custom
+  ;; Speed up 'find-library' and reduce completion clutter by excluding internal
+  ;; helper files. This provides a library-focused list.
+  (find-library-include-other-files nil)
 
-;; Ignoring this is acceptable since it will redirect to the buffer regardless.
-(setq find-file-suppress-same-file-warnings t)
+  ;; Ignoring this is acceptable since it will redirect to the buffer regardless.
+  (find-file-suppress-same-file-warnings t)
 
-;; Automatically resolve symlinks to their true paths. This sets the correct
-;; working directory so C-x C-f opens in the right folder and version control
-;; tools recognize the Git repository.
-(setq find-file-visit-truename t
-      ;; Automatically follow a symlink to its source if that source is managed
-      ;; by a version control system, rather than asking for permission.
-      vc-follow-symlinks t)
+  ;; Automatically resolve symlinks to their true paths. This sets the correct
+  ;; working directory so C-x C-f opens in the right folder and version control
+  ;; tools recognize the Git repository.
+  (find-file-visit-truename t)
+  ;; Automatically follow a symlink to its source if that source is managed
+  ;; by a version control system, rather than asking for permission.
+  (vc-follow-symlinks t)
 
-;; Protect the system from code injection vulnerabilities when browsing files.
-;; Disabling local 'eval' expressions ensures that opening a malicious project
-;; or third-party script cannot execute arbitrary Lisp code on your machine.
-(setq enable-local-eval nil)
+  ;; Protect the system from code injection vulnerabilities when browsing files.
+  ;; Disabling local 'eval' expressions ensures that opening a malicious project
+  ;; or third-party script cannot execute arbitrary Lisp code on your machine.
+  (enable-local-eval nil))
 
 ;;; Help 
 
-;; Enhance `apropos' and related functions to perform more extensive searches
-(setq apropos-do-all t)
-
-;; Fixes #11: Prevents help command completion from triggering autoload.
-;; Loading additional files for completion can slow down help commands and may
-;; unintentionally execute initialization code from some libraries.
-(setq help-enable-completion-autoload nil)
-(setq help-enable-autoload nil)
-(setq help-enable-symbol-autoload nil)
-(setq help-window-select t)  ;; Focus new help windows when opened
+(use-package emacs
+  :custom
+  ;; Enhance `apropos' and related functions to perform more extensive searches
+  (apropos-do-all t)
+  ;; Prevents help command completion from triggering autoload.
+  ;; Loading additional files for completion can slow down help commands and may
+  ;; unintentionally execute initialization code from some libraries.
+  (help-enable-completion-autoload nil)
+  (help-enable-autoload nil)
+  (help-enable-symbol-autoload nil)
+  (help-window-select t))  ;; Focus new help windows when opened
 
 ;;; Keymaps 
 
@@ -457,68 +479,61 @@ The DWIM behaviour of this command is as follows:
 
 ;;; Killing 
 
-;; Remove duplicates from the kill ring to reduce clutter
-(setq kill-do-not-save-duplicates t)
-
-;; Preserve the system clipboard before Emacs delete/kill operations.
-;; By default, deleting text in Emacs overwrites your system clipboard. For
-;; example, if you copy a link from a browser, switch to Emacs, and delete some
-;; text, your copied link is lost. This setting fixes that by pushing the
-;; clipboard contents into your paste history right before the deletion,
-;; ensuring external data remains retrievable via `yank-pop'.
-(setq save-interprogram-paste-before-kill t)
+(use-package emacs
+  :custom
+  ;; Remove duplicates from the kill ring to reduce clutter
+  (kill-do-not-save-duplicates t)
+  ;; Preserve the system clipboard before Emacs delete/kill operations.
+  ;; By default, deleting text in Emacs overwrites your system clipboard. For
+  ;; example, if you copy a link from a browser, switch to Emacs, and delete some
+  ;; text, your copied link is lost. This setting fixes that by pushing the
+  ;; clipboard contents into your paste history right before the deletion,
+  ;; ensuring external data remains retrievable via `yank-pop'.
+  (save-interprogram-paste-before-kill t))
 
 ;;; Lisp 
 
-;; Disable ellipsis when printing s-expressions in the message buffer
-(setq eval-expression-print-length nil
-      eval-expression-print-level nil)
-
-;; Speed up 'find-library' and reduce completion clutter by excluding
-;; internal helper files. This provides a library-focused list.
-(setq find-library-include-other-files nil)
+(use-package emacs
+  :custom
+  ;; Disable ellipsis when printing s-expressions in the message buffer
+  (eval-expression-print-length nil)
+  (eval-expression-print-level nil)
+  ;; Speed up 'find-library' and reduce completion clutter by excluding
+  ;; internal helper files. This provides a library-focused list.
+  (find-library-include-other-files nil))
 
 ;;; Minibuffer 
 
-;; Allow nested minibuffers
-(setq enable-recursive-minibuffers t)
-
-;; Keep the cursor out of the read-only portions of the.minibuffer
-(setq minibuffer-prompt-properties
-      '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-;; Save minibuffer history
-
-;; `savehist-mode' is an Emacs feature that preserves the minibuffer history
-;; between sessions.
-(setq history-length 300)
-(setq savehist-additional-variables
-      '(register-alist                   ; macros
-        mark-ring global-mark-ring       ; marks
-        search-ring regexp-search-ring)) ; searches
-
-
-;; icomplete
-
-;; Do not delay displaying completion candidates in `fido-mode' or
-;; `fido-vertical-mode'
-(setq icomplete-compute-delay 0.01)
+(use-package emacs
+  :custom
+  ;; Allow nested minibuffers
+  (enable-recursive-minibuffers t)
+  ;; Keep the cursor out of the read-only portions of the.minibuffer
+  (minibuffer-prompt-properties
+        '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+  :hook
+  (minibuffer-setup-hook . cursor-intangible-mode))
 
 ;;; Mouse 
 
-;; Force the mouse to paste text at the active cursor position.
-(setq mouse-yank-at-point t)
+(use-package emacs
+  :custom
+  ;; Force the mouse to paste text at the active cursor position.
+  (mouse-yank-at-point t))
 
-;; Context Menu
+;;; Context Menu
+
+;; TODO: How do we handle this when running as a `daemon' started from the command line?
 (when (memq 'context-menu my-ui-features)
   (when (and (display-graphic-p) (fboundp 'context-menu-mode))
     (add-hook 'after-init-hook #'context-menu-mode)))
 
 ;;; Prog-mode 
 
-;; Show unprettified symbol at point
-(setq prettify-symbols-unprettify-at-point 'right-edge)
+(use-package emacs
+  :custom
+  ;; Show unprettified symbol at point
+  (prettify-symbols-unprettify-at-point 'right-edge))
 
 ;;; Text mode 
 
@@ -548,8 +563,8 @@ The DWIM behaviour of this command is as follows:
 
 ;; Prefer spaces over tabs. Spaces offer a more consistent default compared to
 ;; 8-space tabs. This setting can be adjusted on a per-mode basis as needed.
-(setq-default indent-tabs-mode nil
-              tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
 
 ;; Enable indentation and completion using the TAB key
 (setq tab-always-indent 'complete)
@@ -625,7 +640,6 @@ The DWIM behaviour of this command is as follows:
   (my-apply-theme 'dark))
 
 ;;; UI 
-
 ;; TODO: This section needs to be reviewed!
 
 (blink-cursor-mode -1)
@@ -823,14 +837,14 @@ The DWIM behaviour of this command is as follows:
 
 ;;; Undo 
 
-(setq undo-limit (* 13 160000)
-      undo-strong-limit (* 13 240000)
-      undo-outer-limit (* 13 24000000))
+(setq undo-limit (* 13 160000))
+(setq undo-strong-limit (* 13 240000))
+(setq undo-outer-limit (* 13 24000000))
 
 ;;; bookmark (built-in)
 
 (use-package bookmark
-  :ensure nil
+  :straight (:type built-in)
   :custom
   ;; This setting forces Emacs to save bookmarks immediately after each change.
   ;; Benefit: you never lose bookmarks if Emacs crashes.
@@ -840,7 +854,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package cc-mode
   :disabled
-  :ensure nil
+  :straight (:type built-in)
   :config
   (add-hook 'c-mode-hook
 	    (lambda()
@@ -853,7 +867,7 @@ The DWIM behaviour of this command is as follows:
 
 (use-package cedet
   :disabled
-  :ensure nil
+  :straight (:type built-in)
   :config
   (progn
     (require 'cedet)
@@ -864,7 +878,7 @@ The DWIM behaviour of this command is as follows:
 ;;; compile (built-in)
 
 (use-package compile
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (compilation-ask-about-save nil)
   (compilation-always-kill t)
@@ -876,7 +890,8 @@ The DWIM behaviour of this command is as follows:
 ;;; diff (built-in)
 
 (use-package diff
-  :ensure nil
+  :straight (:type built-in)
+
   :custom
   ;; Move +/- indicators to the fringe for cleaner diffs
   (diff-font-lock-prettify t))
@@ -884,7 +899,7 @@ The DWIM behaviour of this command is as follows:
 ;;; ediff (built-in)
 
 (use-package ediff
-  :ensure nil
+  :straight (:type built-in)
   :custom
   ;; Configure Ediff to use a single frame and split windows horizontally
   (ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -893,7 +908,7 @@ The DWIM behaviour of this command is as follows:
 ;;; eglot (built-in)
 
 (use-package eglot
-  :ensure nil ; Built-in to Emacs 29+
+  :straight (:type built-in)
   :config
   ;; Optimization & Logging
   (if my-debug
@@ -911,7 +926,6 @@ The DWIM behaviour of this command is as follows:
 
 ;; Lock buffers so they can not be killed
 (use-package emacs-lock
-  :ensure nil
   :config
   (with-current-buffer "*scratch*"
     (emacs-lock-mode 'kill))
@@ -921,7 +935,7 @@ The DWIM behaviour of this command is as follows:
 ;;; epg (built-in)
 
 (use-package epg
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (epg-pinentry-mode 'loopback))
   
@@ -958,7 +972,7 @@ If the eshell window is already showing, it will be closed instead."
   (delete-window))
 
 (use-package eshell
-  :ensure nil
+  :straight (:type built-in)
   :bind
   ("C-`" . my-eshell-here)
 
@@ -970,7 +984,7 @@ If the eshell window is already showing, it will be closed instead."
 ;;; flymake (builtin)
 
 (use-package flymake
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (flymake-show-diagnostics-at-end-of-line nil)
   (flymake-wrap-around nil))
@@ -1044,10 +1058,20 @@ If the eshell window is already showing, it will be closed instead."
   (nxml-mode-hook        . hs-minor-mode)
   (html-mode-hook        . hs-minor-mode))
 
+
+;;; icomplete (built-in)
+
+;; Do not delay displaying completion candidates in `fido-mode' or
+;; `fido-vertical-mode'
+(use-package icomplete
+  :straight (:type built-in)
+  :custom
+  (icomplete-compute-delay 0.01))
+
 ;;; imenu (built-in)
 
 (use-package imenu
-  :ensure nil
+  :straight (:type built-in)
   :custom
   ;; Automatically rescan the buffer for Imenu entries when `imenu' is invoked
   ;; This ensures the index reflects recent edits.
@@ -1060,50 +1084,50 @@ If the eshell window is already showing, it will be closed instead."
 ;; Configure spelling
 
 ;; configure ispell if a spelling tool is installed
-(use-package ispell
-  :ensure nil
-  :when (executable-find "hunspell")
-  :custom
-  (ispell-program-name "hunspell")
-  (ispell-local-dictionary "en_US"))
+(when (executable-find "hunspell")
+  (use-package ispell
+    :straight (:type built-in)
+    :custom
+    (ispell-program-name "hunspell")
+    (ispell-local-dictionary "en_US")))
 
 ;; prefer `aspell' over `hunspell'
-(use-package ispell
-  :ensure nil
-  :when (executable-find "aspell")
-  :custom
-  (ispell-program-name "aspell")
-  (ispell-silently-savep t))
+(when (executable-find "aspell")
+  (use-package ispell
+    :straight (:type built-in)
+    :custom
+    (ispell-program-name "aspell")
+    (ispell-silently-savep t)))
 
 ;; Darwin (macOS) specific config
-(use-package ispell
-  :when (eq system-type 'darwin)
-  :ensure nil)
+(when (eq system-type 'darwin)
+  (use-package ispell
+    :straight (:type built-in)))
 
 ;; Linux specific config
-(use-package ispell
-  :ensure nil
-  :when (eq system-type 'gnu/linux))
+(when (eq system-type 'gnu/linux)
+  (use-package ispell
+    :straight (:type built-in)))
 
 ;; Windows specific config
-(use-package ispell
-  :ensure nil
-  :when (eq system-type 'windows-nt)
-  :custom
-  (ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff")))
-  :config
-  (setenv "LANG" "en_US"))
+(when (eq system-type 'windows-nt)
+  (use-package ispell
+    :straight (:type built-in)
+    :custom
+    (ispell-hunspell-dict-paths-alist '(("en_US" "c:/hunspell/en_US.aff")))
+    :config
+    (setenv "LANG" "en_US")))
 
 ;;; python (built-in)
 
 (use-package python
-  :ensure nil
+  :straight (:type built-in)
   :custom
   ;; Do not notify the user each time Python tries to guess the indentation offset
   (python-indent-guess-indent-offset-verbose nil))
 
 (use-package eglot
-  :ensure t
+  :straight (:type built-in)
   :hook
   ((python-ts-mode . eglot-ensure)
    (python-ts-mode . flyspell-prog-mode)
@@ -1113,7 +1137,7 @@ If the eshell window is already showing, it will be closed instead."
 ;;; recentf (built-in)
 
 (use-package recentf
-  :ensure nil
+  :straight (:type built-in)
   :bind
   ;; Replace `find-file-read-only' keybinding with recentf.
   ("C-x C-r" . recentf-open)
@@ -1122,26 +1146,40 @@ If the eshell window is already showing, it will be closed instead."
   (recentf-max-saved-items 300) ; default is 20
   (recentf-max-menu-items 15))
 
+;;; savehist (built-in)
+
+;; The built-in savehist package keeps a record of user inputs and
+(use-package savehist
+  :straight (:type built-in)
+  :custom
+  (history-length 300)
+  (savehist-additional-variables
+   '(register-alist                   ; macros
+     mark-ring global-mark-ring       ; marks
+     search-ring regexp-search-ring)) ; searches
+  :hook (after-init . savehist-mode))
+
 ;;; server (built-in)
 
-;; Configure server for non-daemon emacs when the server is not already running.
-(use-package server
-  :unless (daemonp)
-  :config
-  (unless (server-running-p)
-    (server-start)))
+;; For non-daemon emacs start the server if not already running.
+(unless (daemonp)
+  (use-package server
+    :straight (:type built-in)
+    :config
+    (unless (server-running-p)
+      (server-start))))
 
 ;;; shell (built-in)
 
 (use-package shell
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (sh-indent-after-continuation 'always))
 
 ;;; tramp (built-in)
 
 (use-package tramp
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (tramp-verbose 1)
   (remote-file-name-inhibit-cache 50)
@@ -1153,7 +1191,7 @@ If the eshell window is already showing, it will be closed instead."
 
 (use-package tree-sitter
   :disabled
-  :ensure nil
+  :straight (:type built-in)
   :config
   (add-to-list 'major-mode-remap-alist
 	       '(python-mode . python-ts-mode)))
@@ -1161,15 +1199,23 @@ If the eshell window is already showing, it will be closed instead."
 ;;; vc (built-in)
 
 (use-package vc
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (vc-git-print-log-follow t)
   (vc-git-diff-switches '("--histogram")))  ; Faster algorithm for diffing.
 
+;; which-key (built-in)
+(use-package which-key
+  :straight (:type built-in)
+  :init
+  (which-key-mode)
+  :custom
+  (which-key-idle-delay 0.3))
+
 ;;; whitespace (built-in)
 
 (use-package whitespace
-  :ensure nil
+  :straight (:type built-in)
   :custom
   (whitespace-line-column nil)
   (whitespace-style '(face newline space-mark tab-mark newline-mark trailing lines-tail)))
@@ -1177,39 +1223,13 @@ If the eshell window is already showing, it will be closed instead."
 ;;; xref (built-in)
 
 (use-package xref
-  :ensure nil
+  :straight (:type built-in)
   :custom
   ;; Enable completion in the minibuffer instead of the definitions buffer
   (xref-show-definitions-function 'xref-show-definitions-completing-read)
   (xref-show-xrefs-function 'xref-show-definitions-completing-read))
   
 ;;; Package management (using `straight')
-
-;; Install and configure straight.el package manager
-;; https://github.com/radian-software/straight.el
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Straight install use-package and configure straight to use-package by default
-(straight-use-package 'use-package)
-
-;; Configure use-package to use straight.el by default
-(use-package straight
-  :custom
-  (straight-use-package-by-default t))
 
 ;;; Require external packages.
 

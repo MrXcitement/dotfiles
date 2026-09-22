@@ -1,20 +1,19 @@
-;;; package-elpy.el --- Install and configure the `elpy' package.
+;;; package-elpy.el --- Install and configure the `elpy' package.  -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Mike Barker <mike@thebarkers.com>
-;; May 15, 2015
+;; Created: May 15, 2015
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
 ;; Provides a python programming toolset.
 
 ;;; History:
-;; 2023.03.17
-;; * rename and refactor this file into a valid package.
-;; 2015.05.15
-;; * First release.
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
-(when (or (executable-find "python")
-	  (executable-find "python3"))
+(when (or (executable-find "python3")
+	  (executable-find "python"))
   (use-package elpy
     :disabled
     :ensure t

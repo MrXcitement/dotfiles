@@ -1,8 +1,8 @@
-;;; package-corfu.el --- Initialize the corfu package and configure emacs to work with it
+;;; package-corfu.el --- Initialize the corfu package and configure emacs. -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: December 4th, 2025
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
 ;; Corfu enhances in-buffer completion with a small completion

@@ -1,11 +1,15 @@
-;; package-themes.el --- Install and configure themes
+;; package-themes.el --- Install and configure themes.-*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Author: Mike Barker <mike@thebarkers.com>
 ;; Created: November  5, 2015
-;; Updated: February 13th, 2026
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
 ;; Install theme packages
+
+;;; History:
+;; See my dotfiles repo and the emacs folder
+;; https://github.com/MrXcitement/dotfiles/tree/main/dot_config/emacs
 
 ;;; Code:
 (use-package leuven-theme
@@ -22,12 +26,6 @@
 (use-package vs-light-theme
   :if window-system
   :ensure t)
-
-(use-package deeper-blue-theme
-  :disabled
-  :if (not window-system)
-  :init
-  (load-theme 'deeper-blue))
 
 (use-package auto-dark
   :ensure t

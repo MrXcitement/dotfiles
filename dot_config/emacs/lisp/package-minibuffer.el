@@ -1,11 +1,12 @@
-;;; package-minibuffer.el --- Configure minibuffer
+;;; package-minibuffer.el --- Configure minibuffer packages. -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
-;; Updated: August 9th, 2026
+;; Updated: September 21st, 2026
 
 ;;; Commentary:
-;; Configure the minibuffer
+;; Configure minibuffer packages:
+;; Vertico, Marganalia, Orderless, Presient, Vertico-Presient, Consult
 
 ;;; History:
 ;; See my dotfiles repo and the emacs folder
@@ -62,18 +63,6 @@
   :ensure t
   :bind (("C-s" . consult-line)
          ("C-x b" . consult-buffer)))
-
-;; The built-in savehist package keeps a record of user inputs and
-(use-package savehist
-  :ensure nil ; it is built-in
-  :hook (after-init . savehist-mode))
-
-;; Which-key: Discover keybindings
-(use-package which-key
-  :ensure t
-  :init (which-key-mode)
-  :config
-  (setq which-key-idle-delay 0.3))
 
 (provide 'package-minibuffer)
 ;;; package-minibuffer.el ends here

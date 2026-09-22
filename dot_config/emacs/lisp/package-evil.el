@@ -1,4 +1,4 @@
-;;; package-evil.el --- Install and configure the `evil' and associated packages.
+;;; package-evil.el --- Install and configure the `evil' and associated packages. -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 24th, 2025
