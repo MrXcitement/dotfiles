@@ -11,8 +11,12 @@
 alias cm=chezmoi
 
 # Is the shell interactive?
-if [[ $- == *i* ]]
-then
+if [[ $- == *i* ]]; then
     chezmoi update >/dev/null
-    chezmoi status
+    # Are there any chezmoi changes?
+    if [[ $(chezmoi status) ]]; then
+        # Show the chezmoi status
+        echo "Chezmoi status:"
+        chezmoi status
+    fi
 fi
