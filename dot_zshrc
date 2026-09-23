@@ -238,9 +238,11 @@ fi
 ##
 # chezmoi update and show status
 if (( $+commands[chezmoi] )); then
-    echo "Chezmoi update and status"
     chezmoi update -a=false > /dev/null
-    chezmoi status
+    if [[ $(chezmoi status) ]]; then
+        echo "Chezmoi status:"
+        chezmoi status
+    fi
 fi
 
 ## remove duplicates from fpath
