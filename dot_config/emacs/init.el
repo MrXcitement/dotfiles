@@ -20,7 +20,7 @@
   (error "Your Emacs v%s is too old -- this config requires Emacs v27 or higher"
          emacs-version))
 
-;;; Pocakage management configuration - `straight.el'
+;;; Package management configuration - `straight.el'
 
 ;; ** Note **
 ;; When using `straight.el' to manage packages, do not use
@@ -522,7 +522,6 @@ The DWIM behaviour of this command is as follows:
   (mouse-yank-at-point t))
 
 ;;; Context Menu
-
 ;; TODO: How do we handle this when running as a `daemon' started from the command line?
 (when (memq 'context-menu my-ui-features)
   (when (and (display-graphic-p) (fboundp 'context-menu-mode))
@@ -905,6 +904,15 @@ The DWIM behaviour of this command is as follows:
   (ediff-window-setup-function 'ediff-setup-windows-plain)
   (ediff-split-window-function 'split-window-horizontally))
 
+;;; editorconfig (built-in >=30)
+(when (>= emacs-major-version 30)
+  (add-to-list 'straight-built-in-pseudo-packages 'editorconfig))
+
+(use-package editorconfig
+  :straight t
+  :config
+  (editorconfig-mode 1))
+  
 ;;; eglot (built-in)
 
 (use-package eglot
