@@ -105,11 +105,19 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 7
 
 ##
+# Configure `mise`
+if (( $+commands[mise] )); then
+    # mise setup
+    eval "$(mise activate zsh)"
+fi
+
+##
 # Define oh-my-zsh plugins to load
 plugins=()
 
 # Only add plugin if it's associated command is available.
-(( $+commands[chezmoi] )) && plugins+=(chezmoi)
+#(( $+commands[chezmoi] )) && plugins+=(chezmoi)
+plugins+=(chezmoi)
 if (( $+commands[eza] )); then
     _EZA_PARAMS=(
         '--git'
@@ -198,13 +206,6 @@ if (( $+commands[fzf])) && (( $+commands[fd])); then
     _fzf_compgen_dir() {
         fd --type=d --hidden --exclude .git --exclude .venv . "$1"
     }
-fi
-
-##
-# Configure `mise`
-if (( $+commands[mise] )); then
-    # mise setup
-    eval "$(mise activate zsh)"
 fi
 
 ##
