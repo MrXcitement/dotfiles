@@ -3,58 +3,26 @@ README.md
 .vscode/
 .DS_Store
 
-{{ if not (lookPath "atuin") }}
-.config/atuin
-{{ end }}
-
-{{ if not (lookPath "emacs") }}
-.config/emacs
+{{ if not (lookPath "bash") }}
+.bash_profile
+.bashrc
+.bashrc.d/*
 {{ end }}
 
 {{ if not (lookPath "git") }}
 .gitconfig
-.config/git
-{{ end }}
-
-{{ if not (lookPath "ghostty") }}
-.config/ghostty
-{{ end }}
-
-{{ if not (lookPath "nvim") }}
-.config/nvim
-{{ end }}
-
-{{ if not (lookPath "pwsh") }}
-.config/powershell
 {{ end }}
 
 {{ if not (lookPath "ssh") }}
 .ssh/config
 {{ end }}
 
-{{ if not (lookPath "starship") }}
-.config/starship.toml
-{{ end }}
-
-{{ if not (lookPath "tmux") }}
-.config/tmux
-{{ end }}
-
 {{ if not (lookPath "vim") }}
 .vim*
 {{ end }}
 
-{{ if not (lookPath "wezterm") }}
-.config/wezterm
-{{ end }}
-
 {{ if not (lookPath "zsh") }}
 .z*
-{{ end }}
-
-# macOS folders to be ignored on other systems
-{{ if ne .chezmoi.os "darwin" }}
-.config/1Password
 {{ end }}
 
 # Windows folders to be ignored on other systems

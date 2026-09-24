@@ -1,0 +1,40 @@
+{{ if not (lookPath "atuin") }}
+./atuin
+{{ end }}
+
+{{ if not (lookPath "emacs") }}
+./emacs
+{{ end }}
+
+{{ if not (lookPath "git") }}
+./git
+{{ end }}
+
+{{ if not (lookPath "ghostty") }}
+./ghostty
+{{ end }}
+
+{{ if not (lookPath "nvim") }}
+./nvim
+{{ end }}
+
+{{ if not (lookPath "pwsh") }}
+./powershell
+{{ end }}
+
+{{ if not (lookPath "starship") }}
+./starship.toml
+{{ end }}
+
+{{ if not (lookPath "tmux") }}
+./tmux
+{{ end }}
+
+{{ if not (lookPath "wezterm") }}
+./wezterm
+{{ end }}
+
+# macOS folders to be ignored on other systems
+{{ if ne .chezmoi.os "darwin" }}
+./1Password
+{{ end }}

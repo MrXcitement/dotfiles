@@ -17,6 +17,8 @@ App | Description
 --|--
 [1Password Developer](https://developer.1password.com/) | 1Password simplifies how you securely use, manage, and integrate developer credentials.
 [atuin](https://atuin.sh/) | A shell `history` alternative.
+[bash](https://www.gnu.org/software/bash/) | Bash is the GNU Project's shell - The Bourne Again SHell.
+[distrobox](https://distrobox.it/) | a fancy wrapper around podman, docker, or lilipod to create and start containers which are highly integrated with the hosts.
 [emacs](https://www.gnu.org/software/emacs/) | An extensible, customizable, free/libre text editor — and more.
 [git](https://git-scm.com/) | Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 [ghostty](https://ghostty.org/) | Ghostty is a fast, feature-rich, and cross-platform terminal emulator that uses platform-native UI and GPU acceleration.
