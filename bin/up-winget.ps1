@@ -3,4 +3,4 @@
 echo "Upgrading Windows apps (winget)..."
 echo "----------------------------------"
 
-gsudo winget update --all
+winget update --all
