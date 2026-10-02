@@ -2,7 +2,7 @@
 
 ;; Mike Barker <mike@thebarkers.com>
 ;; Created: November 23rd, 2025
-;; Updated: August 11th, 2026
+;; Updated: October 2nd, 2026
 
 ;;; Inspiration
 ;; `minimal-emacs.d' github project by James Cherti
@@ -34,9 +34,7 @@
 
 ;; Temporarily raise the garbage collection threshold to its maximum value.
 ;; It will be restored later to controlled values.
-(if noninteractive
-    (setq gc-cons-threshold 268435456) ; 256 Mb
-  (setq gc-cons-threshold most-positive-fixnum))
+(setq gc-cons-threshold 268435456) ; 256 Mb
 (setq gc-cons-percentage 1.0)
 
 ;;; Variables
@@ -70,12 +68,12 @@ lookups during Emacs startup.")
 This reduces visual clutter and slightly enhances startup performance. The
 tradeoff is that the mode line is hidden during the startup phase.")
 
-(defvar my-inhibit-redisplay-during-startup nil
+(defvar my-inhibit-redisplay-during-startup t
   "Suppress redisplay during startup to improve performance.
 This prevents visual updates while Emacs initializes. The tradeoff is that you
 won't see the progress or activities during the startup process.")
 
-(defvar my-inhibit-message-during-startup nil
+(defvar my-inhibit-message-during-startup t
   "Suppress startup messages for a cleaner experience.
 This slightly enhances performance. The tradeoff is that you won't be informed
 of the progress or any relevant activities during startup.")
@@ -98,9 +96,7 @@ Note that this should end with a directory separator.")
 
 (defun my--restore-gc ()
   "Restore garbage collection settings."
-  (if (and (bound-and-true-p my-gc-cons-threshold-restore-delay)
-           ;; In noninteractive mode, the event loop does not run
-           (not noninteractive))
+  (if (bound-and-true-p my-gc-cons-threshold-restore-delay)
       ;; Defer garbage collection during initialization to avoid 2 collections.
       (run-with-timer my-gc-cons-threshold-restore-delay nil
                       #'my--restore-gc-values)
@@ -175,45 +171,44 @@ Note that this should end with a directory separator.")
   (unless (memq initial-window-system '(x pgtk))
     (setq command-line-x-option-alist nil)))
 
-(unless noninteractive
-  ;; In PGTK, this timeout introduces latency. Reducing it from the default 0.1
-  ;; improves responsiveness of childframes and related packages.
-  (when (boundp 'pgtk-wait-for-event-timeout)
-    (setq pgtk-wait-for-event-timeout 0.001))
+;; In PGTK, this timeout introduces latency. Reducing it from the default 0.1
+;; improves responsiveness of childframes and related packages.
+(when (boundp 'pgtk-wait-for-event-timeout)
+  (setq pgtk-wait-for-event-timeout 0.001))
 
-  ;; Font compacting can be very resource-intensive, especially when rendering
-  ;; icon fonts on Windows. This will increase memory usage.
-  (setq inhibit-compacting-font-caches t)
+;; Font compacting can be very resource-intensive, especially when rendering
+;; icon fonts on Windows. This will increase memory usage.
+(setq inhibit-compacting-font-caches t)
 
-  ;; Resizing the Emacs frame can be costly when changing the font. Disable this
-  ;; to improve startup times with fonts larger than the system default.
-  (setq frame-resize-pixelwise t)
+;; Resizing the Emacs frame can be costly when changing the font. Disable this
+;; to improve startup times with fonts larger than the system default.
+(setq frame-resize-pixelwise t)
 
-  ;; Without this, Emacs will try to resize itself to a specific column size
-  (setq frame-inhibit-implied-resize t)
+;; Without this, Emacs will try to resize itself to a specific column size
+(setq frame-inhibit-implied-resize t)
 
-  ;; Reduce noise at startup. An empty scratch buffer (or the
-  ;; dashboard) is more than enough, and faster to display.
-  (setq initial-buffer-choice nil
-	inhibit-splash-screen t
-	inhibit-startup-buffer-menu t
-	inhibit-startup-echo-area-message user-login-name
-	inhibit-startup-screen t
-        inhibit-x-resources t)
+;; Reduce noise at startup. An empty scratch buffer (or the
+;; dashboard) is more than enough, and faster to display.
+(setq initial-buffer-choice nil
+      inhibit-splash-screen t
+      inhibit-startup-buffer-menu t
+      inhibit-startup-echo-area-message user-login-name
+      inhibit-startup-screen t
+      inhibit-x-resources t)
 
-  ;; Disable bidirectional text scanning for a modest performance boost.
-  (setq-default bidi-display-reordering 'left-to-right
-                bidi-paragraph-direction 'left-to-right)
+;; Disable bidirectional text scanning for a modest performance boost.
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
 
-  ;; Give up some bidirectional functionality for slightly faster re-display.
-  (setq bidi-inhibit-bpa t)
+;; Give up some bidirectional functionality for slightly faster re-display.
+(setq bidi-inhibit-bpa t)
 
-  ;; Remove "For information about GNU Emacs..." message at startup
-  (advice-add 'display-startup-echo-area-message :override #'ignore)
+;; Remove "For information about GNU Emacs..." message at startup
+(advice-add 'display-startup-echo-area-message :override #'ignore)
 
-  ;; Suppress the vanilla startup screen completely. We've disabled it with
-  ;; `inhibit-startup-screen', but it would still initialize anyway.
-  (advice-add 'display-startup-screen :override #'ignore))
+;; Suppress the vanilla startup screen completely. We've disabled it with
+;; `inhibit-startup-screen', but it would still initialize anyway.
+(advice-add 'display-startup-screen :override #'ignore)
 
 ;;; Performance: File-name-handler-alist
 
@@ -240,8 +235,7 @@ this stage of initialization."
                         my--old-file-name-handler-alist))))
 
 (when (and my-optimize-file-name-handler-alist
-           (not init-file-debug)
-           (not noninteractive))
+           (not init-file-debug))
   ;; Determine the state of bundled libraries using calc-loaddefs.el. If
   ;; compressed, retain the gzip handler in `file-name-handler-alist`. If
   ;; compiled or neither, omit the gzip handler during startup for improved
@@ -272,7 +266,6 @@ this stage of initialization."
   (remove-hook 'post-command-hook #'my--reset-inhibit-redisplay))
 
 (when (and my-inhibit-redisplay-during-startup
-           (not noninteractive)
            (not init-file-debug))
   ;; Suppress redisplay and redraw during startup to avoid delays and
   ;; prevent flashing an unstyled Emacs frame.
@@ -287,7 +280,6 @@ this stage of initialization."
   (remove-hook 'post-command-hook #'my--reset-inhibit-message))
 
 (when (and my-inhibit-message-during-startup
-           (not noninteractive)
            (not init-file-debug))
   (setq-default inhibit-message t)
   (add-hook 'post-command-hook #'my--reset-inhibit-message -100))
@@ -298,7 +290,6 @@ this stage of initialization."
   "Store the buffer-local value of `mode-line-format' during startup.")
 
 (when (and my-disable-mode-line-during-startup
-           (not noninteractive)
            (not init-file-debug))
   (put 'mode-line-format
        'initial-value (default-toplevel-value 'mode-line-format))
@@ -345,47 +336,33 @@ this stage of initialization."
     (when (bound-and-true-p tool-bar-mode)
       (funcall 'tool-bar-setup))))
 
-(unless noninteractive
-  (setq frame-title-format my-frame-title-format
-	icon-title-format my-frame-title-format)
+(setq frame-title-format my-frame-title-format
+      icon-title-format my-frame-title-format)
 
-  ;; Disable menu bar
-  
-  ;; I intentionally avoid calling `menu-bar-mode', `tool-bar-mode', and
-  ;; `scroll-bar-mode' because manipulating frame parameters can trigger or queue
-  ;; a superfluous and potentially expensive frame redraw at startup, depending
-  ;; on the window system. The variables must also be set to `nil' so users don't
-  ;; have to call the functions twice to re-enable them.
-  (push '(menu-bar-lines . 0) default-frame-alist)
-  (unless initial-window-system
-    (set-frame-parameter nil 'menu-bar-lines 0))
-  (unless (memq window-system '(mac ns))
-    (setq menu-bar-mode nil))
+;; Disable toolbar
+(when (fboundp 'tool-bar-setup)
+  ;; Temporarily override the tool-bar-setup function to prevent it from
+  ;; running during the initial stages of startup
+  (advice-add 'tool-bar-setup :override #'ignore)
+  (advice-add 'startup--load-user-init-file :after
+	      #'my--setup-toolbar))
 
-  ;; Disable toolbar
-  (when (fboundp 'tool-bar-setup)
-    ;; Temporarily override the tool-bar-setup function to prevent it from
-    ;; running during the initial stages of startup
-    (advice-add 'tool-bar-setup :override #'ignore)
-    (advice-add 'startup--load-user-init-file :after
-		#'my--setup-toolbar))
+(push '(tool-bar-lines . 0) default-frame-alist)
+(setq tool-bar-mode nil)
 
-  (push '(tool-bar-lines . 0) default-frame-alist)
-  (setq tool-bar-mode nil)
+;; Disable scroll bars
+(setq default-frame-scroll-bars 'right)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(horizontal-scroll-bars) default-frame-alist)
+(setq scroll-bar-mode nil)
 
-  ;; Disable scroll bars
-  (setq default-frame-scroll-bars 'right)
-  (push '(vertical-scroll-bars) default-frame-alist)
-  (push '(horizontal-scroll-bars) default-frame-alist)
-  (setq scroll-bar-mode nil)
+;; Disable tooltips
+(when (bound-and-true-p tooltip-mode)
+  (tooltip-mode -1))
 
-  ;; Disable tooltips
-  (when (bound-and-true-p tooltip-mode)
-    (tooltip-mode -1))
-
-  ;; Disable dialogs
-  (setq use-dialog-box nil
-	use-file-dialog nil))
+;; Disable dialogs
+(setq use-dialog-box nil
+      use-file-dialog nil)
 
 ;;; Security
 
@@ -402,23 +379,22 @@ this stage of initialization."
  gnutls-min-prime-bits 3072)
 
 
-;; Disable package.el, I am using straight.el instead.
+;; Disable `package.el' since I am using `straight.el' instead.
 (setq package-enable-at-startup nil)
 
 ;;; use-package
 
+;; Only setup use-package if we are using `package.el'
 (when package-enable-at-startup
   (setq
    ;; Defining these early guarantees that the behavior and macro expansion of
    ;; use-package are configured before the first use-package form is evaluated in
    ;; post-early-init.el, pre-init.el, init.el, or post-init.el.
-   use-package-always-ensure (not noninteractive)
+   use-package-always-ensure t
    use-package-enable-imenu-support t
    use-package-expand-minimally t
    use-package-minimum-reported-time (if init-file-debug 0 0.1)
    use-package-verbose init-file-debug))
-
-;;; package.el
 
 ;; Local variables:
 ;; byte-compile-warnings: (not free-vars)
