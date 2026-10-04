@@ -1,31 +1,32 @@
+# Ignore these files and folders...
 LICENSE
 README.md
-.vscode/
 .DS_Store
-
-{{ if not (lookPath "bash") }}
+.vscode/
+{{- if (or (eq .chezmoi.os "windows") (not (lookPath "bash"))) }}
+# On 'windows' or 'bash' was not found, ignore...
 .bash_profile
 .bashrc
-.bashrc.d/*
-{{ end }}
-
-{{ if not (lookPath "git") }}
+.bashrc.d/
+.bashrc.d/**
+{{- end }}
+{{- if not (lookPath "git") }}
+# 'git' not found, ignore...
 .gitconfig
-{{ end }}
-
-{{ if not (lookPath "ssh") }}
+{{- end }}
+{{- if not (lookPath "ssh") }}
+# 'ssh' not found, ignore...
 .ssh/config
-{{ end }}
-
-{{ if not (lookPath "vim") }}
+{{- end }}
+{{- if not (lookPath "vim") }}
+# 'vim' not found, ignore...
 .vim*
-{{ end }}
-
-{{ if not (lookPath "zsh") }}
+{{- end }}
+{{- if not (lookPath "zsh") }}
+# 'zsh' not found, ignore...
 .z*
-{{ end }}
-
-# Windows folders to be ignored on other systems
+{{- end }}
 {{- if ne .chezmoi.os "windows" }}
+# Not on Windows, ignore...
 AppData
 {{- end }}

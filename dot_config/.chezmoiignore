@@ -1,40 +1,44 @@
-{{ if not (lookPath "atuin") }}
+{{- if not (lookPath "atuin") }}
+# 'atuin' not found, ignoring...
 ./atuin
-{{ end }}
-
-{{ if not (lookPath "emacs") }}
+{{- end }}
+{{- if not (lookPath "distrobox") }}
+# 'distrobox' not found, ignoring...
+./distrobox
+{{- end }}
+{{- if not (lookPath "emacs") }}
+# 'emacs' not found, ignoring...
 ./emacs
-{{ end }}
-
-{{ if not (lookPath "git") }}
+{{- end }}
+{{- if not (lookPath "git") }}
+# 'git' not found, ignoring...
 ./git
-{{ end }}
-
-{{ if not (lookPath "ghostty") }}
+{{- end }}
+{{- if not (lookPath "ghostty") }}
+# 'ghostty' not found, ignoring...
 ./ghostty
-{{ end }}
-
-{{ if not (lookPath "nvim") }}
+{{- end }}
+{{- if not (lookPath "nvim") }}
+# 'nvim' not found, ignoring...
 ./nvim
-{{ end }}
-
-{{ if not (lookPath "pwsh") }}
+{{- end }}
+{{- if not (lookPath "pwsh") }}
+# 'powershell' not found, ignoring...
 ./powershell
-{{ end }}
-
-{{ if not (lookPath "starship") }}
+{{- end }}
+{{- if not (lookPath "starship") }}
+# 'starship' not found, ignoring...
 ./starship.toml
-{{ end }}
-
-{{ if not (lookPath "tmux") }}
+{{- end }}
+{{- if not (lookPath "tmux") }}
+# 'tmux' not found, ignoring...
 ./tmux
-{{ end }}
-
-{{ if not (lookPath "wezterm") }}
+{{- end }}
+{{- if not (lookPath "wezterm") }}
+# 'wezterm' not found, ignoring...
 ./wezterm
-{{ end }}
-
-# macOS folders to be ignored on other systems
-{{ if ne .chezmoi.os "darwin" }}
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+# Not on 'darwin' (macOS) not found, ignoring...
 ./1Password
-{{ end }}
+{{- end }}
