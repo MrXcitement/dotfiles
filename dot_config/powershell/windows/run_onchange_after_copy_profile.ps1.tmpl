@@ -1,7 +1,7 @@
 {{- if eq .chezmoi.os "windows" }}
 # run_once_after_copy_profile.ps1
-# profile.ps1 hash: {{ include "dot_config/powershell/profile.ps1" | sha256sum }}
-# Copy the profile.ps1 to the users profile folders.
+# profile.ps1 hash: {{ include "dot_config/powershell/windows/profile.ps1" | sha256sum }}
+# Copy the windows profile.ps1 to the users profile folders.
 
 # Get the current 'Documents' folder.
 $mydocuments = [environment]::GetFolderPath("MyDocuments")
@@ -17,5 +17,4 @@ $destination = "$mydocuments\WindowsPowerShell"
 if (Test-Path $destination) {
     Copy-Item profile.ps1 -Destination "$destination" -Force
 }
-
 {{- end }}
