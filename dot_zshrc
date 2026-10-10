@@ -83,6 +83,13 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-completions" ]]; then
 fi
 
 ##
+# Configure `mise`
+if (( $+commands[mise] )); then
+    # mise setup
+    eval "$(mise activate zsh)"
+fi
+
+##
 # Configure the prompt
 # Use starship if installed and not running in xterm
 if (( $+commands[starship] )) && [[ $TERM != xterm ]]; then
@@ -103,13 +110,6 @@ fi
 # Oh-My-Zsh update settings
 zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 7
-
-##
-# Configure `mise`
-if (( $+commands[mise] )); then
-    # mise setup
-    eval "$(mise activate zsh)"
-fi
 
 ##
 # Define oh-my-zsh plugins to load
