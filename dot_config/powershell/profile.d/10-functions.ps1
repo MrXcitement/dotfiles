@@ -144,3 +144,33 @@ Function Prompt {
     $global:LASTEXITCODE = $realLASTEXITCODE
     return "$('>' * ($nestedPromptLevel + 1)) "
 }
+
+##
+# Refresh the desktop
+
+# Define the necessary API functions for Refresh-Desktop
+Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class Shell {
+    [DllImport("Shell32.dll")]
+    public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
+}
+"@
+
+function Refresh-Desktop {
+    # Call the SHChangeNotify function
+    # SHCNE_ASSOCCHANGED is defined as 0x8000000
+    # SHCNF_FLUSH is defined as 0x1000
+    $result = [Shell]::SHChangeNotify(0x8000000, 0x1000, [IntPtr]::Zero, [IntPtr]::Zero)
+}
+
+##
+# Toogle showing version information on desktop
+function Toggle-DesktopVersion {
+    $regKey = "hkcu:\control panel\desktop\"
+    $value = [int](-not (Get-ItemPropertyValue $regKey -name PaintDesktopVersion))
+    Set-ItemProperty $regKey -name PaintDesktopVersion -value $value
+    Refresh-Desktop
+}
