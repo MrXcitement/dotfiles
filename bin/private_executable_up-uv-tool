@@ -5,7 +5,7 @@
 # Created: April 25th, 2025
 # Updated: January 21st, 2026
 
-if [[ $(command -v uv) ]]; then
+if cmd_path=$(command -v uv) && [[ "$cmd_path" != */mise/shims/* ]]; then
     echo "Upgrade 'uv' installed tools..."
     echo "-------------------------------"
     uv tool upgrade --all
