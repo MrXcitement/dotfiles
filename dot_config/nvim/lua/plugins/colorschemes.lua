@@ -19,7 +19,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "onehalflight",
+      colorscheme = function() end,
     },
   },
 }
