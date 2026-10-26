@@ -38,6 +38,10 @@
 # 'wezterm' not found, ignoring...
 ./wezterm
 {{- end }}
+{{- if not (lookPath "zellij") }}
+# 'zellij' not found, ignoring...
+./zellij
+{{- end }}
 {{- if ne .chezmoi.os "darwin" }}
 # Not on 'darwin' (macOS) not found, ignoring...
 ./1Password
