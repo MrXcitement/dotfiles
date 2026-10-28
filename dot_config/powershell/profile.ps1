@@ -32,8 +32,13 @@ function Assert-IsInteractiveShell {
 # If we being called from within a Psmux session, or this is an interactive shell
 # Load our profile files.
 if (($env:PSMUX_SESSION) -Or (Assert-IsInteractiveShell)) {
-    Write-Host "Loading profile.ps1..."
-    $scripts = Get-Item -ErrorAction SilentlyContinue "$env:USERPROFILE\.config\powershell\profile.d\*.ps1"
+    Write-Host "Loading profile scripts..."
+    if ($env:USERPROFILE) {
+        $profileDir = "$env:USERPROFILE/.config/powershell/profile.d"
+    } else {
+        $profileDir = "$env:HOME/.config/powershell/profile.d"
+    }
+    $scripts = Get-Item -ErrorAction SilentlyContinue "$profileDir/*.ps1"
     foreach ($script in $scripts) {
         Write-Host "Loading $($script.Name)..."
         . $script
