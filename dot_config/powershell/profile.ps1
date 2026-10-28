@@ -1,47 +1,39 @@
-# profile.ps1 --- Default power shell config
-#
+# profile.ps1 --- Default powershell config
+
 # Mike Barker <mike@thebarkers.com>
 # Created: June 26th, 2015
-# Updated: November 20th, 2025
+# Updated: October 28th, 2026
 
-# Warning!
-# You should only edit if this file is ~\.config\powershell\profile.ps1
-#
 # Notes:
-# This file is managed by chezmoi and will be copied to the default user
-# profile folders. Powershell uses 'Documents\Powershell\' and Windows
-# Powershell uses 'Documents\WindowsPowershell\' as the profile folders. If
-# OneDrive is set to Backup the Documents folder, it will be in the OneDrive
-# location, otherwise it will be in the users home directory.
-# Use $PROFILE | Select * to see the folders defined.
-#
-# Chezmoi is configured to run a script when the profile.ps1 file it is
-# managing is changed. The script will copy the profile file to the correct
-# profile folders.
-#
-# It is expected that configuration files for both powershell hosts will be
-# located in the .config\powershell\profile.d folder.  These files will be
-# loaded by both Powershell and Windows Powershell hosts.  If your
-# configuration should only run on a specific host, you will need to check the
-# current host and only run the configuration if on the correct host.
+# It is expected that configuration files for both the core and desktop
+# powershell hosts will be located in the ~\.config\powershell\profile.d folder.
+# If your configuration should only run on a specific host, you will need to
+# check the current host and only run the configuration if on the correct host.
 
 function Assert-IsInteractiveShell {
 
+    # Get the current commandline arguments.
     $commandline_args = [Environment]::GetCommandLineArgs()
 
-    # A list of command line args that indicate a non interactive session
-    $non_interactive_args = '-command', '-c', '-encodedcommand', '-e', '-ec', '-file', '-f', '-noni', '-noninteractive'
+    # A list of command line args that indicate a non interactive session.
+    $non_interactive_args =
+        '-command', '-c',
+        '-encodedcommand', '-e', '-ec',
+        '-file', '-f',
+        '-noninteractive', '-noni'
 
-    # If any of the non interactive args are found, return false, otherwise true
+    # If any of the non interactive args are found, return false
     if ($commandline_args | Where-Object -FilterScript {$PSItem -in $non_interactive_args}) {
         return $False
     }
     return $True
 }
 
-if ( Assert-IsInteractiveShell ) {
+# If we being called from within a Psmux session, or this is an interactive shell
+# Load our profile files.
+if (($env:PSMUX_SESSION) -Or (Assert-IsInteractiveShell)) {
     Write-Host "Loading profile.ps1..."
-    $scripts = Get-Item -ErrorAction SilentlyContinue "$home\.config\powershell\profile.d\*.ps1"
+    $scripts = Get-Item -ErrorAction SilentlyContinue "$env:USERPROFILE\.config\powershell\profile.d\*.ps1"
     foreach ($script in $scripts) {
         Write-Host "Loading $($script.Name)..."
         . $script
