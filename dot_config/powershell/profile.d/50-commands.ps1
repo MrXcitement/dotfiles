@@ -54,3 +54,7 @@ if (Get-Command zoxide -ErrorAction SilentlyContinue) {
     })
 }
 
+# If zellij is installed, configure zellij
+if (Get-Command zellij -ErrorAction SilentlyContinue) {
+  $env:ZELLIJ_CONFIG_DIR = Join-Path $env:USERPROFILE ".config/zellij"
+}
