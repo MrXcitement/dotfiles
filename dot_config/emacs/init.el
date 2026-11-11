@@ -303,6 +303,7 @@
 (setq help-enable-autoload nil)
 (setq help-enable-symbol-autoload nil)
 (setq help-window-select t)  ;; Focus new help windows when opened
+(setq help-window-keep-selected t) ;; keep using same help window
 
 ;;; Keymaps
 
@@ -494,7 +495,6 @@ The DWIM behaviour of this command is as follows:
 
 (blink-cursor-mode -1)
 (column-number-mode t)
-(show-paren-mode t)
 
 ;; Highlighting the current window, reducing clutter and improving performance
 (setq hl-line-sticky-flag nil)
@@ -537,12 +537,14 @@ The DWIM behaviour of this command is as follows:
       split-height-threshold nil)
 
 ;; Show parenthesis
+(show-paren-mode t)
 (setq show-paren-delay 0.1
       show-paren-highlight-openparen t
       show-paren-when-point-inside-paren t
       show-paren-when-point-in-periphery t)
 
 ;; Frames and windows
+(winner-mode t)
 (setq resize-mini-windows 'grow-only)
 (setq max-mini-window-height 0.33)
 
