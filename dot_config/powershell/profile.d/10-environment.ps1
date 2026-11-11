@@ -11,8 +11,12 @@
 ##
 # Configure Windows environment
 
-# If running on a Windows system
-if (($null -ne $IsWindows) -and $IsWindows) {
+# Check if the automatc variable $IsWindows is defined, if not assume windows
+if (-not (Test-Path Variable:\IsWindows)) { $IsWindows = True }
+
+# If running on a Windows system, configure the environment for the session and
+# the user.
+if ($IsWindows) {
     # If the user does not have an environment variable HOME defined,
     # Create it using the USERPROFILE variable.
     if (-Not [Environment]::GetEnvironmentVariable("HOME", "User")) {
