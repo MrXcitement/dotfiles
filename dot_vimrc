@@ -1,11 +1,12 @@
 " vim:fdm=marker:
-"
 " .vimrc -- Vim Configuration File.
 "
 " Mike Barker <mike@thebarkers.com>
-"
+" Created: March 24th, 2024
+" Updated: October 5th, 2026
+
 " Get the running OS {{{
-" functions to check what os vim is running on
+" functions to check what OS vim is running on
 function! GetRunningOS()
     if has('win32') || has('win64') && &shellcmdflag =~ '/'
         return 'win'
@@ -34,14 +35,15 @@ endfunction
 
 let vim_path = IsWin() ? expand("$HOME/vimfiles") : expand("$HOME/.vim")
 " }}}
-" vim-plug -- Minimalist Vim Plugin Manager {{{
-" Install vim-plug if not found
+" Install vim-plug if not found {{{
+" https://junegunn.github.io/vim-plug/
 let vim_plug_path = vim_path . '/autoload/plug.vim'
 if empty(glob(vim_plug_path))
   silent exec "!curl --create-dirs -fLo " . vim_plug_path .
     \ " https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 endif
-
+" }}}
+" Configure vim-plug if installed {{{
 " Add plugins
 if !empty(glob(vim_plug_path))
 
@@ -61,18 +63,8 @@ if !empty(glob(vim_plug_path))
     let g:airline#extensions#tabline#enabled = 1
     " Show just the filename
     let g:airline#extensions#tabline#fnamemod = ':t'
-    " Show powerline seperators
+    " Show powerline separators
     let g:airline_powerline_fonts = 1
-    Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-colorscheme-switcher'
-    Plug 'MrXcitement/vim-colorscheme-manager'
-    if !exists('g:colorscheme_switcher_exclude')
-        let g:colorscheme_switcher_exclude = []
-    endif
-    if has("gui_running")
-        " Keep gui colorscheme seperate from cui/term colorscheme
-        let g:colorscheme_manager_file = vim_path . '/.gcolorscheme'
-    endif
 
     " Developer plugins...
     Plug 'editorconfig/editorconfig-vim'
@@ -153,23 +145,24 @@ endif
 filetype plugin indent on
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set colorcolumn=80
-if &ttytype != "win32"
+if &ttytype != 'win32'
     set cursorline  " Highlight the current line, except in win console
 endif
 set encoding=utf-8  " handle Unicode files
 set history=50      " keep 50 lines of command line history
-set nocompatible    " be iMproved, required by vundle
+set nocompatible    " be iMproved.
 set nofoldenable    " Do not fold when opening files.
-set nowrap          " Whitespace
+set nowrap          " Do not wrap lines.
 set ruler           " show the cursor position all the time
 set showcmd         " display incomplete commands
-set showmatch       " Set viewing matched braces, brackets and parens
+set showmatch       " Set viewing matched braces, brackets and parentheses
 " }}}
 " Spelling settings {{{
 set spelllang=en
 set spellfile="/Users/mike/.vim/spell/en.utf-8.add"
 " }}}
 " Completion {{{
+" Omni complete is built-in since version 7.0
 set omnifunc=syntaxcomplete#Complete    " omni complete all
 set completeopt=menuone,longest,preview
 " }}}
@@ -185,7 +178,7 @@ set ignorecase
 set smartcase
 " }}}
 " Indentation {{{
-" at http://vimcasts.org/episodes/tabs-and-spaces/
+" http://vimcasts.org/episodes/tabs-and-spaces/
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -193,7 +186,7 @@ set expandtab
 " }}}
 " Autocomands {{{
 " Only do this part when compiled with support for autocommands.
-if has("autocmd")
+if has('autocmd')
 
     " Put these in an autocmd group, so that we can delete them easily.
     augroup vimrcEx
@@ -209,40 +202,44 @@ if has("autocmd")
         \|    PlugInstall --sync | source $MYVIMRC
         \| endif
     augroup end
-    " Fixup the Omnicompletion popup menu colors
+
+    " Fixup the Omni completion pop-up menu colors
     augroup customOmnicompletionPopup
         autocmd!
         autocmd ColorScheme * highlight Pmenu ctermbg=Grey ctermfg=Black guibg=Grey guifg=Black
         autocmd ColorScheme * highlight PmenuSel ctermbg=DarkGrey ctermfg=Grey guibg=Black guifg=Grey
     augroup end " end customOmnicompletionPopup
-endif " has("autocmd")
+
+    " Set the colorscheme after the .vimrc has been processed.
+    autocmd VimEnter * call timer_start(40, {-> SetColorscheme()})
+endif " has('autocmd')
 " }}}
 " UI Settings, fonts, colors, etc. {{{
 syntax enable
-if has("gui_running")
-    if has("gui_gtk")
+if has('gui_running')
+    if has('gui_gtk')
         set guifont=FiraCode\ Nerd\ Font\ Light\ 10
         if &guifont =~? "Nerd"
             set guiligatures=!\"#$%&()*+-./:<=>?@[]^_{\|~
         endif
 
-    elseif has("gui_win32")
+    elseif has('gui_win32')
         set guifont=FiraCode_Nerd_Font_Mono_Light:h12,Consolas:h12
         if &guifont =~? 'Nerd'
             set renderoptions=type:directx
         endif
 
     elseif has('gui_mac') || has('gui_macvim')
-        set guifont=0xProtoNFM-Regular:h12,Monaco:h12
-        if &guifont =~? 'NFM'
+        set guifont=0xProtoNF:h12,Monaco:h12
+        if &guifont =~? 'NF'
             set macligatures
         endif
 
-    elseif has("x11")
+    elseif has('x11')
         set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     endif
 
-    "" Disable the toolbar in gui windows...
+    "" Disable the toolbar in GUI windows...
     set guioptions-=T
 
 else
@@ -252,7 +249,7 @@ else
     let &t_EI = "\<Esc>[1 q"  "Normal Mode: Blinking block
     " If the terminal supports 24 bit (256) colors, set the termguicolors to
     " use in vim.
-    if has("vcon")
+    if has('vcon')
         set termguicolors
     endif
     " Default mouse support on for all modes
@@ -265,16 +262,17 @@ let mapleader=" "
 " remap - <leader>s toggle spell checking on and off {{{
 nnoremap <silent> <leader>s :set spell!<CR>
 " }}}
-" remap - <leader>l toggles viewing whitespace {{{
+" remap - <leader>l toggles viewing white space {{{
 " http://vimcasts.org/episodes/show-invisibles/
 " Changed from TextMate symbols to standard ASCII so that the
-" whitespace characters are visible no mater what font is intalled.
+" white space characters are visible no mater what font is installed.
 set listchars=tab:]-,trail:_,extends:>,precedes:<,nbsp:~,eol:$
 nnoremap <leader>l :set list!<CR>
 " }}}
-" remap - <leader>n turn on/off line number {{{
-" http://dancingpenguinsoflight.com/2009/02/python-and-vim-make-your-own-ide/
-nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
+" remap - <leader>n/N turn on/off line numbers/relative numbers {{{
+" https://vim.fandom.com/wiki/Display_line_numbers
+noremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
+noremap <leader>N :set norelativenumber!<CR>
 " }}}
 " remap - <leader>v/V to edit/reload vimrc {{{
 " http://www.oreillynet.com/onlamp/blog/2006/08/make_your_vimrc_trivial_to_upd_1.html
@@ -283,11 +281,9 @@ nnoremap <leader>n :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <silent> <leader>v :e $MYVIMRC<CR>
 nnoremap <silent> <leader>V :source $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'reloaded' $MYVIMRC"<CR>
 " }}}
-" remap - window movement shortcuts {{{
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-L> <C-W><C-L>
+" remap - <leader>w/W to open URL/File {{{
+nnoremap <Leader>w :call OpenURI()<CR>
+nnoremap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
 " }}}
 " remap - remove arrow key mapping {{{
 noremap <Up> <nop>
@@ -295,16 +291,20 @@ noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
 " }}}
-" Function OpenURI {{{
+" Functions OpenURI/OpenFile {{{
 " Open a web-browser with the URL in the current line
 " http://vim.wikia.com/wiki/Open_a_web-browser_with_the_URL_in_the_current_line
+
 " 2013-04-05 MRB - Modified to handle Apple's native vim as well as MacVim
 " by moving the system check under has('unix') and then testing the uname
 " value.
+
 " 2015-06-22 MRB - Refactor out opening the URI into OpenFile() so that
 " it can be used to open the current file in the default app for the
-" file type being edited. i.e. open the current html file in the default
-" browser.
+" file type being edited. 
+" i.e. open the current html file in the default browser.
+
+" Open a file or uri
 function! OpenURI()
     let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:"]*')
     if s:uri != ""
@@ -315,9 +315,8 @@ function! OpenURI()
         echohl None
     endif
 endfunction
-" }}}
-" Function OpenFile {{{
-" Open a file or uri
+
+" Open a file
 function! OpenFile(f)
     let s:file=a:f
     let s:cmd=""
@@ -335,7 +334,24 @@ function! OpenFile(f)
     redraw!
     echom s:cmd
 endfunction
-
-nnoremap <Leader>w :call OpenURI()<CR>
-nnoremap <leader>W :update<CR>:call OpenFile(expand('%:p'))<CR>
+" }}}
+" Set colorscheme based on vim's determination background color {{{
+" https://justinjoyce.dev/every-built-in-vim-color-scheme-with-screenshots
+" Must be called after the vimrc is parsed.
+" https://netmeister.org/blog/vim-color-by-bg.html
+function! SetColorscheme()
+    if &background == 'dark'
+        try
+            colorscheme onehalfdark
+        catch
+            colorscheme slate
+        endtry
+    else
+        try
+            colorscheme onehalflight
+        catch
+            colorscheme shine
+        endtry
+    endif
+endfunction
 " }}}
