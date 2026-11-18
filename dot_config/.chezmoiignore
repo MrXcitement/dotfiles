@@ -22,6 +22,10 @@
 # 'nvim' not found, ignoring...
 ./nvim
 {{- end }}
+{{- if not (lookPath "psmux") }}
+# 'psmux' not found, ignoring...
+./psmux
+{{- end }}
 {{- if not (lookPath "pwsh") }}
 # 'powershell' not found, ignoring...
 ./powershell
@@ -30,8 +34,8 @@
 # 'starship' not found, ignoring...
 ./starship.toml
 {{- end }}
-{{- if not (lookPath "tmux") }}
-# 'tmux' not found, ignoring...
+{{- if (or (not (lookPath "tmux")) (lookPath "psmux")) }}
+# 'tmux' not found or 'psmux' also found, ignoring...
 ./tmux
 {{- end }}
 {{- if not (lookPath "wezterm") }}

@@ -1,4 +1,5 @@
-{{ if lookPath "tmux" }}
+{{ if (and (lookPath "tmux") (not (lookPath "psmux"))) }}
+# if tmux installed, and psmux is not, clone the tmux plugins 'tpm' repo
 [".config/tmux/plugins/tpm"]
     type = "archive"
     url = "https://github.com/tmux-plugins/tpm/archive/refs/heads/master.tar.gz"
