@@ -12,7 +12,7 @@
 # Configure Windows environment
 
 # Check if the automatc variable $IsWindows is defined, if not assume windows
-if (-not (Test-Path Variable:\IsWindows)) { $IsWindows = True }
+if (-not (Test-Path Variable:\IsWindows)) { $IsWindows = $true }
 
 # If running on a Windows system, configure the environment for the session and
 # the user.
