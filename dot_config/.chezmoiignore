@@ -35,7 +35,7 @@
 ./starship.toml
 {{- end }}
 {{- if (or (not (lookPath "tmux")) (lookPath "psmux")) }}
-# 'tmux' not found or 'psmux' also found, ignoring...
+# 'tmux' not found or 'psmux' is found, ignoring...
 ./tmux
 {{- end }}
 {{- if not (lookPath "wezterm") }}
